@@ -54,6 +54,10 @@ export function Hero() {
                 size="lg"
                 variant="outline"
                 className="bg-transparent text-white border-white hover:border-primary hover:text-primary"
+                style={{
+                  transitionProperty:
+                    "color, background-color, border-color, text-decoration-color, stroke",
+                }}
               >
                 <Link to="/contact">Contact Us</Link>
               </Button>
