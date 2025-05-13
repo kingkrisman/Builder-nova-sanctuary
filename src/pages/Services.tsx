@@ -12,9 +12,9 @@ export default function Services() {
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-slate-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center flex flex-col">
             <h1 className="text-4xl font-bold mb-6">Our Services</h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-muted-foreground m-auto">
               Comprehensive real estate solutions tailored to your needs
             </p>
           </div>

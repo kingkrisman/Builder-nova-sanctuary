@@ -16,11 +16,15 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div
-      className={cn("space-y-2 mb-10", centered && "text-center", className)}
+      className={cn(
+        "space-y-2 mb-10 flex flex-col",
+        centered && "text-center",
+        className,
+      )}
     >
       <h2 className="text-3xl font-bold tracking-tight">{title}</h2>
       {subtitle && (
-        <p className="text-muted-foreground max-w-3xl">{subtitle}</p>
+        <p className="text-muted-foreground max-w-3xl m-auto">{subtitle}</p>
       )}
     </div>
   );
