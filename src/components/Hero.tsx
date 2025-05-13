@@ -53,7 +53,7 @@ export function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="bg-transparent text-white border-white hover:border-primary hover:text-primary"
+                className="bg-transparent text-white border-white hover:border-primary"
                 style={{
                   transitionProperty:
                     "color, border-color, text-decoration-color, stroke",
