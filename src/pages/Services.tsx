@@ -117,7 +117,7 @@ export default function Services() {
               </div>
               <div className="rounded-lg overflow-hidden">
                 <img
-                  src="/placeholder.svg"
+                  src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F5b476d39e79c489b893fbce223f62517"
                   alt="Property Development"
                   className="w-full h-auto object-cover"
                 />
@@ -127,7 +127,7 @@ export default function Services() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="order-last md:order-first rounded-lg overflow-hidden">
                 <img
-                  src="/placeholder.svg"
+                  src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F2882003515394644b8f752a7f67c54b3"
                   alt="Building Construction"
                   className="w-full h-auto object-cover"
                 />
@@ -187,7 +187,7 @@ export default function Services() {
               </div>
               <div className="rounded-lg overflow-hidden">
                 <img
-                  src="/placeholder.svg"
+                  src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F05b931d2989c419796354d089120dfba"
                   alt="Interior & Exterior Design"
                   className="w-full h-auto object-cover"
                 />
