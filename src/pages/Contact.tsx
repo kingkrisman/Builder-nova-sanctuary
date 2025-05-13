@@ -1,7 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ContactForm } from "@/components/ContactForm";
-import { LocationMap } from "@/components/LocationMap";
+import { SimpleMap } from "@/components/SimpleMap";
 import { Card, CardContent } from "@/components/ui/card";
 import { contactInfo, socialMedia } from "@/lib/data";
 
@@ -119,11 +119,9 @@ export default function Contact() {
             </div>
 
             <div className="bg-slate-200 rounded-lg overflow-hidden aspect-square md:aspect-auto h-[350px] relative">
-              <LocationMap
-                latitude={6.6152}
-                longitude={3.364}
-                zoom={15}
-                popupText="Da'sayonce Real Estate - Head Office: 69, Ayangburen road, Ojogbe bus stop, Ikorodu."
+              <SimpleMap
+                address="69, Ayangburen road, Ojogbe bus stop, Ikorodu, Lagos, Nigeria"
+                height="350px"
               />
             </div>
           </div>

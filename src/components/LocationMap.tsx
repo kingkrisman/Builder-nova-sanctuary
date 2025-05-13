@@ -1,11 +1,5 @@
-import { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useState, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-
-// Fix for default marker icons in Leaflet with Vite/React
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
 // Define location for the map
 interface LocationMapProps {
@@ -21,42 +15,66 @@ export function LocationMap({
   zoom = 15,
   popupText = "Da'sayonce Head Office",
 }: LocationMapProps) {
-  useEffect(() => {
-    // Fix Leaflet's default icon issue
-    const DefaultIcon = L.icon({
-      iconUrl: icon,
-      shadowUrl: iconShadow,
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-    });
+  const [isMounted, setIsMounted] = useState(false);
 
-    L.Marker.prototype.options.icon = DefaultIcon;
+  useEffect(() => {
+    setIsMounted(true);
   }, []);
 
+  // Use this wrapper component to load Leaflet only on client-side
+  const MapComponent = () => {
+    if (!isMounted)
+      return (
+        <div className="h-full w-full bg-slate-300 flex items-center justify-center">
+          Loading map...
+        </div>
+      );
+
+    // Dynamic imports to ensure Leaflet only loads in browser environment
+    const { MapContainer, TileLayer, Marker, Popup } = require("react-leaflet");
+    const L = require("leaflet");
+
+    // Fix for default marker icons in Leaflet with React
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl:
+        "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
+      iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
+      shadowUrl:
+        "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
+    });
+
+    return (
+      <MapContainer
+        center={[latitude, longitude]}
+        zoom={zoom}
+        style={{ height: "100%", width: "100%", borderRadius: "0.5rem" }}
+        scrollWheelZoom={false}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={[latitude, longitude]}>
+          <Popup>
+            {popupText} <br />
+            <a
+              href={`https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              Get Directions
+            </a>
+          </Popup>
+        </Marker>
+      </MapContainer>
+    );
+  };
+
   return (
-    <MapContainer
-      center={[latitude, longitude]}
-      zoom={zoom}
-      style={{ height: "100%", width: "100%", borderRadius: "0.5rem" }}
-      scrollWheelZoom={false}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={[latitude, longitude]}>
-        <Popup>
-          {popupText} <br />
-          <a
-            href={`https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            Get Directions
-          </a>
-        </Popup>
-      </Marker>
-    </MapContainer>
+    <div className="h-full w-full">
+      <MapComponent />
+    </div>
   );
 }
