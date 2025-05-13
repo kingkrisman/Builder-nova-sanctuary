@@ -177,7 +177,7 @@ export default function Home() {
             <ScrollAnimation animation="animate-fade-right">
               <div className="rounded-lg overflow-hidden shadow-lg">
                 <img
-                  src="/placeholder.svg"
+                  src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Ffda83bddc58a41748f24a9d9dac8b329"
                   alt="Why choose Da'sayonce"
                   className="w-full h-auto object-cover"
                 />
