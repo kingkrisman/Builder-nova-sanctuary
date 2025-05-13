@@ -348,9 +348,9 @@ export const leadershipTeam: {
 export const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Mrs. Grace Omotola",
-    location: "Abuja",
-    text: "Da'sayonce transformed my 20-year-old home into a modern masterpiece. Their professionalism and attention to detail were beyond expectations.",
+    name: "Prince Adedayo LADEGALGA Chairman\nAspirant)",
+    location: "Lagos",
+    text: "When you talk of transparent transactions, seamless land procurement and genuine documentation, give it to them.",
   },
   {
     id: 2,
@@ -360,15 +360,15 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: 3,
-    name: "Mr. Oluwaseun Adebayo",
+    name: "Mr Bode Awomodu",
     location: "Lagos",
-    text: "The team at Da'sayonce is exceptional. From concept to completion, they delivered beyond my expectations. Their attention to detail and commitment to quality is outstanding.",
+    text: "Da'sayonce is not just a real estate company, but a guardian angel to all of your real estate dreams and aspirations, they will guide you through it whilst making you achieve beyond your expectations, I got all my choice properties from them and all my building projects handled by them",
   },
   {
     id: 4,
-    name: "Dr. Folake Johnson",
+    name: "Mr Ajibola Laoke",
     location: "Port Harcourt",
-    text: "My experience with Da'sayonce was first-class. They handled my commercial property with expertise and delivered a stunning result that has increased the value significantly.",
+    text: "Da'sayonce transformed my dad's 20-year-old home into a modern masterpiece. Their professionalism and attention to detail were beyond expectations.",
   },
 ];
 

@@ -247,7 +247,16 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary text-black">
+      <section
+        className="py-20 text-black"
+        style={{
+          backgroundImage:
+            "url(https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fb0a4bd423bca4919bedc4fc4c237aa29)",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      >
         <div className="container mx-auto px-4 text-center">
           <ScrollAnimation animation="animate-fade-up">
             <h2 className="text-3xl font-bold mb-6">

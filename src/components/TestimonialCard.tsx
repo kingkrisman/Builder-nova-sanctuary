@@ -27,7 +27,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
           </AvatarFallback>
         </Avatar>
         <div>
-          <p className="font-medium text-white">{testimonial.name}</p>
+          <p className="font-medium whitespace-pre-line">{testimonial.name}</p>
           <p className="text-sm text-white/70">{testimonial.location}</p>
         </div>
       </CardFooter>
