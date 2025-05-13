@@ -1,6 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ContactForm } from "@/components/ContactForm";
+import { LocationMap } from "@/components/LocationMap";
 import { Card, CardContent } from "@/components/ui/card";
 import { contactInfo, socialMedia } from "@/lib/data";
 
@@ -117,11 +118,13 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="bg-slate-200 rounded-lg overflow-hidden aspect-square md:aspect-auto">
-              {/* In a real implementation, this would be an embedded Google Map */}
-              <div className="w-full h-full flex items-center justify-center">
-                <p className="text-slate-600">Interactive Map Goes Here</p>
-              </div>
+            <div className="bg-slate-200 rounded-lg overflow-hidden aspect-square md:aspect-auto h-[350px] relative">
+              <LocationMap
+                latitude={6.6152}
+                longitude={3.364}
+                zoom={15}
+                popupText="Da'sayonce Real Estate - Head Office: 69, Ayangburen road, Ojogbe bus stop, Ikorodu."
+              />
             </div>
           </div>
         </div>
