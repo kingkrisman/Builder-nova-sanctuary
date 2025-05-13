@@ -36,7 +36,11 @@ export function Navbar() {
     <header className="fixed top-0 w-full z-50 transition-all duration-300 ease-in-out bg-black text-white py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold text-primary">Da'sayonce</span>
+          <img
+            src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F14324e249dea47b5b22a7d45cd0c0be3"
+            alt="Da'sayonce Logo"
+            className="h-10 w-auto"
+          />
           <span className="hidden md:inline-block text-sm text-white/80">
             Real Estate & Properties
           </span>
