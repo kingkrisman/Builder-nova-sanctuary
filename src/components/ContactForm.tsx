@@ -14,7 +14,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 
+// Define form schema with validation rules
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -33,10 +35,15 @@ const formSchema = z.object({
   }),
 });
 
+// Define the type for our form data
+type FormData = z.infer<typeof formSchema>;
+
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  // Initialize react-hook-form with zod validation
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -47,20 +54,43 @@ export function ContactForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: FormData) {
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      form.reset();
+    try {
+      // In a real application, you would send this data to an API
+      console.log("Form submitted with values:", values);
+
+      // Simulate API call with a delay
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Handle successful submission
       toast({
         title: "Message Sent",
         description: "Thank you for your message. We'll be in touch soon!",
+        variant: "default",
       });
-    }, 1500);
 
-    console.log(values);
+      // Reset form
+      form.reset();
+      setFormSubmitted(true);
+
+      // Clear submission state after showing success feedback
+      setTimeout(() => {
+        setFormSubmitted(false);
+      }, 5000);
+    } catch (error) {
+      // Handle submission error
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Submission Failed",
+        description:
+          "There was a problem sending your message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -77,6 +107,7 @@ export function ContactForm() {
                   <Input
                     placeholder="Enter your full name"
                     className="border-primary/20 focus:border-primary"
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>
@@ -95,6 +126,7 @@ export function ContactForm() {
                     placeholder="Enter your email"
                     type="email"
                     className="border-primary/20 focus:border-primary"
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>
@@ -115,6 +147,7 @@ export function ContactForm() {
                   <Input
                     placeholder="Enter your phone number"
                     className="border-primary/20 focus:border-primary"
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>
@@ -132,6 +165,7 @@ export function ContactForm() {
                   <Input
                     placeholder="Enter subject"
                     className="border-primary/20 focus:border-primary"
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>
@@ -151,6 +185,7 @@ export function ContactForm() {
                 <Textarea
                   placeholder="Enter your message here..."
                   className="min-h-[120px] resize-none border-primary/20 focus:border-primary"
+                  disabled={isSubmitting}
                   {...field}
                 />
               </FormControl>
@@ -159,13 +194,42 @@ export function ContactForm() {
           )}
         />
 
-        <Button
-          type="submit"
-          className="w-full md:w-auto bg-primary text-black hover:bg-primary/90"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Sending..." : "Send Message"}
-        </Button>
+        <div className="flex items-center">
+          <Button
+            type="submit"
+            className="bg-primary text-black hover:bg-primary/90 w-full md:w-auto"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Sending...
+              </>
+            ) : formSubmitted ? (
+              "Message Sent!"
+            ) : (
+              "Send Message"
+            )}
+          </Button>
+
+          {formSubmitted && (
+            <span className="ml-4 text-green-500">
+              Thank you! We'll be in touch soon.
+            </span>
+          )}
+        </div>
+
+        <div className="text-xs text-muted-foreground">
+          By submitting this form, you agree to our{" "}
+          <a href="#" className="text-primary hover:underline">
+            Privacy Policy
+          </a>{" "}
+          and{" "}
+          <a href="#" className="text-primary hover:underline">
+            Terms of Service
+          </a>
+          .
+        </div>
       </form>
     </Form>
   );
