@@ -358,6 +358,18 @@ export const testimonials: Testimonial[] = [
     location: "Canada based",
     text: "They built my dream home in Nigeria. Every detail was a masterpiece. Makes me always want to visit Nigeria.",
   },
+  {
+    id: 3,
+    name: "Mr. Oluwaseun Adebayo",
+    location: "Lagos",
+    text: "The team at Da'sayonce is exceptional. From concept to completion, they delivered beyond my expectations. Their attention to detail and commitment to quality is outstanding.",
+  },
+  {
+    id: 4,
+    name: "Dr. Folake Johnson",
+    location: "Port Harcourt",
+    text: "My experience with Da'sayonce was first-class. They handled my commercial property with expertise and delivered a stunning result that has increased the value significantly.",
+  },
 ];
 
 export const contactInfo: ContactInfo[] = [

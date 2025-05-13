@@ -237,7 +237,7 @@ export default function Home() {
               <ScrollAnimation
                 key={testimonial.id}
                 animation="animate-fade-up"
-                delay={100 * (index + 1)}
+                delay={100 * ((index % 2) + 1)}
               >
                 <TestimonialCard testimonial={testimonial} />
               </ScrollAnimation>
