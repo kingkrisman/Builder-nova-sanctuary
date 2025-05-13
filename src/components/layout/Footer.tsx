@@ -1,20 +1,25 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { contactInfo, socialMedia } from "@/lib/data";
+import { ScrollAnimation } from "@/components/ScrollAnimation";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 text-slate-200">
+    <footer className="bg-black text-white">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold text-white">Da'sayonce</h3>
-            <p className="text-sm text-slate-400">Real Estate and Properties</p>
-            <p className="text-sm text-slate-400">RC: 7115835</p>
-            <p className="text-sm text-slate-400">
+          <ScrollAnimation
+            animation="animate-fade-up"
+            delay={100}
+            className="space-y-4"
+          >
+            <h3 className="text-xl font-bold text-primary">Da'sayonce</h3>
+            <p className="text-sm text-white/70">Real Estate and Properties</p>
+            <p className="text-sm text-white/70">RC: 7115835</p>
+            <p className="text-sm text-white/70">
               Transforming Spaces. Building Trust.
             </p>
             <div className="flex gap-4 mt-4">
@@ -24,22 +29,26 @@ export function Footer() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-white transition-colors"
+                  className="text-white/70 hover:text-primary transition-colors"
                 >
                   <social.icon className="h-5 w-5" />
                 </a>
               ))}
             </div>
-          </div>
+          </ScrollAnimation>
 
           {/* Quick Links */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Quick Links</h3>
+          <ScrollAnimation
+            animation="animate-fade-up"
+            delay={200}
+            className="space-y-4"
+          >
+            <h3 className="text-lg font-semibold text-primary">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   to="/"
-                  className="text-slate-400 hover:text-white transition-colors"
+                  className="text-white/70 hover:text-primary transition-colors"
                 >
                   Home
                 </Link>
@@ -47,7 +56,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/about"
-                  className="text-slate-400 hover:text-white transition-colors"
+                  className="text-white/70 hover:text-primary transition-colors"
                 >
                   About Us
                 </Link>
@@ -55,7 +64,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/services"
-                  className="text-slate-400 hover:text-white transition-colors"
+                  className="text-white/70 hover:text-primary transition-colors"
                 >
                   Services
                 </Link>
@@ -63,7 +72,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/projects"
-                  className="text-slate-400 hover:text-white transition-colors"
+                  className="text-white/70 hover:text-primary transition-colors"
                 >
                   Projects
                 </Link>
@@ -71,7 +80,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/team"
-                  className="text-slate-400 hover:text-white transition-colors"
+                  className="text-white/70 hover:text-primary transition-colors"
                 >
                   Our Team
                 </Link>
@@ -79,69 +88,80 @@ export function Footer() {
               <li>
                 <Link
                   to="/contact"
-                  className="text-slate-400 hover:text-white transition-colors"
+                  className="text-white/70 hover:text-primary transition-colors"
                 >
                   Contact
                 </Link>
               </li>
             </ul>
-          </div>
+          </ScrollAnimation>
 
           {/* Services */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Services</h3>
+          <ScrollAnimation
+            animation="animate-fade-up"
+            delay={300}
+            className="space-y-4"
+          >
+            <h3 className="text-lg font-semibold text-primary">Services</h3>
             <ul className="space-y-2">
-              <li className="text-slate-400">Property Development</li>
-              <li className="text-slate-400">Building Construction</li>
-              <li className="text-slate-400">Renovation Works</li>
-              <li className="text-slate-400">Interior & Exterior Design</li>
-              <li className="text-slate-400">Land Sales & Documentation</li>
-              <li className="text-slate-400">Project Management</li>
+              <li className="text-white/70">Property Development</li>
+              <li className="text-white/70">Building Construction</li>
+              <li className="text-white/70">Renovation Works</li>
+              <li className="text-white/70">Interior & Exterior Design</li>
+              <li className="text-white/70">Land Sales & Documentation</li>
+              <li className="text-white/70">Project Management</li>
             </ul>
-          </div>
+          </ScrollAnimation>
 
           {/* Contact */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Contact Us</h3>
+          <ScrollAnimation
+            animation="animate-fade-up"
+            delay={400}
+            className="space-y-4"
+          >
+            <h3 className="text-lg font-semibold text-primary">Contact Us</h3>
             <address className="not-italic">
-              <p className="text-slate-400">
+              <p className="text-white/70">
                 69, Ayangburen road, Ojogbe bus stop, Ikorodu.
               </p>
-              <p className="text-slate-400 mt-2">
+              <p className="text-white/70 mt-2">
                 Email:{" "}
                 <a
                   href="mailto:Sayonce99@gmail.com"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   Sayonce99@gmail.com
                 </a>
               </p>
-              <p className="text-slate-400">
+              <p className="text-white/70">
                 Phone:{" "}
                 <a
                   href="tel:+2348102067476"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   +234 8102 067 476
                 </a>
               </p>
-              <p className="text-slate-400">
+              <p className="text-white/70">
                 Phone:{" "}
                 <a
                   href="tel:+2347064258898"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   +234 706 425 8898
                 </a>
               </p>
             </address>
-            <Button asChild className="mt-2" variant="outline">
+            <Button
+              asChild
+              className="mt-2 bg-primary text-black hover:bg-primary/90 border-primary"
+            >
               <Link to="/contact">Contact Us</Link>
             </Button>
-          </div>
+          </ScrollAnimation>
         </div>
 
-        <div className="border-t border-slate-800 mt-12 pt-8 text-center text-sm text-slate-400">
+        <div className="border-t border-white/20 mt-12 pt-8 text-center text-sm text-white/70">
           <p>
             &copy; {currentYear} Da'sayonce Real Estate and Properties. All
             rights reserved.

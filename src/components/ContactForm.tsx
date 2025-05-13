@@ -72,11 +72,15 @@ export function ContactForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel className="text-primary">Full Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your full name" {...field} />
+                  <Input
+                    placeholder="Enter your full name"
+                    className="border-primary/20 focus:border-primary"
+                    {...field}
+                  />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-primary" />
               </FormItem>
             )}
           />
@@ -85,15 +89,16 @@ export function ContactForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-primary">Email</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter your email"
                     type="email"
+                    className="border-primary/20 focus:border-primary"
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-primary" />
               </FormItem>
             )}
           />
@@ -105,11 +110,15 @@ export function ContactForm() {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Number</FormLabel>
+                <FormLabel className="text-primary">Phone Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your phone number" {...field} />
+                  <Input
+                    placeholder="Enter your phone number"
+                    className="border-primary/20 focus:border-primary"
+                    {...field}
+                  />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-primary" />
               </FormItem>
             )}
           />
@@ -118,11 +127,15 @@ export function ContactForm() {
             name="subject"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Subject</FormLabel>
+                <FormLabel className="text-primary">Subject</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter subject" {...field} />
+                  <Input
+                    placeholder="Enter subject"
+                    className="border-primary/20 focus:border-primary"
+                    {...field}
+                  />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-primary" />
               </FormItem>
             )}
           />
@@ -133,22 +146,22 @@ export function ContactForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message</FormLabel>
+              <FormLabel className="text-primary">Message</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Enter your message here..."
-                  className="min-h-[120px] resize-none"
+                  className="min-h-[120px] resize-none border-primary/20 focus:border-primary"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-primary" />
             </FormItem>
           )}
         />
 
         <Button
           type="submit"
-          className="w-full md:w-auto"
+          className="w-full md:w-auto bg-primary text-black hover:bg-primary/90"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Sending..." : "Send Message"}

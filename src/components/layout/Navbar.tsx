@@ -36,13 +36,15 @@ export function Navbar() {
     <header
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300 ease-in-out",
-        isScrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4",
+        isScrolled
+          ? "bg-black text-white shadow-md py-2"
+          : "bg-transparent py-4 text-white",
       )}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
           <span className="text-xl font-bold text-primary">Da'sayonce</span>
-          <span className="hidden md:inline-block text-sm text-muted-foreground">
+          <span className="hidden md:inline-block text-sm text-white/80">
             Real Estate & Properties
           </span>
         </Link>
@@ -53,12 +55,16 @@ export function Navbar() {
             <Link
               key={item.name}
               to={item.path}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              className="text-sm font-medium text-white/80 hover:text-primary transition-colors"
             >
               {item.name}
             </Link>
           ))}
-          <Button asChild size="sm">
+          <Button
+            asChild
+            size="sm"
+            className="bg-primary text-black hover:bg-primary/90"
+          >
             <Link to="/contact">Get in Touch</Link>
           </Button>
         </nav>
@@ -66,22 +72,25 @@ export function Navbar() {
         {/* Mobile Menu */}
         <Sheet>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="text-white">
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[280px]">
+          <SheetContent side="right" className="w-[280px] bg-black text-white">
             <div className="flex flex-col gap-6 mt-8">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="text-base font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-base font-medium text-white hover:text-primary transition-colors"
                 >
                   {item.name}
                 </Link>
               ))}
-              <Button asChild className="mt-4">
+              <Button
+                asChild
+                className="mt-4 bg-primary text-black hover:bg-primary/90"
+              >
                 <Link to="/contact">Get in Touch</Link>
               </Button>
             </div>

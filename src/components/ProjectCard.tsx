@@ -15,7 +15,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg">
+    <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg border-white/10 hover:border-primary bg-black/30 text-white">
       <CardHeader className="p-0">
         <AspectRatio ratio={16 / 9}>
           <img
@@ -26,12 +26,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </AspectRatio>
       </CardHeader>
       <CardContent className="p-6">
-        <CardTitle className="text-xl mb-3">{project.title}</CardTitle>
-        <p className="text-muted-foreground mb-4">{project.description}</p>
+        <CardTitle className="text-xl mb-3 text-primary">
+          {project.title}
+        </CardTitle>
+        <p className="text-white/70 mb-4">{project.description}</p>
       </CardContent>
       <CardFooter className="pt-0 pb-6 px-6">
-        <div className="flex items-center gap-1 text-sm text-muted-foreground">
-          <MapPin className="h-4 w-4" />
+        <div className="flex items-center gap-1 text-sm text-white/60">
+          <MapPin className="h-4 w-4 text-primary" />
           <span>{project.location}</span>
         </div>
       </CardFooter>

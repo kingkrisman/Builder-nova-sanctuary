@@ -1,41 +1,55 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { ScrollAnimation } from "@/components/ScrollAnimation";
 
 export function Hero() {
   return (
     <section className="relative h-[90vh] flex items-center">
       {/* Background Image with overlay */}
       <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center">
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-black/80" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10 text-white">
         <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-            Transforming Spaces. Building Trust.
-          </h1>
-          <p className="text-lg md:text-xl opacity-90 mb-8 max-w-2xl">
-            Da'sayonce Real Estate and Properties is committed to delivering
-            exceptional real estate solutions that reflect quality, value, and
-            client aspirations.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Button
-              asChild
-              size="lg"
-              className="bg-primary hover:bg-primary/90"
-            >
-              <Link to="/projects">View Our Projects</Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="bg-transparent text-white border-white hover:bg-white/10"
-            >
-              <Link to="/contact">Contact Us</Link>
-            </Button>
-          </div>
+          <ScrollAnimation animation="animate-fade-up" className="mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <span className="text-primary">Transforming</span> Spaces.{" "}
+              <span className="text-primary">Building</span> Trust.
+            </h1>
+          </ScrollAnimation>
+
+          <ScrollAnimation
+            animation="animate-fade-up"
+            delay={200}
+            className="mb-8"
+          >
+            <p className="text-lg md:text-xl opacity-90 max-w-2xl">
+              Da'sayonce Real Estate and Properties is committed to delivering
+              exceptional real estate solutions that reflect quality, value, and
+              client aspirations.
+            </p>
+          </ScrollAnimation>
+
+          <ScrollAnimation animation="animate-fade-up" delay={400}>
+            <div className="flex flex-wrap gap-4">
+              <Button
+                asChild
+                size="lg"
+                className="bg-primary text-black hover:bg-primary/90"
+              >
+                <Link to="/projects">View Our Projects</Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-transparent text-white border-white hover:border-primary hover:text-primary"
+              >
+                <Link to="/contact">Contact Us</Link>
+              </Button>
+            </div>
+          </ScrollAnimation>
         </div>
       </div>
     </section>
