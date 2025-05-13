@@ -39,7 +39,7 @@ export function Navbar() {
           <img
             src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fd46d2519b50946f6a7f0041e10e1e078"
             alt="Da'sayonce Logo"
-            className="h-10 w-auto"
+            className="h-[66px] w-auto"
           />
         </Link>
 
