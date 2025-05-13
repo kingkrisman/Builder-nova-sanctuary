@@ -51,21 +51,42 @@ export function Navbar() {
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item, index) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                index === 0
-                  ? "text-black"
-                  : index === 1
-                    ? "text-black/80"
-                    : "text-white/80"
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
+          <Link
+            to="/"
+            className="text-sm font-medium hover:text-primary transition-colors"
+          >
+            Home
+          </Link>
+          <Link
+            to="/about"
+            className="text-sm font-medium text-[rgba(255,254,254,0.8)] hover:text-primary transition-colors"
+          >
+            About
+          </Link>
+          <Link
+            to="/services"
+            className="text-sm font-medium text-white/80 hover:text-primary transition-colors"
+          >
+            Services
+          </Link>
+          <Link
+            to="/projects"
+            className="text-sm font-medium text-white/80 hover:text-primary transition-colors"
+          >
+            Projects
+          </Link>
+          <Link
+            to="/team"
+            className="text-sm font-medium text-white/80 hover:text-primary transition-colors"
+          >
+            Team
+          </Link>
+          <Link
+            to="/contact"
+            className="text-sm font-medium text-white/80 hover:text-primary transition-colors"
+          >
+            Contact
+          </Link>
           <Button
             asChild
             size="sm"
