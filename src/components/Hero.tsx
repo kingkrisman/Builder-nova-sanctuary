@@ -7,7 +7,16 @@ export function Hero() {
     <section className="relative h-[90vh] flex items-center">
       {/* Background Image with overlay */}
       <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center">
-        <div className="absolute inset-0 bg-black/80" />
+        <div
+          className="absolute inset-0 bg-black/80"
+          style={{
+            backgroundImage:
+              "url(https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F1e3e6937ad364a8ea712bb2774074832)",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-4 relative z-10 text-white">
