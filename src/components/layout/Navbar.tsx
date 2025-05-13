@@ -33,14 +33,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300 ease-in-out",
-        isScrolled
-          ? "bg-black text-white shadow-md py-2"
-          : "bg-transparent py-4 text-white",
-      )}
-    >
+    <header className="fixed top-0 w-full z-50 transition-all duration-300 ease-in-out bg-black text-white py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
           <span className="text-xl font-bold text-primary">Da'sayonce</span>
