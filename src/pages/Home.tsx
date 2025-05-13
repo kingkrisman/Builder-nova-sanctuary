@@ -69,7 +69,7 @@ export default function Home() {
             <ScrollAnimation animation="animate-fade-left">
               <div className="rounded-lg overflow-hidden shadow-lg">
                 <img
-                  src="/placeholder.svg"
+                  src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Ff96e58722991403781c933a1465be5de"
                   alt="About Da'sayonce"
                   className="w-full h-auto object-cover"
                 />
