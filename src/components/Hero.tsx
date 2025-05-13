@@ -56,7 +56,7 @@ export function Hero() {
                 className="bg-transparent text-white border-white hover:border-primary hover:text-primary"
                 style={{
                   transitionProperty:
-                    "color, background-color, border-color, text-decoration-color, stroke",
+                    "color, border-color, text-decoration-color, stroke",
                 }}
               >
                 <Link to="/contact">Contact Us</Link>
