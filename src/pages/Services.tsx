@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
+import { ServicesSEO } from "@/components/RealEstateSEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { services } from "@/lib/data";
@@ -9,6 +10,7 @@ import { ArrowRight } from "lucide-react";
 export default function Services() {
   return (
     <Layout>
+      <ServicesSEO />
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-slate-50">
         <div className="container mx-auto px-4">

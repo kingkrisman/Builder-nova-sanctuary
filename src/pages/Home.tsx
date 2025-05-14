@@ -1,5 +1,6 @@
 import { Hero } from "@/components/Hero";
 import { Layout } from "@/components/layout/Layout";
+import { HomeSEO } from "@/components/RealEstateSEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -24,6 +25,7 @@ export default function Home() {
 
   return (
     <Layout>
+      <HomeSEO />
       <Hero />
 
       {/* About Section */}

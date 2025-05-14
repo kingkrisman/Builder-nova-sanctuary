@@ -1,14 +1,6 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# Da'sayonce Real Estate and Properties Robots.txt
 User-agent: *
 Allow: /
+
+# Sitemap location
+Sitemap: https://dasayonce.com/sitemap.xml

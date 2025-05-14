@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
+import { ProjectsSEO } from "@/components/RealEstateSEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProjectCard } from "@/components/ProjectCard";
 import { projects } from "@/lib/data";
@@ -17,6 +18,7 @@ export default function Projects() {
 
   return (
     <Layout>
+      <ProjectsSEO />
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-slate-50">
         <div className="container mx-auto px-4">

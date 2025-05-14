@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
+import { ContactSEO } from "@/components/RealEstateSEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ContactForm } from "@/components/ContactForm";
 import { SimpleMap } from "@/components/SimpleMap";
@@ -8,6 +9,7 @@ import { contactInfo, socialMedia } from "@/lib/data";
 export default function Contact() {
   return (
     <Layout>
+      <ContactSEO />
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-slate-50">
         <div className="container mx-auto px-4">

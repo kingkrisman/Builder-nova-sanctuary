@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
+import { TeamSEO } from "@/components/RealEstateSEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { TeamCard } from "@/components/TeamCard";
 import { leadershipTeam } from "@/lib/data";
@@ -16,6 +17,7 @@ export default function Team() {
 
   return (
     <Layout>
+      <TeamSEO />
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-slate-50">
         <div className="container mx-auto px-4">

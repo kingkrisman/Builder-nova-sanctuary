@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
+import { AboutSEO } from "@/components/RealEstateSEO";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Stats } from "@/components/Stats";
 import { companyInfo, companyValues } from "@/lib/data";
@@ -7,6 +8,7 @@ import { CheckCircle } from "lucide-react";
 export default function About() {
   return (
     <Layout>
+      <AboutSEO />
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-slate-50">
         <div className="container mx-auto px-4">
