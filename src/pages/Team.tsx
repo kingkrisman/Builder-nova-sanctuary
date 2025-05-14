@@ -57,7 +57,7 @@ export default function Team() {
             </div>
             <div className="rounded-lg overflow-hidden">
               <img
-                src="/placeholder.svg"
+                src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F1d77033fc36e46d4b147c3ce854efd1f"
                 alt="Da'sayonce Team"
                 className="w-full h-auto object-cover"
               />

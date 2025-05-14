@@ -288,7 +288,8 @@ export const leadershipTeam: {
       position: "Architect/Design Lead",
       qualifications: "MNIA, ARCON",
       department: "Design & Planning",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F28ea15f701bc4073babb83f61c08a840",
     },
     {
       id: 16,
@@ -296,7 +297,8 @@ export const leadershipTeam: {
       position: "Interior & Exterior Designer",
       qualifications: "IID, MIDAN, MBA",
       department: "Design & Planning",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fa71552972d3d4eccb6c467a45b33bc01",
     },
   ],
   supportServices: [
