@@ -159,7 +159,8 @@ export const leadershipTeam: {
       position: "MD/CEO",
       qualifications: "MNSE, COREN",
       department: "Executive Management",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Ff6febcd9b03646c7a31da804bffa9d57",
     },
     {
       id: 2,
@@ -167,7 +168,8 @@ export const leadershipTeam: {
       position: "Chief Operating Officer",
       qualifications: "BSc, MBA",
       department: "Executive Management",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F8b75845076ce477ca1e9cee3cc4d84a0",
     },
     {
       id: 3,
@@ -175,7 +177,8 @@ export const leadershipTeam: {
       position: "Chief Financial Officer",
       qualifications: "BSc, MBA",
       department: "Executive Management",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F28c3e45bc5fe4a6f9fac15cabb371334",
     },
     {
       id: 4,
@@ -183,7 +186,8 @@ export const leadershipTeam: {
       position: "Chief Marketing Officer",
       qualifications: "BSc, MBA",
       department: "Executive Management",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F98b29385d8074ae78f646c13792bc909",
     },
     {
       id: 5,
@@ -191,7 +195,8 @@ export const leadershipTeam: {
       position: "Chief Technical Officer",
       qualifications: "FNSE, COREN",
       department: "Executive Management",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fc13d6e2d724f4c5a8f4e59a4a30bea0e",
     },
   ],
   projectConstruction: [
