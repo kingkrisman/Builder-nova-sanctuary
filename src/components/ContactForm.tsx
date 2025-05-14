@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
-import { Loader2 } from "lucide-react";
+import { Loader2, CheckCircle2 } from "lucide-react";
 
 // Define form schema with validation rules
 const formSchema = z.object({
@@ -58,27 +58,43 @@ export function ContactForm() {
     setIsSubmitting(true);
 
     try {
-      // In a real application, you would send this data to an API
-      console.log("Form submitted with values:", values);
+      // Prepare form data for Web3Forms
+      const formData = new FormData();
+      formData.append("access_key", "c16e3213-6201-4e9b-b469-af949b193e07");
+      formData.append("name", values.name);
+      formData.append("email", values.email);
+      formData.append("phone", values.phone);
+      formData.append("subject", values.subject);
+      formData.append("message", values.message);
+      formData.append("from_name", "Da'sayonce Real Estate Website");
 
-      // Simulate API call with a delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // Handle successful submission
-      toast({
-        title: "Message Sent",
-        description: "Thank you for your message. We'll be in touch soon!",
-        variant: "default",
+      // Send form data to Web3Forms API
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
       });
 
-      // Reset form
-      form.reset();
-      setFormSubmitted(true);
+      const data = await response.json();
 
-      // Clear submission state after showing success feedback
-      setTimeout(() => {
-        setFormSubmitted(false);
-      }, 5000);
+      if (data.success) {
+        // Handle successful submission
+        toast({
+          title: "Message Sent Successfully",
+          description: "Thank you for your message. We'll be in touch soon!",
+          variant: "default",
+        });
+
+        // Reset form
+        form.reset();
+        setFormSubmitted(true);
+
+        // Reset submission state after showing success feedback
+        setTimeout(() => {
+          setFormSubmitted(false);
+        }, 5000);
+      } else {
+        throw new Error(data.message || "Form submission failed");
+      }
     } catch (error) {
       // Handle submission error
       console.error("Error submitting form:", error);
@@ -206,7 +222,10 @@ export function ContactForm() {
                 Sending...
               </>
             ) : formSubmitted ? (
-              "Message Sent!"
+              <>
+                <CheckCircle2 className="mr-2 h-4 w-4" />
+                Message Sent!
+              </>
             ) : (
               "Send Message"
             )}
@@ -230,6 +249,9 @@ export function ContactForm() {
           </a>
           .
         </div>
+
+        {/* Hidden Web3Forms honeypot field to prevent spam */}
+        <input type="checkbox" name="botcheck" style={{ display: "none" }} />
       </form>
     </Form>
   );
