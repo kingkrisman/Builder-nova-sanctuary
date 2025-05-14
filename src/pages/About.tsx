@@ -30,7 +30,7 @@ export default function About() {
             <div className="md:col-span-1">
               <div className="aspect-square rounded-lg overflow-hidden bg-slate-200 mb-4">
                 <img
-                  src="/placeholder.svg"
+                  src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F88438a5961da449a8d020124630b99a4"
                   alt="Engr. Olusayo Taiwo Okusanya - MD/CEO"
                   className="w-full h-full object-cover"
                 />
