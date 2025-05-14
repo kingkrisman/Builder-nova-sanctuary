@@ -349,7 +349,8 @@ export const leadershipTeam: {
       name: "Rtd. Boge Wemimo Raphael",
       position: "Chief Security Officer (CSO)",
       department: "Security & Logistics",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F5c11606e5c8947d08cc62db2faf7d62f",
     },
     {
       id: 23,
