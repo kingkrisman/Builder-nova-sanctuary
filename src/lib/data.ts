@@ -206,7 +206,8 @@ export const leadershipTeam: {
       position: "Project Director",
       qualifications: "FNSE, COREN",
       department: "Project & Construction",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fcaf8dcfe5e3e4f0cb9298515f66a4949",
     },
     {
       id: 7,
@@ -222,7 +223,8 @@ export const leadershipTeam: {
       position: "Project Manager",
       qualifications: "FNSE",
       department: "Project & Construction",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fd6e272c1d175432ca0f36cc4f3886d5b",
     },
     {
       id: 9,
@@ -230,7 +232,8 @@ export const leadershipTeam: {
       position: "Site Engineer/Supervisor",
       qualifications: "MIE",
       department: "Project & Construction",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F29d390d6d8e5413785d325312df6d57b",
     },
     {
       id: 10,
@@ -238,7 +241,8 @@ export const leadershipTeam: {
       position: "Quantity Surveyor",
       qualifications: "MSNE",
       department: "Project & Construction",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fb0d60192bbd64a39973142b52f1adf3c",
     },
   ],
   realEstate: [
