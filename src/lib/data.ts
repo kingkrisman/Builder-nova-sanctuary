@@ -330,7 +330,8 @@ export const leadershipTeam: {
       position: "Safety Manager/HSE Officer",
       qualifications: "ISPON",
       department: "Support Services",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fd23c433096674c63a18a8150f0f9c2ea",
     },
     {
       id: 21,
@@ -338,7 +339,8 @@ export const leadershipTeam: {
       position: "ICT Manager",
       qualifications: "MNCS, CPN",
       department: "Support Services",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Ffc85d92a82ca434e941f5758aa556acf",
     },
   ],
   securityLogistics: [
