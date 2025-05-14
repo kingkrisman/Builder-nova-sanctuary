@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import React from "react";
 
 interface SEOProps {
   title?: string;
@@ -8,7 +8,6 @@ interface SEOProps {
   url?: string;
   type?: string;
   isArticle?: boolean;
-  jsonLd?: Record<string, any>[];
 }
 
 export function SEO({
@@ -16,74 +15,71 @@ export function SEO({
   description = "Da'sayonce Real Estate and Properties is committed to delivering exceptional real estate solutions that reflect quality, value, and client aspirations.",
   keywords = "real estate, properties, Nigeria, Lagos, property development, construction, renovation",
   image = "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fd46d2519b50946f6a7f0041e10e1e078",
-  url = typeof window !== "undefined" ? window.location.href : "",
+  url = "",
   type = "website",
   isArticle = false,
-  jsonLd = [],
 }: SEOProps) {
-  // Build canonical URL from current location
-  const canonicalUrl =
-    typeof window !== "undefined" ? window.location.href.split("?")[0] : "";
-
   // Format title to include company name if not already there
   const formattedTitle = title.includes("Da'sayonce")
     ? title
     : `${title} | Da'sayonce Real Estate and Properties`;
 
-  // Add organization schema for all pages
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Da'sayonce Real Estate and Properties",
-    url: "https://dasayonce.com",
-    logo: image,
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: "+234 8102 067 476",
-      contactType: "customer service",
-    },
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "69, Ayangburen road, Ojogbe bus stop",
-      addressLocality: "Ikorodu",
-      addressRegion: "Lagos",
-      addressCountry: "Nigeria",
-    },
-  };
+  // Use document.head directly rather than Helmet which may be causing issues
+  React.useEffect(() => {
+    // Set page title
+    document.title = formattedTitle;
 
-  // Combine with any other structured data
-  const structuredData = [organizationSchema, ...jsonLd];
+    // Function to create or update a meta tag
+    const setMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(
+        `meta[name="${name}"]`,
+      ) as HTMLMetaElement;
 
-  return (
-    <Helmet>
-      {/* Basic Meta Tags */}
-      <title>{formattedTitle}</title>
-      <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
 
-      {/* Canonical Link */}
-      <link rel="canonical" href={canonicalUrl} />
+      meta.content = content;
+    };
 
-      {/* Open Graph / Facebook */}
-      <meta property="og:type" content={isArticle ? "article" : type} />
-      <meta property="og:url" content={url} />
-      <meta property="og:title" content={formattedTitle} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
+    // Function to create or update an Open Graph meta tag
+    const setOgMetaTag = (property: string, content: string) => {
+      let meta = document.querySelector(
+        `meta[property="${property}"]`,
+      ) as HTMLMetaElement;
 
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={url} />
-      <meta name="twitter:title" content={formattedTitle} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.setAttribute("property", property);
+        document.head.appendChild(meta);
+      }
 
-      {/* Structured Data / JSON-LD */}
-      {structuredData.map((data, index) => (
-        <script key={index} type="application/ld+json">
-          {JSON.stringify(data)}
-        </script>
-      ))}
-    </Helmet>
-  );
+      meta.content = content;
+    };
+
+    // Set basic meta tags
+    setMetaTag("description", description);
+    setMetaTag("keywords", keywords);
+
+    // Set Open Graph meta tags
+    setOgMetaTag("og:title", formattedTitle);
+    setOgMetaTag("og:description", description);
+    setOgMetaTag("og:image", image);
+    setOgMetaTag("og:type", isArticle ? "article" : type);
+
+    // Set Twitter meta tags
+    setMetaTag("twitter:card", "summary_large_image");
+    setMetaTag("twitter:title", formattedTitle);
+    setMetaTag("twitter:description", description);
+    setMetaTag("twitter:image", image);
+
+    // Cleanup function when component unmounts
+    return () => {
+      // No cleanup needed as we're only modifying tags
+    };
+  }, [formattedTitle, description, keywords, image, type, isArticle]);
+
+  return null; // This component doesn't render anything visible
 }
