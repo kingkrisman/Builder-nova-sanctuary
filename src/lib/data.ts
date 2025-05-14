@@ -252,14 +252,16 @@ export const leadershipTeam: {
       position: "Real Estate Manager",
       qualifications: "REDAN",
       department: "Real Estate",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F926d87f446b646759de11e2e58b69641",
     },
     {
       id: 12,
       name: "Realtor Adekunle Alliu",
       position: "Property/Facility Manager",
       department: "Real Estate",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F2ca26e5225e14bb1a5aeaec595cd7743",
     },
     {
       id: 13,
@@ -275,7 +277,8 @@ export const leadershipTeam: {
       position: "Sales & Leasing Officer",
       qualifications: "BSc, MBA",
       department: "Real Estate",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F9be48e173fe9424cb7c14ec0d06eb014",
     },
   ],
   designPlanning: [
