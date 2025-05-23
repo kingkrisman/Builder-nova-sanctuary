@@ -217,7 +217,7 @@ export const leadershipTeam: {
       position: "Construction Manager",
       qualifications: "MNSE",
       department: "Project & Construction",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747986692/IMG_3301_hnwauv.heic",
     },
     {
       id: 8,
@@ -271,7 +271,7 @@ export const leadershipTeam: {
       position: "Estate Surveyor & Valuer",
       qualifications: "NIS, RSV",
       department: "Real Estate",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747986692/IMG_3302_i1zrmm.heic",
     },
     {
       id: 14,
@@ -310,7 +310,7 @@ export const leadershipTeam: {
       position: "Procurement Manager",
       qualifications: "BSc, MBA",
       department: "Support Services",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747986692/IMG_3303_fyfizk.heic",
     },
     {
       id: 18,
@@ -318,7 +318,7 @@ export const leadershipTeam: {
       position: "Legal Adviser/Company Secretary",
       qualifications: "LL.B, B.L",
       department: "Support Services",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747986692/IMG_3304_vnjtte.heic",
     },
     {
       id: 19,
@@ -359,7 +359,7 @@ export const leadershipTeam: {
       name: "Mr. Oluwole Emmanuel Hassan",
       position: "Logistics/Transport Officer",
       department: "Security & Logistics",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747986692/IMG_3305_jjswm8.heic",
     },
   ],
 };
