@@ -217,7 +217,7 @@ export const leadershipTeam: {
       position: "Construction Manager",
       qualifications: "MNSE",
       department: "Project & Construction",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747986692/IMG_3301_hnwauv.heic",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_ca2c52b6_o38ltu.jpg",
     },
     {
       id: 8,
@@ -271,7 +271,7 @@ export const leadershipTeam: {
       position: "Estate Surveyor & Valuer",
       qualifications: "NIS, RSV",
       department: "Real Estate",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747986692/IMG_3302_i1zrmm.heic",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_1c2d0656_kukwza.jpg",
     },
     {
       id: 14,
@@ -310,7 +310,7 @@ export const leadershipTeam: {
       position: "Procurement Manager",
       qualifications: "BSc, MBA",
       department: "Support Services",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747986692/IMG_3303_fyfizk.heic",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_4ade6d11_p13juo.jpg",
     },
     {
       id: 18,
@@ -318,7 +318,7 @@ export const leadershipTeam: {
       position: "Legal Adviser/Company Secretary",
       qualifications: "LL.B, B.L",
       department: "Support Services",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747986692/IMG_3304_vnjtte.heic",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_62aadd4c_wlwgzy.jpg",
     },
     {
       id: 19,
@@ -359,7 +359,7 @@ export const leadershipTeam: {
       name: "Mr. Oluwole Emmanuel Hassan",
       position: "Logistics/Transport Officer",
       department: "Security & Logistics",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747986692/IMG_3305_jjswm8.heic",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.20_59b3f22f_yugnu3.jpg",
     },
   ],
 };
