@@ -12,6 +12,7 @@ import Team from "./pages/Team";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import VideoNoiseReducer from "./components/VideoNoiseReducer";
+import VideoEditor from "./pages/VideoEditor";
 
 const queryClient = new QueryClient();
 
