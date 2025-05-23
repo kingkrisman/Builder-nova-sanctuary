@@ -217,7 +217,8 @@ export const leadershipTeam: {
       position: "Construction Manager",
       qualifications: "MNSE",
       department: "Project & Construction",
-      imageUrl: "/placeholder.svg",
+      imageUrl:
+        "https://cdn.builder.io/o/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F95bda75a03094482abcea80e628e3280?alt=media&token=3fbdb1b2-d3e9-4242-9292-4888d89b4cd1&apiKey=aeee31fcf1114fceb0dea40aa0430358",
     },
     {
       id: 8,
