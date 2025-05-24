@@ -5,6 +5,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
+import { MobileAppPromo } from "@/components/MobileAppPromo";
 import {
   companyValues,
   differentiators,
@@ -214,6 +215,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Mobile App Promo Section */}
+      <MobileAppPromo />
 
       {/* Testimonials Section */}
       <section className="py-16 bg-black text-white">
