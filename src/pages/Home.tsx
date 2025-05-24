@@ -5,7 +5,6 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
-import { Stats } from "@/components/Stats";
 import {
   companyValues,
   differentiators,
@@ -80,8 +79,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <Stats />
 
       {/* Services Section */}
       <section className="py-16 bg-white">
