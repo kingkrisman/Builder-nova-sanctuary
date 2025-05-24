@@ -82,3 +82,23 @@ export function BlogPostSEO({ post }) {
     />
   );
 }
+
+export function CareersSEO() {
+  return (
+    <SEO
+      title="Careers | Da'sayonce Real Estate"
+      description="Join our team of professionals dedicated to excellence in real estate development, construction, and property management across Nigeria."
+      keywords="real estate careers, property jobs, construction careers, Nigeria jobs, real estate employment"
+    />
+  );
+}
+
+export function JobDetailsSEO({ job }) {
+  return (
+    <SEO
+      title={`${job.title} | Careers at Da'sayonce Real Estate`}
+      description={`Apply for the ${job.title} position in our ${job.department} department. ${job.description.substring(0, 100)}...`}
+      keywords={`${job.title}, ${job.department}, ${job.location}, real estate jobs, construction careers, Nigeria employment`}
+    />
+  );
+}

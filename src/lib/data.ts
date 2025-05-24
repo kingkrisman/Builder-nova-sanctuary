@@ -514,6 +514,22 @@ export const differentiators = [
   },
 ];
 
+export interface JobListing {
+  id: number;
+  title: string;
+  department: string;
+  location: string;
+  type: "Full-time" | "Part-time" | "Contract" | "Internship";
+  experience: string;
+  salary?: string;
+  description: string;
+  responsibilities: string[];
+  requirements: string[];
+  benefits: string[];
+  deadline?: string;
+  postedDate: string;
+}
+
 export interface BlogPost {
   id: number;
   title: string;
@@ -529,6 +545,227 @@ export interface BlogPost {
   readTime: number;
   tags: string[];
 }
+
+export const jobListings: JobListing[] = [
+  {
+    id: 1,
+    title: "Senior Project Manager",
+    department: "Project & Construction",
+    location: "Lagos, Nigeria",
+    type: "Full-time",
+    experience: "5+ years",
+    salary: "Competitive",
+    description:
+      "We are seeking an experienced Senior Project Manager to oversee our real estate development projects from inception to completion. The ideal candidate will have a proven track record in managing large-scale construction projects in Nigeria.",
+    responsibilities: [
+      "Develop and implement project plans, schedules, and budgets for real estate development projects",
+      "Coordinate and manage project teams, contractors, and consultants",
+      "Monitor project progress and ensure adherence to quality standards, timelines, and budgets",
+      "Identify and mitigate project risks and resolve issues that arise during project execution",
+      "Maintain regular communication with stakeholders, including clients, team members, and senior management",
+      "Prepare and present regular project status reports",
+      "Ensure compliance with relevant building codes, regulations, and safety standards",
+    ],
+    requirements: [
+      "Bachelor's degree in Civil Engineering, Architecture, Construction Management, or related field",
+      "Professional certification (PMP, PRINCE2, or equivalent) is preferred",
+      "5+ years of experience in project management within the real estate or construction industry",
+      "Strong knowledge of construction methodologies, building codes, and industry standards",
+      "Excellent leadership, communication, and problem-solving skills",
+      "Proficiency in project management software and MS Office Suite",
+      "Experience working in the Nigerian construction industry is highly desirable",
+    ],
+    benefits: [
+      "Competitive salary package with performance-based bonuses",
+      "Health insurance coverage for employee and dependents",
+      "Professional development opportunities and training programs",
+      "Opportunity to work on high-profile real estate projects",
+      "Collaborative and dynamic work environment",
+    ],
+    deadline: "June 30, 2024",
+    postedDate: "May 15, 2024",
+  },
+  {
+    id: 2,
+    title: "Real Estate Marketing Specialist",
+    department: "Sales & Marketing",
+    location: "Lagos, Nigeria",
+    type: "Full-time",
+    experience: "3+ years",
+    description:
+      "Join our dynamic marketing team to develop and implement innovative strategies for promoting our real estate properties and services. This role requires a creative individual with experience in real estate marketing.",
+    responsibilities: [
+      "Develop and execute marketing campaigns for property listings and development projects",
+      "Create compelling content for various marketing channels including social media, website, and print materials",
+      "Organize and coordinate property showcases, open houses, and other promotional events",
+      "Analyze market trends and competitor activities to inform marketing strategies",
+      "Manage relationships with marketing vendors and service providers",
+      "Track and report on marketing performance metrics",
+    ],
+    requirements: [
+      "Bachelor's degree in Marketing, Communications, Business, or related field",
+      "3+ years of experience in marketing, preferably in real estate or related industries",
+      "Strong understanding of digital marketing channels, SEO, and social media platforms",
+      "Excellent content creation and copywriting skills",
+      "Experience with CRM systems and marketing analytics tools",
+      "Creative thinking and problem-solving abilities",
+      "Knowledge of the Nigerian real estate market is a plus",
+    ],
+    benefits: [
+      "Competitive salary with commission structure",
+      "Health insurance coverage",
+      "Professional development opportunities",
+      "Flexible work arrangements",
+      "Collaborative and innovative work environment",
+    ],
+    deadline: "June 15, 2024",
+    postedDate: "May 10, 2024",
+  },
+  {
+    id: 3,
+    title: "Architectural Designer",
+    department: "Design & Planning",
+    location: "Lagos, Nigeria",
+    type: "Full-time",
+    experience: "2+ years",
+    description:
+      "We are looking for a talented Architectural Designer to join our design team. The ideal candidate will collaborate with our architects and engineers to create innovative and sustainable designs for our real estate projects.",
+    responsibilities: [
+      "Create architectural designs and drawings for residential and commercial projects",
+      "Develop conceptual designs and present to clients and project teams",
+      "Prepare detailed construction documents and specifications",
+      "Collaborate with engineers, contractors, and other design professionals",
+      "Ensure designs comply with building codes, regulations, and client requirements",
+      "Conduct site visits to monitor construction progress and address design issues",
+    ],
+    requirements: [
+      "Bachelor's or Master's degree in Architecture",
+      "2+ years of experience in architectural design",
+      "Proficiency in AutoCAD, Revit, SketchUp, and other design software",
+      "Strong portfolio demonstrating design capabilities",
+      "Knowledge of building codes and construction methodologies",
+      "Excellent visualization and presentation skills",
+      "Creative problem-solving abilities",
+    ],
+    benefits: [
+      "Competitive salary package",
+      "Health insurance coverage",
+      "Opportunities for professional growth and development",
+      "Creative and collaborative work environment",
+      "Exposure to diverse and challenging projects",
+    ],
+    postedDate: "May 5, 2024",
+  },
+  {
+    id: 4,
+    title: "Property Manager",
+    department: "Real Estate",
+    location: "Abuja, Nigeria",
+    type: "Full-time",
+    experience: "3+ years",
+    description:
+      "We are seeking an experienced Property Manager to oversee our portfolio of residential and commercial properties in Abuja. The successful candidate will be responsible for maintaining property value and ensuring tenant satisfaction.",
+    responsibilities: [
+      "Manage day-to-day operations of assigned properties",
+      "Handle tenant relations, including lease negotiations, renewals, and dispute resolution",
+      "Coordinate property maintenance and repair activities",
+      "Conduct regular property inspections and prepare condition reports",
+      "Develop and manage property budgets",
+      "Ensure compliance with relevant property laws and regulations",
+      "Prepare regular financial and performance reports for property owners",
+    ],
+    requirements: [
+      "Bachelor's degree in Real Estate, Business Administration, or related field",
+      "3+ years of experience in property management",
+      "Knowledge of Nigerian property laws and regulations",
+      "Strong financial management and budgeting skills",
+      "Excellent communication and negotiation abilities",
+      "Problem-solving and conflict resolution skills",
+      "Proficiency in property management software",
+    ],
+    benefits: [
+      "Competitive salary with performance bonuses",
+      "Health insurance coverage",
+      "Career advancement opportunities",
+      "Professional development support",
+      "Work-life balance initiatives",
+    ],
+    deadline: "July 15, 2024",
+    postedDate: "May 20, 2024",
+  },
+  {
+    id: 5,
+    title: "Interior Design Intern",
+    department: "Design & Planning",
+    location: "Lagos, Nigeria",
+    type: "Internship",
+    experience: "Entry Level",
+    description:
+      "We're offering an exciting internship opportunity for creative and motivated interior design students or recent graduates. This position provides hands-on experience working with our interior design team on residential and commercial projects.",
+    responsibilities: [
+      "Assist senior designers with design concepts and presentations",
+      "Help create mood boards, material selections, and color schemes",
+      "Participate in client meetings and site visits",
+      "Support the preparation of design drawings and documentation",
+      "Research design trends, materials, and furnishings",
+      "Assist with administrative tasks related to design projects",
+    ],
+    requirements: [
+      "Currently pursuing or recently completed a degree in Interior Design or related field",
+      "Basic knowledge of design principles and practices",
+      "Familiarity with design software such as AutoCAD, SketchUp, or Adobe Creative Suite",
+      "Strong creative abilities and attention to detail",
+      "Good communication and teamwork skills",
+      "Enthusiasm for learning and professional growth",
+    ],
+    benefits: [
+      "Stipend to cover transportation and meals",
+      "Hands-on experience with real projects",
+      "Mentorship from experienced designers",
+      "Opportunity for full-time employment based on performance",
+      "Certificate of completion and recommendation letter",
+    ],
+    deadline: "June 10, 2024",
+    postedDate: "May 12, 2024",
+  },
+  {
+    id: 6,
+    title: "Civil Engineer",
+    department: "Project & Construction",
+    location: "Port Harcourt, Nigeria",
+    type: "Full-time",
+    experience: "4+ years",
+    description:
+      "We are looking for a qualified Civil Engineer to join our construction team in Port Harcourt. The successful candidate will be responsible for designing, planning, and overseeing construction projects to ensure they are completed safely, on time, and within budget.",
+    responsibilities: [
+      "Prepare and review engineering designs, calculations, and drawings",
+      "Conduct site investigations and feasibility studies",
+      "Develop project specifications and technical reports",
+      "Monitor construction activities to ensure compliance with plans and specifications",
+      "Coordinate with contractors, consultants, and regulatory authorities",
+      "Identify and resolve engineering issues that arise during construction",
+      "Ensure projects adhere to safety standards and building codes",
+    ],
+    requirements: [
+      "Bachelor's degree in Civil Engineering",
+      "Professional registration with COREN (Council for the Regulation of Engineering in Nigeria)",
+      "4+ years of experience in civil engineering, preferably in building construction",
+      "Proficiency in engineering software (AutoCAD, STAAD Pro, etc.)",
+      "Strong analytical and problem-solving skills",
+      "Excellent project management abilities",
+      "Good understanding of Nigerian building codes and standards",
+    ],
+    benefits: [
+      "Competitive salary package",
+      "Health insurance and pension benefits",
+      "Professional development opportunities",
+      "Career advancement path",
+      "Collaborative work environment",
+    ],
+    deadline: "July 5, 2024",
+    postedDate: "May 18, 2024",
+  },
+];
 
 export const blogPosts: BlogPost[] = [
   {

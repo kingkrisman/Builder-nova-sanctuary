@@ -207,15 +207,14 @@ export default function Team() {
                 <span>Sales and Marketing</span>
               </li>
             </ul>
-            <p className="text-sm text-muted-foreground">
-              To apply, please send your resume to{" "}
-              <a
-                href="mailto:careers@dasayonce.com"
-                className="text-primary hover:underline"
+            <div className="mt-6">
+              <Button
+                asChild
+                className="bg-primary text-black hover:bg-primary/90"
               >
-                careers@dasayonce.com
-              </a>
-            </p>
+                <Link to="/careers">View All Career Opportunities</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
