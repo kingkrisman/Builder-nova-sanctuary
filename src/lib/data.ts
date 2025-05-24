@@ -513,3 +513,254 @@ export const differentiators = [
     description: "Continued relationship post-handover",
   },
 ];
+
+export interface BlogPost {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  imageUrl: string;
+  category: string;
+  date: string;
+  author: string;
+  authorRole?: string;
+  authorImageUrl?: string;
+  readTime: number;
+  tags: string[];
+}
+
+export const blogPosts: BlogPost[] = [
+  {
+    id: 1,
+    title: "5 Key Factors That Influence Property Value in Lagos",
+    slug: "factors-influence-property-value-lagos",
+    excerpt:
+      "Understanding the key factors that affect property values in Lagos can help investors make informed decisions. Learn about location, infrastructure, security, and more.",
+    content: `<p>The real estate market in Lagos, Nigeria's commercial hub, is dynamic and competitive. Property values can fluctuate based on various factors, and understanding these factors is crucial for both buyers and sellers.</p>
+
+    <h2>1. Location</h2>
+    <p>Location remains the most significant factor affecting property values in Lagos. Properties in prime areas like Ikoyi, Victoria Island, and Lekki Phase 1 command premium prices due to their proximity to business districts, social amenities, and the coastline. The adage "location, location, location" holds particularly true in Lagos real estate.</p>
+
+    <h2>2. Infrastructure Development</h2>
+    <p>Areas with good road networks, drainage systems, and reliable utilities tend to have higher property values. Recent infrastructure projects like the Lekki-Epe Expressway expansion and the ongoing Light Rail project have significantly boosted property values in surrounding neighborhoods.</p>
+
+    <h2>3. Security</h2>
+    <p>Security is a major concern for property buyers in Lagos. Gated communities and estates with robust security measures often command higher prices. Areas with lower crime rates and dedicated security personnel are particularly attractive to high-end buyers and expatriates.</p>
+
+    <h2>4. Proximity to Amenities</h2>
+    <p>Properties close to schools, hospitals, shopping malls, and recreational facilities generally have higher values. The convenience of having essential services within reach is a key consideration for many buyers, especially families.</p>
+
+    <h2>5. Economic Factors</h2>
+    <p>Economic conditions, including inflation rates, foreign exchange fluctuations, and government policies, significantly impact property values. The recent economic reforms have had varying effects on different segments of the Lagos real estate market.</p>
+
+    <p>At Da'sayonce Real Estate and Properties, we help our clients navigate these factors to make informed investment decisions. Whether you're buying, selling, or developing property in Lagos, understanding these key influences can help maximize your return on investment.</p>`,
+    imageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F5b476d39e79c489b893fbce223f62517",
+    category: "Investment",
+    date: "2023-12-15",
+    author: "Engr. Olusayo Taiwo Okusanya",
+    authorRole: "MD/CEO",
+    authorImageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Ff6febcd9b03646c7a31da804bffa9d57",
+    readTime: 6,
+    tags: [
+      "Property Value",
+      "Lagos Real Estate",
+      "Investment",
+      "Property Market",
+    ],
+  },
+  {
+    id: 2,
+    title: "The Rise of Smart Homes in Nigeria's Luxury Real Estate Market",
+    slug: "smart-homes-nigeria-luxury-real-estate",
+    excerpt:
+      "Smart home technology is transforming Nigeria's luxury real estate market. Discover how automated systems, enhanced security, and energy efficiency are becoming standard features in high-end properties.",
+    content: `<p>The concept of smart homes is gaining significant traction in Nigeria's luxury real estate market. Modern homebuyers are increasingly seeking properties equipped with intelligent systems that offer convenience, security, and energy efficiency.</p>
+
+    <h2>Smart Home Features in Demand</h2>
+    <p>The most sought-after smart home features in Nigeria include automated lighting systems, advanced security cameras with mobile monitoring capabilities, smart locks, and climate control systems. These technologies not only enhance the living experience but also add substantial value to properties.</p>
+
+    <h2>Energy Efficiency Solutions</h2>
+    <p>With Nigeria's ongoing power challenges, smart energy solutions have become particularly attractive. Solar power integration, energy-efficient appliances, and automated power management systems are becoming standard in luxury homes, offering significant long-term cost savings.</p>
+
+    <h2>Da'sayonce's Smart Home Initiatives</h2>
+    <p>At Da'sayonce Real Estate and Properties, we've embraced this trend by incorporating smart home technology in our luxury developments. Our properties feature integrated systems that allow homeowners to control various aspects of their homes remotely, from security to entertainment.</p>
+
+    <h2>The Future of Smart Homes in Nigeria</h2>
+    <p>As technology continues to evolve and become more accessible, we anticipate that smart home features will eventually become standard in mid-range properties as well. The growing awareness of the benefits of these technologies is driving increased demand across different market segments.</p>
+
+    <p>For investors and homebuyers looking to stay ahead of the curve, considering properties with smart home features represents not just a lifestyle choice but a sound investment in future property value.</p>`,
+    imageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F05b931d2989c419796354d089120dfba",
+    category: "Technology",
+    date: "2023-11-28",
+    author: "Mr. Christian Olumide Daniels",
+    authorRole: "ICT Manager",
+    authorImageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Ffc85d92a82ca434e941f5758aa556acf",
+    readTime: 5,
+    tags: [
+      "Smart Homes",
+      "Luxury Real Estate",
+      "Technology",
+      "Energy Efficiency",
+    ],
+  },
+  {
+    id: 3,
+    title:
+      "Sustainable Building Practices: The Future of Construction in Nigeria",
+    slug: "sustainable-building-practices-nigeria",
+    excerpt:
+      "Sustainable construction practices are becoming increasingly important in Nigeria's building industry. Learn how eco-friendly materials, energy efficiency, and water conservation are shaping the future of construction.",
+    content: `<p>Sustainability in construction is no longer just a global trend but a necessity that Nigeria's building industry is gradually embracing. As environmental awareness grows and resources become more constrained, sustainable building practices are gaining prominence.</p>
+
+    <h2>Eco-Friendly Building Materials</h2>
+    <p>The use of locally-sourced, sustainable materials is gaining traction in Nigeria's construction industry. Materials like compressed earth blocks, bamboo, and recycled materials not only reduce environmental impact but often provide better thermal regulation in Nigeria's climate.</p>
+
+    <h2>Energy Efficiency Considerations</h2>
+    <p>Building designs that maximize natural lighting and ventilation, reducing the need for artificial cooling and lighting, are becoming more popular. Additionally, the integration of renewable energy sources, particularly solar power, is increasingly common in new developments.</p>
+
+    <h2>Water Conservation Techniques</h2>
+    <p>With water scarcity being a concern in many parts of Nigeria, efficient water management systems are becoming essential features in modern construction. Rainwater harvesting systems, greywater recycling, and water-efficient fixtures are being incorporated into building designs.</p>
+
+    <h2>Da'sayonce's Commitment to Sustainability</h2>
+    <p>At Da'sayonce Real Estate and Properties, sustainability is central to our development philosophy. Our projects incorporate various eco-friendly features, from energy-efficient designs to sustainable materials, ensuring that our buildings are not only aesthetically pleasing and functional but also environmentally responsible.</p>
+
+    <p>The shift towards sustainable construction in Nigeria is not just environmentally beneficial but also economically advantageous in the long run. Buildings constructed with sustainability in mind typically have lower operational costs, higher property values, and improved occupant comfort and health.</p>`,
+    imageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F2882003515394644b8f752a7f67c54b3",
+    category: "Sustainability",
+    date: "2023-10-20",
+    author: "Engr. Bernard Olatunji",
+    authorRole: "Project Manager",
+    authorImageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fd6e272c1d175432ca0f36cc4f3886d5b",
+    readTime: 7,
+    tags: [
+      "Sustainable Building",
+      "Green Construction",
+      "Eco-Friendly",
+      "Energy Efficiency",
+    ],
+  },
+  {
+    id: 4,
+    title:
+      "Navigating Lagos' Real Estate Market: A Guide for First-Time Buyers",
+    slug: "guide-first-time-buyers-lagos-real-estate",
+    excerpt:
+      "Purchasing property in Lagos can be challenging for first-time buyers. This guide provides essential tips on budgeting, location selection, legal considerations, and working with reputable developers.",
+    content: `<p>Entering the Lagos real estate market as a first-time buyer can be both exciting and daunting. The city's vibrant property market offers numerous opportunities, but navigating it requires careful planning and knowledge.</p>
+
+    <h2>Understanding Your Budget</h2>
+    <p>Before beginning your property search, it's crucial to establish a realistic budget. Consider not just the purchase price but also additional costs like legal fees, agency fees, and potential renovation expenses. In Lagos, property prices can vary dramatically depending on location, so having a clear budget helps narrow down your options.</p>
+
+    <h2>Choosing the Right Location</h2>
+    <p>Lagos is a vast city with diverse neighborhoods, each offering different advantages. Consider factors like proximity to your workplace, schools (if relevant), security, and infrastructure. Emerging areas on the mainland and Lekki peninsula often offer better value for money compared to established prime locations.</p>
+
+    <h2>Legal Due Diligence</h2>
+    <p>The importance of thorough legal checks cannot be overstated when buying property in Lagos. Ensure all documents, including the Certificate of Occupancy (C of O), building approval, and survey plans, are verified. Working with a reputable lawyer experienced in real estate transactions is highly recommended.</p>
+
+    <h2>Working with Reputable Developers</h2>
+    <p>For those considering new developments, choosing a reputable developer like Da'sayonce Real Estate and Properties can save you from potential pitfalls. Research the developer's track record, visit their completed projects, and speak with previous clients if possible.</p>
+
+    <h2>Financing Options</h2>
+    <p>Explore various financing options available to you. While mortgage facilities are growing in Nigeria, they may have high interest rates. Some developers offer payment plans that can be more accessible than traditional bank financing.</p>
+
+    <p>At Da'sayonce Real Estate and Properties, we guide first-time buyers through every step of the purchase process, ensuring a smooth and transparent experience. Our team of professionals provides personalized advice tailored to your specific needs and circumstances.</p>`,
+    imageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Ffda83bddc58a41748f24a9d9dac8b329",
+    category: "Buyer's Guide",
+    date: "2023-09-10",
+    author: "Mrs. Folusho Mogaji",
+    authorRole: "Sales & Leasing Officer",
+    authorImageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F9be48e173fe9424cb7c14ec0d06eb014",
+    readTime: 8,
+    tags: [
+      "First-Time Buyers",
+      "Property Purchase",
+      "Lagos Real Estate",
+      "Legal Guide",
+    ],
+  },
+  {
+    id: 5,
+    title: "Interior Design Trends Shaping Nigerian Homes in 2023",
+    slug: "interior-design-trends-nigerian-homes-2023",
+    excerpt:
+      "Discover the latest interior design trends making waves in Nigerian homes this year. From Afrocentric motifs to minimalist designs and multifunctional spaces, learn how to enhance your property's appeal.",
+    content: `<p>Nigerian interior design is evolving rapidly, blending global trends with local cultural elements to create unique and appealing living spaces. As we progress through 2023, several distinct trends are shaping how Nigerians design and decorate their homes.</p>
+
+    <h2>Afrocentric Design Elements</h2>
+    <p>There's a growing appreciation for incorporating African cultural elements into modern interiors. Traditional patterns, artwork, and artifacts are being seamlessly integrated into contemporary spaces, creating a rich cultural narrative while maintaining a sophisticated aesthetic.</p>
+
+    <h2>Minimalism with a Nigerian Twist</h2>
+    <p>The global minimalist trend has found its way into Nigerian homes, but with a local interpretation. Clean lines and uncluttered spaces are complemented by strategic use of bold colors and textured fabrics that reflect Nigeria's vibrant culture.</p>
+
+    <h2>Multifunctional Spaces</h2>
+    <p>With urban living spaces becoming more compact, especially in cities like Lagos, multifunctional design has become essential. Convertible furniture, clever storage solutions, and flexible room layouts that can adapt to different activities are increasingly popular.</p>
+
+    <h2>Natural Materials and Biophilic Design</h2>
+    <p>Incorporating natural elements and materials like wood, rattan, and indoor plants is a growing trend. This biophilic approach not only enhances aesthetic appeal but also creates healthier living environments by improving air quality and connecting occupants with nature.</p>
+
+    <h2>Smart Home Integration</h2>
+    <p>As technology becomes more accessible, smart home features are being integrated into interior design. From automated lighting and climate control to voice-activated systems, technology is enhancing both the functionality and comfort of Nigerian homes.</p>
+
+    <p>At Da'sayonce Real Estate and Properties, our interior design team stays at the forefront of these trends, creating spaces that are not only beautiful and functional but also reflective of our clients' unique personalities and lifestyles. Whether you're building a new home or renovating an existing space, incorporating these trends can significantly enhance your property's appeal and value.</p>`,
+    imageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F05b931d2989c419796354d089120dfba",
+    category: "Interior Design",
+    date: "2023-08-05",
+    author: "Mr. Kehinde Agbejule",
+    authorRole: "Interior & Exterior Designer",
+    authorImageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fa71552972d3d4eccb6c467a45b33bc01",
+    readTime: 6,
+    tags: [
+      "Interior Design",
+      "Nigerian Homes",
+      "Design Trends",
+      "Afrocentric Design",
+    ],
+  },
+  {
+    id: 6,
+    title:
+      "Investment Opportunities in Nigeria's Real Estate Market Post-COVID",
+    slug: "investment-opportunities-nigeria-real-estate-post-covid",
+    excerpt:
+      "The COVID-19 pandemic has reshaped Nigeria's real estate landscape, creating new investment opportunities. Explore emerging trends, growth areas, and strategic approaches for investors in the post-pandemic market.",
+    content: `<p>The COVID-19 pandemic significantly impacted Nigeria's real estate sector, accelerating some pre-existing trends while creating new patterns of demand. As the market adjusts to post-pandemic realities, several promising investment opportunities have emerged.</p>
+
+    <h2>Residential Real Estate Evolution</h2>
+    <p>The pandemic-induced shift to remote work has changed housing preferences. Properties with dedicated home office spaces, reliable internet infrastructure, and in less congested areas have seen increased demand. Residential developments that cater to these evolving needs present attractive investment opportunities.</p>
+
+    <h2>Industrial and Logistics Properties</h2>
+    <p>The growth of e-commerce and the need for efficient supply chains have boosted demand for warehousing and logistics facilities. Strategic investments in industrial properties, particularly in areas with good transportation networks, offer potential for strong returns.</p>
+
+    <h2>Mixed-Use Developments</h2>
+    <p>Projects that combine residential, commercial, and recreational spaces within the same development are gaining popularity. These integrated communities reduce commuting needs and provide convenience—factors that have become more valued in the post-COVID era.</p>
+
+    <h2>Affordable Housing Segment</h2>
+    <p>The affordable housing segment continues to experience significant demand due to Nigeria's growing urban population and housing deficit. Government initiatives supporting affordable housing further enhance the attractiveness of this segment for investors.</p>
+
+    <h2>Healthcare-Related Real Estate</h2>
+    <p>The pandemic highlighted the importance of healthcare infrastructure. Properties designed for healthcare services or senior living facilities represent an emerging niche with growth potential as Nigeria's healthcare sector develops.</p>
+
+    <p>At Da'sayonce Real Estate and Properties, we help investors identify and capitalize on these opportunities through our market expertise and comprehensive project management services. The post-COVID Nigerian real estate market, while presenting some challenges, offers substantial prospects for strategic investors who can align their portfolios with these emerging trends.</p>`,
+    imageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F7e88bf5fc8f84a54a67ec3a29cd85a97",
+    category: "Investment",
+    date: "2023-07-22",
+    author: "Mr. Oguneye A. Olutope",
+    authorRole: "Chief Financial Officer",
+    authorImageUrl:
+      "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F28c3e45bc5fe4a6f9fac15cabb371334",
+    readTime: 7,
+    tags: ["Investment", "Post-COVID", "Real Estate Market", "Market Trends"],
+  },
+];

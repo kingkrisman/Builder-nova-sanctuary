@@ -59,3 +59,26 @@ export function TeamSEO() {
     />
   );
 }
+
+export function BlogSEO() {
+  return (
+    <SEO
+      title="Blog | Da'sayonce Real Estate"
+      description="Stay informed with the latest insights, trends, and news about Nigerian real estate, property development, and investment opportunities."
+      keywords="real estate blog, property insights, Nigerian real estate market, investment advice, construction trends, interior design"
+    />
+  );
+}
+
+export function BlogPostSEO({ post }) {
+  return (
+    <SEO
+      title={`${post.title} | Da'sayonce Real Estate Blog`}
+      description={post.excerpt}
+      keywords={post.tags.join(", ")}
+      image={post.imageUrl}
+      type="article"
+      isArticle={true}
+    />
+  );
+}
