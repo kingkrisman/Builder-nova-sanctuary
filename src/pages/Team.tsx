@@ -4,8 +4,6 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { TeamCard } from "@/components/TeamCard";
 import { leadershipTeam } from "@/lib/data";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button"; // Import Button from your UI library
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 export default function Team() {
   const departments = [
@@ -209,14 +207,7 @@ export default function Team() {
                 <span>Sales and Marketing</span>
               </li>
             </ul>
-            <div className="mt-6">
-              <Button
-                asChild
-                className="bg-primary text-black hover:bg-primary/90"
-              >
-                <Link to="/careers">View All Career Opportunities</Link>
-              </Button>
-            </div>
+          
           </div>
         </div>
       </section>
