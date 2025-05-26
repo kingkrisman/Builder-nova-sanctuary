@@ -4,6 +4,8 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { TeamCard } from "@/components/TeamCard";
 import { leadershipTeam } from "@/lib/data";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button"; // Import Button from your UI library
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 export default function Team() {
   const departments = [
