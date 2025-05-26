@@ -1,6 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { AboutSEO } from "@/components/RealEstateSEO";
 import { SectionHeading } from "@/components/SectionHeading";
+
 import { companyInfo, companyValues } from "@/lib/data";
 import { CheckCircle } from "lucide-react";
 
@@ -121,6 +122,7 @@ export default function About() {
           </div>
         </div>
       </section>
+
 
       {/* Vision & Mission */}
       <section className="py-16 bg-white">

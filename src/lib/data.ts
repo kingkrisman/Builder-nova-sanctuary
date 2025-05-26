@@ -217,8 +217,8 @@ export const leadershipTeam: {
       position: "Construction Manager",
       qualifications: "MNSE",
       department: "Project & Construction",
-      imageUrl:
-        "https://cdn.builder.io/o/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F95bda75a03094482abcea80e628e3280?alt=media&token=3fbdb1b2-d3e9-4242-9292-4888d89b4cd1&apiKey=aeee31fcf1114fceb0dea40aa0430358",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_ca2c52b6_o38ltu.jpg",
+
     },
     {
       id: 8,
@@ -272,7 +272,7 @@ export const leadershipTeam: {
       position: "Estate Surveyor & Valuer",
       qualifications: "NIS, RSV",
       department: "Real Estate",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_1c2d0656_kukwza.jpg",
     },
     {
       id: 14,
@@ -311,7 +311,7 @@ export const leadershipTeam: {
       position: "Procurement Manager",
       qualifications: "BSc, MBA",
       department: "Support Services",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_4ade6d11_p13juo.jpg",
     },
     {
       id: 18,
@@ -319,7 +319,7 @@ export const leadershipTeam: {
       position: "Legal Adviser/Company Secretary",
       qualifications: "LL.B, B.L",
       department: "Support Services",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_62aadd4c_wlwgzy.jpg",
     },
     {
       id: 19,
@@ -360,7 +360,7 @@ export const leadershipTeam: {
       name: "Mr. Oluwole Emmanuel Hassan",
       position: "Logistics/Transport Officer",
       department: "Security & Logistics",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.20_59b3f22f_yugnu3.jpg",
     },
   ],
 };
