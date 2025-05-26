@@ -123,7 +123,6 @@ export default function About() {
         </div>
       </section>
 
-    
 
       {/* Vision & Mission */}
       <section className="py-16 bg-white">
