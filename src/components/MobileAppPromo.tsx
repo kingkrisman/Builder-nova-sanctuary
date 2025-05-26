@@ -156,15 +156,7 @@ export function MobileAppPromo() {
                         className="flex items-center bg-white/10 hover:bg-white/15 border border-white/20 rounded-lg px-4 py-2 transition-all duration-200"
                       >
                         <div className="mr-3">
-                          <svg
-                            viewBox="0 0 24 24"
-                            className="w-8 h-8 text-white"
-                          >
-                            <path
-                              fill="currentColor"
-                              d="M5.26 3.05L14.9 12l-9.64 8.95c-.24-.45-.38-.96-.38-1.5V4.5c0-.55.14-1.05.38-1.45zM16.75 13.72L6.43 19.8l10.23-9.5.44.41-.35 3.01zm.71-3.38l-11.16-6.51 10.5 9.7.66-3.19zm4.4.63c0 .47-.18.95-.52 1.3l-1.85 1.71-2.37-2.2-.52-4.5 4.74 2.76c.33.19.52.51.52.93z"
-                            />
-                          </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M.859 11.981V1.741c0-.672.79-1.098 1.434-.771L12.37 6.09c.662.336.662 1.207 0 1.543l-10.077 5.12c-.644.327-1.434-.099-1.434-.772M9.23 9.23l-8.1-8.101m8.1 3.364l-8.1 8.1" stroke-width="1"/></svg>
                         </div>
                         <div className="text-left">
                           <div className="text-xs text-white/80">GET IT ON</div>
