@@ -123,7 +123,6 @@ export default function About() {
         </div>
       </section>
 
-
       {/* Vision & Mission */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
@@ -170,14 +169,47 @@ export default function About() {
             centered
           />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[...Array(8)].map((_, index) => (
+            {[
+              {
+                url: "https://images.pexels.com/photos/8837715/pexels-photo-8837715.jpeg",
+                alt: "Team collaboration on architectural plans",
+              },
+              {
+                url: "https://images.pexels.com/photos/16612657/pexels-photo-16612657.jpeg",
+                alt: "Construction site at sunset",
+              },
+              {
+                url: "https://images.pexels.com/photos/32473240/pexels-photo-32473240.png",
+                alt: "Modern living room and kitchen design",
+              },
+              {
+                url: "https://images.pexels.com/photos/7242263/pexels-photo-7242263.jpeg",
+                alt: "Empty modern room with geometric design",
+              },
+              {
+                url: "https://images.pexels.com/photos/14646006/pexels-photo-14646006.jpeg",
+                alt: "Aerial view of residential property",
+              },
+              {
+                url: "https://images.pexels.com/photos/13515672/pexels-photo-13515672.jpeg",
+                alt: "High-rise building under construction",
+              },
+              {
+                url: "https://images.pexels.com/photos/9244866/pexels-photo-9244866.jpeg",
+                alt: "Contemporary apartment buildings",
+              },
+              {
+                url: "https://images.pexels.com/photos/17797763/pexels-photo-17797763.jpeg",
+                alt: "Modern commercial building facade",
+              },
+            ].map((image, index) => (
               <div
                 key={index}
                 className="aspect-square bg-slate-200 rounded-lg overflow-hidden"
               >
                 <img
-                  src="/placeholder.svg"
-                  alt={`Gallery image ${index + 1}`}
+                  src={image.url}
+                  alt={image.alt}
                   className="w-full h-full object-cover"
                 />
               </div>
