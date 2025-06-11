@@ -134,7 +134,8 @@ export const projects: Project[] = [
     description:
       "A contemporary commercial space housing boutiques, cafés, and offices.",
     location: "Lekki Phase 1, Lagos",
-    imageUrl: "/placeholder.svg",
+    imageUrl:
+      "https://images.pexels.com/photos/17797763/pexels-photo-17797763.jpeg",
   },
   {
     id: 4,
@@ -142,7 +143,8 @@ export const projects: Project[] = [
     description:
       "2- and 3-bedroom units with premium finishes and smart interiors.",
     location: "Wuye, Abuja",
-    imageUrl: "/placeholder.svg",
+    imageUrl:
+      "https://images.pexels.com/photos/32485942/pexels-photo-32485942.png",
   },
 ];
 
@@ -217,8 +219,8 @@ export const leadershipTeam: {
       position: "Construction Manager",
       qualifications: "MNSE",
       department: "Project & Construction",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_ca2c52b6_o38ltu.jpg",
-
+      imageUrl:
+        "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_ca2c52b6_o38ltu.jpg",
     },
     {
       id: 8,
@@ -272,7 +274,8 @@ export const leadershipTeam: {
       position: "Estate Surveyor & Valuer",
       qualifications: "NIS, RSV",
       department: "Real Estate",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_1c2d0656_kukwza.jpg",
+      imageUrl:
+        "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_1c2d0656_kukwza.jpg",
     },
     {
       id: 14,
@@ -311,7 +314,8 @@ export const leadershipTeam: {
       position: "Procurement Manager",
       qualifications: "BSc, MBA",
       department: "Support Services",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_4ade6d11_p13juo.jpg",
+      imageUrl:
+        "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_4ade6d11_p13juo.jpg",
     },
     {
       id: 18,
@@ -319,7 +323,8 @@ export const leadershipTeam: {
       position: "Legal Adviser/Company Secretary",
       qualifications: "LL.B, B.L",
       department: "Support Services",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_62aadd4c_wlwgzy.jpg",
+      imageUrl:
+        "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_62aadd4c_wlwgzy.jpg",
     },
     {
       id: 19,
@@ -360,7 +365,8 @@ export const leadershipTeam: {
       name: "Mr. Oluwole Emmanuel Hassan",
       position: "Logistics/Transport Officer",
       department: "Security & Logistics",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.20_59b3f22f_yugnu3.jpg",
+      imageUrl:
+        "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.20_59b3f22f_yugnu3.jpg",
     },
   ],
 };
