@@ -116,8 +116,8 @@ export const projects: Project[] = [
     description:
       "A gated community featuring modern homes with top-tier amenities including 24/7 security, reliable water supply, and recreational areas. Located in Mowe, Ogun State.",
     location: "Mowe, Ogun State",
-    imageUrl: "https://images.pexels.com/photos/9244866/pexels-photo-9244866.jpeg",
-      "data:image/jpeg;base64,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",
+    imageUrl:
+      "https://images.pexels.com/photos/9244866/pexels-photo-9244866.jpeg",
   },
   {
     id: 2,
@@ -134,7 +134,8 @@ export const projects: Project[] = [
     description:
       "A contemporary commercial space housing boutiques, cafés, and offices.",
     location: "Lekki Phase 1, Lagos",
-    imageUrl: "https://images.pexels.com/photos/17797763/pexels-photo-17797763.jpeg",
+    imageUrl:
+      "https://images.pexels.com/photos/17797763/pexels-photo-17797763.jpeg",
   },
   {
     id: 4,
@@ -142,7 +143,8 @@ export const projects: Project[] = [
     description:
       "2- and 3-bedroom units with premium finishes and smart interiors.",
     location: "Wuye, Abuja",
-    imageUrl: "https://images.pexels.com/photos/32485942/pexels-photo-32485942.png",
+    imageUrl:
+      "https://images.pexels.com/photos/32485942/pexels-photo-32485942.png",
   },
 ];
 
@@ -217,8 +219,8 @@ export const leadershipTeam: {
       position: "Construction Manager",
       qualifications: "MNSE",
       department: "Project & Construction",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_ca2c52b6_o38ltu.jpg",
-
+      imageUrl:
+        "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_ca2c52b6_o38ltu.jpg",
     },
     {
       id: 8,
@@ -272,7 +274,8 @@ export const leadershipTeam: {
       position: "Estate Surveyor & Valuer",
       qualifications: "NIS, RSV",
       department: "Real Estate",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_1c2d0656_kukwza.jpg",
+      imageUrl:
+        "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_1c2d0656_kukwza.jpg",
     },
     {
       id: 14,
@@ -311,7 +314,8 @@ export const leadershipTeam: {
       position: "Procurement Manager",
       qualifications: "BSc, MBA",
       department: "Support Services",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_4ade6d11_p13juo.jpg",
+      imageUrl:
+        "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_4ade6d11_p13juo.jpg",
     },
     {
       id: 18,
@@ -319,7 +323,8 @@ export const leadershipTeam: {
       position: "Legal Adviser/Company Secretary",
       qualifications: "LL.B, B.L",
       department: "Support Services",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_62aadd4c_wlwgzy.jpg",
+      imageUrl:
+        "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_62aadd4c_wlwgzy.jpg",
     },
     {
       id: 19,
@@ -360,7 +365,8 @@ export const leadershipTeam: {
       name: "Mr. Oluwole Emmanuel Hassan",
       position: "Logistics/Transport Officer",
       department: "Security & Logistics",
-      imageUrl: "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.20_59b3f22f_yugnu3.jpg",
+      imageUrl:
+        "https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.20_59b3f22f_yugnu3.jpg",
     },
   ],
 };
