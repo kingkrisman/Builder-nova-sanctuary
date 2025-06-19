@@ -136,8 +136,22 @@ export function MobileAppPromo() {
                         className="flex items-center bg-white/10 hover:bg-white/15 border border-white/20 rounded-lg px-4 py-2 transition-all duration-200"
                       >
                         <div className="mr-3">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.177 5.177c-1.083 1.084-3.14.785-3.14.785s-.298-2.056.786-3.14c1.083-1.083 3.14-.784 3.14-.784s.298 2.056-.786 3.14M4 14.06c0 3.281 2.196 7.05 4.419 7.847c.77.276 1.567-.105 2.229-.58c.502-.36 1.11-.703 1.602-.703c.49 0 1.1.343 1.601.703c.662.475 1.459.856 2.23.58c1.579-.566 3.145-2.633 3.919-4.96c-1.5-.43-2.594-1.786-2.594-3.393c0-1.472.919-2.734 2.226-3.265C18.79 8.793 17.414 8 15.859 8c-.804 0-1.544.324-2.14.713c-.954.62-1.985.62-2.938 0C10.184 8.324 9.445 8 8.641 8C6.077 8 4 10.155 4 14.06" color="currentColor"/></svg>
-                          
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              fill="none"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
+                              d="M15.177 5.177c-1.083 1.084-3.14.785-3.14.785s-.298-2.056.786-3.14c1.083-1.083 3.14-.784 3.14-.784s.298 2.056-.786 3.14M4 14.06c0 3.281 2.196 7.05 4.419 7.847c.77.276 1.567-.105 2.229-.58c.502-.36 1.11-.703 1.602-.703c.49 0 1.1.343 1.601.703c.662.475 1.459.856 2.23.58c1.579-.566 3.145-2.633 3.919-4.96c-1.5-.43-2.594-1.786-2.594-3.393c0-1.472.919-2.734 2.226-3.265C18.79 8.793 17.414 8 15.859 8c-.804 0-1.544.324-2.14.713c-.954.62-1.985.62-2.938 0C10.184 8.324 9.445 8 8.641 8C6.077 8 4 10.155 4 14.06"
+                              color="currentColor"
+                            />
+                          </svg>
                         </div>
                         <div className="text-left">
                           <div className="text-xs text-white/80">
@@ -156,7 +170,21 @@ export function MobileAppPromo() {
                         className="flex items-center bg-white/10 hover:bg-white/15 border border-white/20 rounded-lg px-4 py-2 transition-all duration-200"
                       >
                         <div className="mr-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M.859 11.981V1.741c0-.672.79-1.098 1.434-.771L12.37 6.09c.662.336.662 1.207 0 1.543l-10.077 5.12c-.644.327-1.434-.099-1.434-.772M9.23 9.23l-8.1-8.101m8.1 3.364l-8.1 8.1" stroke-width="1"/></svg>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 14 14"
+                          >
+                            <path
+                              fill="none"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M.859 11.981V1.741c0-.672.79-1.098 1.434-.771L12.37 6.09c.662.336.662 1.207 0 1.543l-10.077 5.12c-.644.327-1.434-.099-1.434-.772M9.23 9.23l-8.1-8.101m8.1 3.364l-8.1 8.1"
+                              strokeWidth="1"
+                            />
+                          </svg>
                         </div>
                         <div className="text-left">
                           <div className="text-xs text-white/80">GET IT ON</div>

@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section className="relative h-[90vh] flex items-center">
       {/* Background Image with overlay */}
-      <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center">
+      <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/10549886/pexels-photo-10549886.jpeg')] bg-cover bg-center">
         <div
           className="absolute inset-0 bg-black/80"
           style={{

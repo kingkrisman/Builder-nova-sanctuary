@@ -77,7 +77,7 @@ export default function Projects() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="rounded-lg overflow-hidden">
               <img
-                src="/placeholder.svg"
+                src="https://images.pexels.com/photos/32447381/pexels-photo-32447381.jpeg"
                 alt="Da'sayonce Mini-Estate"
                 className="w-full h-auto object-cover"
               />
@@ -162,14 +162,47 @@ export default function Projects() {
             centered
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {[...Array(8)].map((_, index) => (
+            {[
+              {
+                url: "https://images.pexels.com/photos/13515672/pexels-photo-13515672.jpeg",
+                alt: "Construction site with crane",
+              },
+              {
+                url: "https://images.pexels.com/photos/32512229/pexels-photo-32512229.jpeg",
+                alt: "Luxury villa exterior",
+              },
+              {
+                url: "https://images.pexels.com/photos/9244866/pexels-photo-9244866.jpeg",
+                alt: "Modern apartment complex",
+              },
+              {
+                url: "https://images.pexels.com/photos/17797763/pexels-photo-17797763.jpeg",
+                alt: "Commercial building facade",
+              },
+              {
+                url: "https://images.pexels.com/photos/32485942/pexels-photo-32485942.png",
+                alt: "Interior design showcase",
+              },
+              {
+                url: "https://images.pexels.com/photos/10549886/pexels-photo-10549886.jpeg",
+                alt: "Dubai skyline architecture",
+              },
+              {
+                url: "https://images.pexels.com/photos/32473240/pexels-photo-32473240.png",
+                alt: "Modern living space design",
+              },
+              {
+                url: "https://images.pexels.com/photos/14646006/pexels-photo-14646006.jpeg",
+                alt: "Aerial view of property development",
+              },
+            ].map((image, index) => (
               <div
                 key={index}
                 className="aspect-square bg-slate-200 rounded-lg overflow-hidden"
               >
                 <img
-                  src="/placeholder.svg"
-                  alt={`Project image ${index + 1}`}
+                  src={image.url}
+                  alt={image.alt}
                   className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                 />
               </div>
