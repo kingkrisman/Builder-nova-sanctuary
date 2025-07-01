@@ -400,7 +400,8 @@ export default function PropertyListing() {
                 variant="outline"
                 className="border-white text-white hover:bg-white hover:text-black"
               >
-                Request Custom Search
+                Request{" "}
+                <span style={{ color: "rgb(43, 43, 43)" }}>Custom </span>Search
               </Button>
             </div>
           </ScrollAnimation>
