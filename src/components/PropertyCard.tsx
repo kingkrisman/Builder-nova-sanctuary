@@ -19,6 +19,7 @@ import {
   Heart,
   Share2,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface PropertyCardProps {
@@ -202,8 +203,9 @@ export function PropertyCard({ property, className }: PropertyCardProps) {
         <Button
           className="w-full bg-primary text-black hover:bg-primary/90"
           size="sm"
+          asChild
         >
-          View Details
+          <Link to={`/properties/${property.id}`}>View Details</Link>
         </Button>
       </CardFooter>
     </Card>
