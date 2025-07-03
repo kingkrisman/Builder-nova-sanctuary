@@ -15,6 +15,8 @@ import {
   Move3D,
   Eye,
   Navigation,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 interface VirtualTourModalProps {
