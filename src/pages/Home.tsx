@@ -31,7 +31,7 @@ import { ScrollAnimation } from "@/components/ScrollAnimation";
 import { useState } from "react";
 
 export default function Home() {
-  const [selectedProperty, setSelectedProperty] = useState(null);
+  const [selectedProperty, setSelectedProperty] = useState<any>(null);
 
   // Display only a subset of services and projects on the homepage
   const featuredServices = services.slice(0, 6);
