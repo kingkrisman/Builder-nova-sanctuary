@@ -134,7 +134,7 @@ export function PropertySearchWidget() {
                 className="cursor-pointer hover:bg-primary hover:text-black transition-colors"
                 onClick={() => {
                   setLocation(search);
-                  handleSearch();
+                  setTimeout(() => handleSearch(), 100);
                 }}
               >
                 {search}
