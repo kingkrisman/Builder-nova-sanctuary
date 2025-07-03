@@ -1,27 +1,61 @@
 import { Layout } from "@/components/layout/Layout";
 import { ServicesSEO } from "@/components/RealEstateSEO";
+import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { services } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Home,
+  Building2,
+  Paintbrush,
+  Settings,
+} from "lucide-react";
 
 export default function Services() {
   return (
     <Layout>
       <ServicesSEO />
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center flex flex-col">
-            <h1 className="text-4xl font-bold mb-6">Our Services</h1>
-            <p className="text-xl text-muted-foreground m-auto">
-              Comprehensive real estate solutions tailored to your needs
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHeader
+        title={
+          <>
+            Our <span className="text-primary">Services</span>
+          </>
+        }
+        subtitle="Comprehensive Real Estate Solutions"
+        description="From property development and construction to interior design and facility management, we offer end-to-end solutions tailored to your specific needs and aspirations."
+        gradient="purple"
+        badge="Full-Service Provider"
+        backgroundImage="https://images.pexels.com/photos/3182773/pexels-photo-3182773.jpeg"
+        stats={[
+          {
+            label: "Service Categories",
+            value: `${services.length}`,
+            icon: <Settings className="h-5 w-5" />,
+          },
+          {
+            label: "Development",
+            value: "Expert",
+            icon: <Building2 className="h-5 w-5" />,
+          },
+          {
+            label: "Design",
+            value: "Premium",
+            icon: <Paintbrush className="h-5 w-5" />,
+          },
+          {
+            label: "Management",
+            value: "24/7",
+            icon: <Home className="h-5 w-5" />,
+          },
+        ]}
+        action={{
+          label: "Request Consultation",
+          href: "/contact",
+        }}
+      />
 
       {/* Services Section */}
       <section className="py-16 bg-white">

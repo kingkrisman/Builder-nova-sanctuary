@@ -5,7 +5,9 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
-
+import { PropertyRecommendations } from "@/components/PropertyRecommendations";
+import { MortgageCalculator } from "@/components/MortgageCalculator";
+import { PropertyMap } from "@/components/PropertyMap";
 import { MobileAppPromo } from "@/components/MobileAppPromo";
 
 import {
@@ -14,16 +16,27 @@ import {
   projects,
   services,
   testimonials,
+  properties,
 } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle,
+  Calculator,
+  Map,
+  Sparkles,
+} from "lucide-react";
 import { ScrollAnimation } from "@/components/ScrollAnimation";
+import { useState } from "react";
 
 export default function Home() {
+  const [selectedProperty, setSelectedProperty] = useState<any>(null);
+
   // Display only a subset of services and projects on the homepage
   const featuredServices = services.slice(0, 6);
   const featuredProjects = projects.slice(0, 3);
+  const featuredProperties = properties.slice(0, 6);
 
   return (
     <Layout>
@@ -82,7 +95,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
 
       {/* Services Section */}
       <section className="py-16 bg-white">
@@ -214,6 +226,103 @@ export default function Home() {
                   Contact Us Today <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
+            </ScrollAnimation>
+          </div>
+        </div>
+      </section>
+
+      {/* AI Property Recommendations Section */}
+      <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="container mx-auto px-4">
+          <ScrollAnimation animation="animate-fade-up">
+            <SectionHeading
+              title={
+                <>
+                  <Sparkles className="inline-block h-8 w-8 text-primary mr-2" />
+                  AI-Powered{" "}
+                  <span className="text-primary">Recommendations</span>
+                </>
+              }
+              subtitle="Discover properties tailored to your preferences using our intelligent recommendation system."
+              centered
+            />
+          </ScrollAnimation>
+
+          <PropertyRecommendations
+            userPreferences={{
+              budget: 100000000,
+              location: "Lagos",
+              propertyType: "Residential",
+            }}
+            viewedProperties={[1, 2]}
+          />
+        </div>
+      </section>
+
+      {/* Interactive Property Map Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <ScrollAnimation animation="animate-fade-up">
+            <SectionHeading
+              title={
+                <>
+                  <Map className="inline-block h-8 w-8 text-primary mr-2" />
+                  Property <span className="text-primary">Locations</span>
+                </>
+              }
+              subtitle="Explore our properties across Nigeria with our interactive map feature."
+              centered
+            />
+          </ScrollAnimation>
+
+          <ScrollAnimation animation="animate-fade-up" delay={200}>
+            <PropertyMap
+              properties={featuredProperties}
+              selectedProperty={selectedProperty}
+              onPropertySelect={setSelectedProperty}
+            />
+          </ScrollAnimation>
+        </div>
+      </section>
+
+      {/* Mortgage Calculator Section */}
+      <section className="py-16 bg-black text-white">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <ScrollAnimation animation="animate-fade-right">
+              <SectionHeading
+                title={
+                  <>
+                    <Calculator className="inline-block h-8 w-8 text-primary mr-2" />
+                    Calculate Your{" "}
+                    <span className="text-primary">Mortgage</span>
+                  </>
+                }
+                subtitle="Plan your property investment with our advanced mortgage calculator. Get instant estimates for monthly payments, interest, and total costs."
+                className="text-white"
+              />
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-primary shrink-0" />
+                  <span>Instant payment calculations</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-primary shrink-0" />
+                  <span>Interest rate comparisons</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-primary shrink-0" />
+                  <span>Down payment planning</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-primary shrink-0" />
+                  <span>Total cost breakdown</span>
+                </div>
+              </div>
+            </ScrollAnimation>
+
+            <ScrollAnimation animation="animate-fade-left">
+              <MortgageCalculator />
             </ScrollAnimation>
           </div>
         </div>

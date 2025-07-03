@@ -552,6 +552,32 @@ export interface BlogPost {
   tags: string[];
 }
 
+export interface Property {
+  id: number;
+  title: string;
+  type: "Residential" | "Commercial" | "Land" | "Mixed-Use";
+  status: "For Sale" | "For Rent" | "Sold" | "Rented";
+  price: number;
+  location: string;
+  address: string;
+  bedrooms?: number;
+  bathrooms?: number;
+  size: string;
+  description: string;
+  features: string[];
+  imageUrl: string;
+  images: string[];
+  yearBuilt?: number;
+  parking?: number;
+  furnished?: boolean;
+  dateAdded: string;
+  agent: {
+    name: string;
+    phone: string;
+    email: string;
+  };
+}
+
 export const jobListings: JobListing[] = [
   {
     id: 1,
@@ -770,6 +796,339 @@ export const jobListings: JobListing[] = [
     ],
     deadline: "July 5, 2024",
     postedDate: "May 18, 2024",
+  },
+];
+
+export const properties: Property[] = [
+  {
+    id: 1,
+    title: "Luxury 4-Bedroom Duplex in Lekki Phase 1",
+    type: "Residential",
+    status: "For Sale",
+    price: 150000000,
+    location: "Lekki Phase 1, Lagos",
+    address: "12 Admiralty Way, Lekki Phase 1, Lagos",
+    bedrooms: 4,
+    bathrooms: 5,
+    size: "450 sqm",
+    description:
+      "A stunning contemporary duplex featuring modern finishes, smart home technology, and beautiful ocean views. This property boasts spacious rooms, a modern kitchen, and a beautiful garden. Perfect for a family looking for luxury living in one of Lagos' most prestigious areas.",
+    features: [
+      "Ocean View",
+      "Swimming Pool",
+      "BQ Apartment",
+      "24/7 Security",
+      "Power Backup",
+      "Fitted Kitchen",
+      "Air Conditioning",
+      "Smart Home Features",
+      "Garden/Landscaping",
+      "Covered Parking",
+    ],
+    imageUrl:
+      "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg",
+    images: [
+      "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg",
+      "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg",
+      "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
+      "https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg",
+    ],
+    yearBuilt: 2022,
+    parking: 4,
+    furnished: false,
+    dateAdded: "2024-01-15",
+    agent: {
+      name: "Mrs. Folusho Mogaji",
+      phone: "+234 706 425 8898",
+      email: "folusho@dasayoncerealestate.com",
+    },
+  },
+  {
+    id: 2,
+    title: "Modern 3-Bedroom Apartment in Victoria Island",
+    type: "Residential",
+    status: "For Rent",
+    price: 8000000,
+    location: "Victoria Island, Lagos",
+    address: "Adeola Odeku Street, Victoria Island, Lagos",
+    bedrooms: 3,
+    bathrooms: 3,
+    size: "180 sqm",
+    description:
+      "A beautifully designed apartment in the heart of Victoria Island. Features modern amenities, excellent finishing, and proximity to major business districts. Ideal for professionals and expatriates.",
+    features: [
+      "City View",
+      "Gym Access",
+      "24/7 Security",
+      "Power Backup",
+      "Elevators",
+      "Swimming Pool",
+      "Parking Space",
+      "Air Conditioning",
+      "High-Speed Internet",
+      "Concierge Service",
+    ],
+    imageUrl:
+      "https://images.pexels.com/photos/2121121/pexels-photo-2121121.jpeg",
+    images: [
+      "https://images.pexels.com/photos/2121121/pexels-photo-2121121.jpeg",
+      "https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg",
+      "https://images.pexels.com/photos/1457847/pexels-photo-1457847.jpeg",
+    ],
+    yearBuilt: 2021,
+    parking: 2,
+    furnished: true,
+    dateAdded: "2024-01-10",
+    agent: {
+      name: "Realtor Ebenezer Ilupeju",
+      phone: "+234 8102 067 476",
+      email: "ebenezer@dasayoncerealestate.com",
+    },
+  },
+  {
+    id: 3,
+    title: "Commercial Plaza in Ikeja",
+    type: "Commercial",
+    status: "For Sale",
+    price: 500000000,
+    location: "Ikeja, Lagos",
+    address: "Allen Avenue, Ikeja, Lagos",
+    size: "1200 sqm",
+    description:
+      "A strategic commercial property perfect for retail, offices, or mixed-use development. Located on a busy commercial road with excellent visibility and accessibility.",
+    features: [
+      "Prime Location",
+      "High Visibility",
+      "Ample Parking",
+      "Multiple Floors",
+      "Elevator",
+      "Power Backup",
+      "Security System",
+      "Loading Bay",
+      "Modern Facilities",
+      "Flexible Layout",
+    ],
+    imageUrl:
+      "https://images.pexels.com/photos/325193/pexels-photo-325193.jpeg",
+    images: [
+      "https://images.pexels.com/photos/325193/pexels-photo-325193.jpeg",
+      "https://images.pexels.com/photos/323645/pexels-photo-323645.jpeg",
+      "https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg",
+    ],
+    yearBuilt: 2020,
+    parking: 30,
+    furnished: false,
+    dateAdded: "2024-01-08",
+    agent: {
+      name: "Realtor Adekunle Alliu",
+      phone: "+234 706 425 8898",
+      email: "adekunle@dasayoncerealestate.com",
+    },
+  },
+  {
+    id: 4,
+    title: "2-Bedroom Apartment in Mowe",
+    type: "Residential",
+    status: "For Sale",
+    price: 25000000,
+    location: "Mowe, Ogun State",
+    address: "Da'sayonce Mini-Estate, Mowe, Ogun State",
+    bedrooms: 2,
+    bathrooms: 2,
+    size: "120 sqm",
+    description:
+      "An affordable yet quality apartment in our gated estate. Perfect for young professionals and small families. Part of our Da'sayonce Mini-Estate development with excellent amenities.",
+    features: [
+      "Gated Estate",
+      "24/7 Security",
+      "Water Supply",
+      "Power Backup",
+      "Playground",
+      "Good Road Network",
+      "Parking Space",
+      "Modern Finishing",
+      "Recreational Areas",
+      "Close to Major Roads",
+    ],
+    imageUrl:
+      "https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg",
+    images: [
+      "https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg",
+      "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg",
+      "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg",
+    ],
+    yearBuilt: 2023,
+    parking: 2,
+    furnished: false,
+    dateAdded: "2024-01-05",
+    agent: {
+      name: "Mrs. Folusho Mogaji",
+      phone: "+234 706 425 8898",
+      email: "folusho@dasayoncerealestate.com",
+    },
+  },
+  {
+    id: 5,
+    title: "Prime Land in Abuja",
+    type: "Land",
+    status: "For Sale",
+    price: 80000000,
+    location: "Gwarimpa, Abuja",
+    address: "Gwarimpa Estate Extension, Abuja",
+    size: "1000 sqm",
+    description:
+      "A well-located plot of land in a developing area of Abuja. Perfect for residential development with good access roads and proper documentation. Great investment opportunity.",
+    features: [
+      "C of O Available",
+      "Survey Done",
+      "Good Access Road",
+      "Residential Area",
+      "Investment Opportunity",
+      "Proper Documentation",
+      "Gazette Available",
+      "Corner Piece",
+      "Dry Land",
+      "Good Neighborhood",
+    ],
+    imageUrl:
+      "https://images.pexels.com/photos/2189688/pexels-photo-2189688.jpeg",
+    images: [
+      "https://images.pexels.com/photos/2189688/pexels-photo-2189688.jpeg",
+      "https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg",
+    ],
+    yearBuilt: undefined,
+    parking: undefined,
+    furnished: false,
+    dateAdded: "2024-01-03",
+    agent: {
+      name: "Surv. Sodiq Adegunwa Mayowa",
+      phone: "+234 8102 067 476",
+      email: "sodiq@dasayoncerealestate.com",
+    },
+  },
+  {
+    id: 6,
+    title: "5-Bedroom Detached House in Magodo",
+    type: "Residential",
+    status: "For Sale",
+    price: 180000000,
+    location: "Magodo, Lagos",
+    address: "Magodo Phase 2, Lagos",
+    bedrooms: 5,
+    bathrooms: 6,
+    size: "500 sqm",
+    description:
+      "A magnificent detached house in the prestigious Magodo area. Features include a large compound, modern amenities, and excellent security. Perfect for large families.",
+    features: [
+      "Large Compound",
+      "BQ Apartment",
+      "Swimming Pool",
+      "Generator House",
+      "Security House",
+      "Ample Parking",
+      "Modern Kitchen",
+      "Master Suite",
+      "Study Room",
+      "Family Lounge",
+    ],
+    imageUrl:
+      "https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg",
+    images: [
+      "https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg",
+      "https://images.pexels.com/photos/1396119/pexels-photo-1396119.jpeg",
+      "https://images.pexels.com/photos/1396118/pexels-photo-1396118.jpeg",
+    ],
+    yearBuilt: 2019,
+    parking: 6,
+    furnished: false,
+    dateAdded: "2024-01-01",
+    agent: {
+      name: "Realtor Ebenezer Ilupeju",
+      phone: "+234 8102 067 476",
+      email: "ebenezer@dasayoncerealestate.com",
+    },
+  },
+  {
+    id: 7,
+    title: "Luxury Penthouse in Ikoyi",
+    type: "Residential",
+    status: "For Rent",
+    price: 15000000,
+    location: "Ikoyi, Lagos",
+    address: "Banana Island, Ikoyi, Lagos",
+    bedrooms: 3,
+    bathrooms: 4,
+    size: "300 sqm",
+    description:
+      "An exclusive penthouse offering breathtaking views of Lagos lagoon. Features top-of-the-line finishes, private terrace, and access to premium amenities.",
+    features: [
+      "Lagoon View",
+      "Private Terrace",
+      "Jacuzzi",
+      "Walk-in Closets",
+      "Premium Finishes",
+      "Concierge Service",
+      "Private Elevator",
+      "Wine Cellar",
+      "Smart Home System",
+      "Valet Parking",
+    ],
+    imageUrl:
+      "https://images.pexels.com/photos/1571470/pexels-photo-1571470.jpeg",
+    images: [
+      "https://images.pexels.com/photos/1571470/pexels-photo-1571470.jpeg",
+      "https://images.pexels.com/photos/1571471/pexels-photo-1571471.jpeg",
+      "https://images.pexels.com/photos/1457845/pexels-photo-1457845.jpeg",
+    ],
+    yearBuilt: 2023,
+    parking: 3,
+    furnished: true,
+    dateAdded: "2023-12-28",
+    agent: {
+      name: "Mrs. Folusho Mogaji",
+      phone: "+234 706 425 8898",
+      email: "folusho@dasayoncerealestate.com",
+    },
+  },
+  {
+    id: 8,
+    title: "Office Space in Mainland Business District",
+    type: "Commercial",
+    status: "For Rent",
+    price: 5000000,
+    location: "Yaba, Lagos",
+    address: "Herbert Macaulay Way, Yaba, Lagos",
+    size: "200 sqm",
+    description:
+      "Modern office space in the heart of Lagos mainland business district. Perfect for startups and established businesses. Features modern amenities and excellent connectivity.",
+    features: [
+      "Open Plan Layout",
+      "Meeting Rooms",
+      "High-Speed Internet",
+      "Air Conditioning",
+      "Power Backup",
+      "Security System",
+      "Parking Spaces",
+      "Reception Area",
+      "Kitchenette",
+      "Flexible Terms",
+    ],
+    imageUrl:
+      "https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg",
+    images: [
+      "https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg",
+      "https://images.pexels.com/photos/1170412/pexels-photo-1170412.jpeg",
+      "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg",
+    ],
+    yearBuilt: 2021,
+    parking: 10,
+    furnished: true,
+    dateAdded: "2023-12-25",
+    agent: {
+      name: "Realtor Adekunle Alliu",
+      phone: "+234 706 425 8898",
+      email: "adekunle@dasayoncerealestate.com",
+    },
   },
 ];
 
