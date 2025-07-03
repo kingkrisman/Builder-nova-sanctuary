@@ -176,7 +176,7 @@ export function PageHeader({
                     variant={action.variant || "default"}
                     className={
                       action.variant === "outline"
-                        ? "border-white text-white hover:bg-white hover:text-black transition-colors duration-200 [&>*]:hover:text-black"
+                        ? "border-white bg-white text-black hover:bg-white/90 transition-colors duration-200"
                         : "bg-primary text-black hover:bg-primary/90"
                     }
                   >
@@ -192,7 +192,7 @@ export function PageHeader({
                     onClick={action.onClick}
                     className={
                       action.variant === "outline"
-                        ? "border-white text-white hover:bg-white hover:text-black transition-colors duration-200 [&>*]:hover:text-black"
+                        ? "border-white bg-white text-black hover:bg-white/90 transition-colors duration-200"
                         : "bg-primary text-black hover:bg-primary/90"
                     }
                   >
