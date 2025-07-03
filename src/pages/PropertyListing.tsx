@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { PropertyCard } from "@/components/PropertyCard";
 import { PropertyComparison } from "@/components/PropertyComparison";
@@ -30,6 +31,7 @@ import {
 import { ScrollAnimation } from "@/components/ScrollAnimation";
 
 export default function PropertyListing() {
+  const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState<string>("all");
   const [selectedStatus, setSelectedStatus] = useState<string>("all");
@@ -152,6 +154,17 @@ export default function PropertyListing() {
   const getComparisonProperties = () => {
     return properties.filter((p) => comparisonProperties.includes(p.id));
   };
+
+  // Handle URL parameters on mount
+  useEffect(() => {
+    const search = searchParams.get("search");
+    const type = searchParams.get("type");
+    const status = searchParams.get("status");
+
+    if (search) setSearchTerm(search);
+    if (type) setSelectedType(type);
+    if (status) setSelectedStatus(status);
+  }, [searchParams]);
 
   return (
     <Layout>
