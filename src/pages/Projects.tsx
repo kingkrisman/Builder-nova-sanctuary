@@ -21,18 +21,44 @@ export default function Projects() {
   return (
     <Layout>
       <ProjectsSEO />
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-6">Our Projects</h1>
-            <p className="text-xl text-muted-foreground">
-              Explore our portfolio of successful projects that showcase our
-              commitment to quality
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHeader
+        title={
+          <>
+            Our <span className="text-primary">Projects</span>
+          </>
+        }
+        subtitle="Excellence in Every Development"
+        description="Explore our impressive portfolio of completed projects that showcase our commitment to quality, innovation, and client satisfaction. From luxury residential estates to commercial complexes."
+        gradient="dark"
+        badge="Portfolio Showcase"
+        backgroundImage="https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg"
+        stats={[
+          {
+            label: "Projects Completed",
+            value: `${projects.length}+`,
+            icon: <Building className="h-5 w-5" />,
+          },
+          {
+            label: "Under Construction",
+            value: "12",
+            icon: <Hammer className="h-5 w-5" />,
+          },
+          {
+            label: "Awards Won",
+            value: "25+",
+            icon: <Award className="h-5 w-5" />,
+          },
+          {
+            label: "Success Rate",
+            value: "100%",
+            icon: <TrendingUp className="h-5 w-5" />,
+          },
+        ]}
+        action={{
+          label: "Start Your Project",
+          href: "/contact",
+        }}
+      />
 
       {/* Projects Filter */}
       <section className="py-16 bg-white">
