@@ -102,18 +102,18 @@ export function PropertyCard({ property, className }: PropertyCardProps) {
         </div>
 
         {/* Action buttons */}
-        <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="absolute top-2 right-2 flex gap-2 opacity-80 hover:opacity-100 transition-opacity">
           <Button
             size="icon"
             variant="secondary"
-            className="h-8 w-8 bg-white/90 hover:bg-white"
+            className="h-8 w-8 bg-white/90 hover:bg-white shadow-md"
           >
             <Heart className="h-4 w-4" />
           </Button>
           <Button
             size="icon"
             variant="secondary"
-            className="h-8 w-8 bg-white/90 hover:bg-white"
+            className="h-8 w-8 bg-white/90 hover:bg-white shadow-md"
           >
             <Share2 className="h-4 w-4" />
           </Button>
