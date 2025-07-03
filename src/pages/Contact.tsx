@@ -22,6 +22,7 @@ export default function Contact() {
         description="Our team of experts is here to answer your questions, provide consultations, and help you find the perfect real estate solution. Contact us today to start your journey."
         gradient="green"
         badge="Available 24/7"
+        backgroundImage="https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg"
         stats={[
           {
             label: "Response Time",

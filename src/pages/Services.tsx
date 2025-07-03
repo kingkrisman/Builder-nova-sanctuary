@@ -28,6 +28,7 @@ export default function Services() {
         description="From property development and construction to interior design and facility management, we offer end-to-end solutions tailored to your specific needs and aspirations."
         gradient="purple"
         badge="Full-Service Provider"
+        backgroundImage="https://images.pexels.com/photos/3182773/pexels-photo-3182773.jpeg"
         stats={[
           {
             label: "Service Categories",

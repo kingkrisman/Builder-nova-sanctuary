@@ -30,6 +30,7 @@ export default function Team() {
         description="Meet the dedicated professionals who drive our success. Our experienced team brings together decades of expertise in real estate development, construction, design, and management."
         gradient="blue"
         badge="Professional Excellence"
+        backgroundImage="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg"
         stats={[
           {
             label: "Team Members",
