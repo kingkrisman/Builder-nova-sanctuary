@@ -74,7 +74,7 @@ export function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="bg-transparent text-white border-white hover:bg-white hover:text-black"
+                className="bg-white/10 text-white border-white hover:bg-white hover:text-black backdrop-blur-sm transition-colors duration-200"
               >
                 <Link to="/about">
                   <Play className="mr-2 h-5 w-5" />
