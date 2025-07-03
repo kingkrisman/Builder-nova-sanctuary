@@ -22,13 +22,12 @@ export function PropertySearchWidget() {
 
   const handleSearch = () => {
     const params = new URLSearchParams();
-    if (location) params.set("location", location);
-    if (propertyType) params.set("type", propertyType);
-    if (priceRange) params.set("price", priceRange);
+    if (location) params.set("search", location);
+    if (propertyType && propertyType !== "") params.set("type", propertyType);
     if (searchType === "rent") params.set("status", "For Rent");
-    else params.set("status", "For Sale");
+    else if (searchType === "buy") params.set("status", "For Sale");
 
-    navigate(`/properties?${params.toString()}`);
+    navigate(`/properties${params.toString() ? "?" + params.toString() : ""}`);
   };
 
   const popularSearches = [
@@ -107,7 +106,7 @@ export function PropertySearchWidget() {
               <SelectItem value="0-25M">₦0 - ₦25M</SelectItem>
               <SelectItem value="25M-50M">₦25M - ₦50M</SelectItem>
               <SelectItem value="50M-100M">₦50M - ₦100M</SelectItem>
-              <SelectItem value="100M-200M">��100M - ₦200M</SelectItem>
+              <SelectItem value="100M-200M">₦100M - ₦200M</SelectItem>
               <SelectItem value="200M+">₦200M+</SelectItem>
             </SelectContent>
           </Select>
