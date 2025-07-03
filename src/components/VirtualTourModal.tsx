@@ -168,7 +168,7 @@ export function VirtualTourModal({
                 <Button
                   variant="secondary"
                   size="icon"
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white border-none h-12 w-12 rounded-full"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/80 hover:bg-black text-white border-2 border-white/20 h-12 w-12 rounded-full shadow-xl"
                   onClick={() =>
                     handleRoomChange(
                       currentRoom === 0 ? rooms.length - 1 : currentRoom - 1,
@@ -180,7 +180,7 @@ export function VirtualTourModal({
                 <Button
                   variant="secondary"
                   size="icon"
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white border-none h-12 w-12 rounded-full"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/80 hover:bg-black text-white border-2 border-white/20 h-12 w-12 rounded-full shadow-xl"
                   onClick={() =>
                     handleRoomChange(
                       currentRoom === rooms.length - 1 ? 0 : currentRoom + 1,
@@ -248,7 +248,7 @@ export function VirtualTourModal({
                 <Button
                   variant="secondary"
                   size="icon"
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white border-none h-12 w-12 rounded-full"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/80 hover:bg-black text-white border-2 border-white/20 h-12 w-12 rounded-full shadow-xl"
                   onClick={() =>
                     handleRoomChange(
                       currentRoom === 0 ? rooms.length - 1 : currentRoom - 1,
@@ -260,7 +260,7 @@ export function VirtualTourModal({
                 <Button
                   variant="secondary"
                   size="icon"
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white border-none h-12 w-12 rounded-full"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/80 hover:bg-black text-white border-2 border-white/20 h-12 w-12 rounded-full shadow-xl"
                   onClick={() =>
                     handleRoomChange(
                       currentRoom === rooms.length - 1 ? 0 : currentRoom + 1,
