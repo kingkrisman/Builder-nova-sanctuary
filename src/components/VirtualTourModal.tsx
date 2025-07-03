@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -46,6 +46,17 @@ export function VirtualTourModal({
     setCurrentRoom(index);
     setIsPlaying(false);
   };
+
+  // Auto-play walkthrough
+  useEffect(() => {
+    if (isPlaying && viewMode === "walkthrough") {
+      const interval = setInterval(() => {
+        setCurrentRoom((prev) => (prev + 1) % rooms.length);
+      }, 3000);
+
+      return () => clearInterval(interval);
+    }
+  }, [isPlaying, viewMode, rooms.length]);
 
   return (
     <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
@@ -143,26 +154,29 @@ export function VirtualTourModal({
                 />
 
                 {/* 360° Navigation Overlay */}
-                <div className="absolute inset-0 bg-black/20">
+                <div className="absolute inset-0 bg-black/10">
                   {/* Hotspots for navigation */}
-                  <div
-                    className="absolute top-1/3 left-1/4 w-4 h-4 bg-primary rounded-full cursor-pointer animate-pulse"
-                    onClick={() =>
-                      handleRoomChange((currentRoom + 1) % rooms.length)
-                    }
-                  ></div>
-                  <div
-                    className="absolute top-1/2 right-1/3 w-4 h-4 bg-primary rounded-full cursor-pointer animate-pulse"
-                    onClick={() =>
-                      handleRoomChange((currentRoom + 2) % rooms.length)
-                    }
-                  ></div>
-                  <div
-                    className="absolute bottom-1/3 left-1/2 w-4 h-4 bg-primary rounded-full cursor-pointer animate-pulse"
-                    onClick={() =>
-                      handleRoomChange((currentRoom + 3) % rooms.length)
-                    }
-                  ></div>
+                  {rooms.map((_, index) => {
+                    if (index === currentRoom) return null;
+                    const positions = [
+                      { top: "30%", left: "25%" },
+                      { top: "50%", right: "30%" },
+                      { bottom: "30%", left: "50%" },
+                    ];
+                    const position = positions[index % positions.length];
+
+                    return (
+                      <div
+                        key={index}
+                        className="absolute w-6 h-6 bg-primary rounded-full cursor-pointer animate-pulse flex items-center justify-center text-white text-xs font-bold hover:scale-110 transition-transform shadow-lg"
+                        style={position}
+                        onClick={() => handleRoomChange(index)}
+                        title={`Go to ${rooms[index].name}`}
+                      >
+                        {index + 1}
+                      </div>
+                    );
+                  })}
                 </div>
 
                 {/* Room Info Overlay */}
