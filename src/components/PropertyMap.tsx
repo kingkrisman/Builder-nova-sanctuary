@@ -101,11 +101,22 @@ export function PropertyMap({
         >
           {/* Property Markers */}
           {properties.map((property, index) => {
-            const coords = locationCoordinates[property.location] || {
-              lat: 6.5 + index * 0.1,
-              lng: 3.4 + index * 0.1,
-            };
             const isSelected = selectedProperty?.id === property.id;
+
+            // Better distribution of markers across the map
+            const positions = [
+              { left: "25%", top: "30%" },
+              { left: "45%", top: "25%" },
+              { left: "65%", top: "35%" },
+              { left: "35%", top: "50%" },
+              { left: "55%", top: "45%" },
+              { left: "75%", top: "55%" },
+              { left: "15%", top: "65%" },
+              { left: "50%", top: "70%" },
+            ];
+
+            const position =
+              positions[index % positions.length] || positions[0];
 
             return (
               <div
@@ -114,8 +125,8 @@ export function PropertyMap({
                   isSelected ? "scale-125 z-20" : "hover:scale-110 z-10"
                 }`}
                 style={{
-                  left: `${20 + (index % 4) * 20}%`,
-                  top: `${30 + Math.floor(index / 4) * 15}%`,
+                  left: position.left,
+                  top: position.top,
                 }}
                 onClick={() => onPropertySelect(property)}
               >
@@ -135,7 +146,7 @@ export function PropertyMap({
 
                   {/* Property Preview Card */}
                   {isSelected && (
-                    <div className="absolute top-10 left-1/2 transform -translate-x-1/2 w-64 bg-white rounded-lg shadow-xl border p-3 z-30">
+                    <div className="absolute top-10 left-1/2 transform -translate-x-1/2 w-64 bg-white rounded-lg shadow-xl border p-3 z-50">
                       <img
                         src={property.imageUrl}
                         alt={property.title}
