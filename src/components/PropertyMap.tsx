@@ -186,13 +186,25 @@ export function PropertyMap({
 
           {/* Map Controls */}
           <div className="absolute top-20 right-4 flex flex-col gap-2">
-            <Button variant="outline" size="icon" className="bg-white/90">
+            <Button
+              variant="outline"
+              size="icon"
+              className="bg-white/95 hover:bg-white border-gray-300 shadow-md"
+            >
               <ZoomIn className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" className="bg-white/90">
+            <Button
+              variant="outline"
+              size="icon"
+              className="bg-white/95 hover:bg-white border-gray-300 shadow-md"
+            >
               <ZoomOut className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" className="bg-white/90">
+            <Button
+              variant="outline"
+              size="icon"
+              className="bg-white/95 hover:bg-white border-gray-300 shadow-md"
+            >
               <Navigation className="h-4 w-4" />
             </Button>
           </div>
