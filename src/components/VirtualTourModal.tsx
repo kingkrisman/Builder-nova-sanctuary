@@ -78,100 +78,135 @@ export function VirtualTourModal({
 
         <CardContent className="p-0 h-full flex flex-col">
           {/* Tour Controls */}
-          <div className="bg-gray-900 text-white p-4 flex items-center justify-between">
-            <div className="flex items-center gap-4">
+          <div className="bg-gray-900 text-white p-4 flex items-center justify-between border-b">
+            <div className="flex items-center gap-3">
               <Button
-                variant={viewMode === "360" ? "default" : "outline"}
+                variant={viewMode === "360" ? "default" : "secondary"}
                 size="sm"
                 onClick={() => setViewMode("360")}
-                className="text-xs"
+                className={`${viewMode === "360" ? "bg-primary text-black" : "bg-gray-700 text-white hover:bg-gray-600"}`}
               >
-                <Eye className="h-3 w-3 mr-1" />
+                <Eye className="h-4 w-4 mr-2" />
                 360° View
               </Button>
               <Button
-                variant={viewMode === "walkthrough" ? "default" : "outline"}
+                variant={viewMode === "walkthrough" ? "default" : "secondary"}
                 size="sm"
                 onClick={() => setViewMode("walkthrough")}
-                className="text-xs"
+                className={`${viewMode === "walkthrough" ? "bg-primary text-black" : "bg-gray-700 text-white hover:bg-gray-600"}`}
               >
-                <Navigation className="h-3 w-3 mr-1" />
+                <Navigation className="h-4 w-4 mr-2" />
                 Walkthrough
               </Button>
               <Button
-                variant={viewMode === "3d" ? "default" : "outline"}
+                variant={viewMode === "3d" ? "default" : "secondary"}
                 size="sm"
                 onClick={() => setViewMode("3d")}
-                className="text-xs"
+                className={`${viewMode === "3d" ? "bg-primary text-black" : "bg-gray-700 text-white hover:bg-gray-600"}`}
               >
-                <Move3D className="h-3 w-3 mr-1" />
+                <Move3D className="h-4 w-4 mr-2" />
                 3D Model
               </Button>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <Button
-                variant="outline"
-                size="icon"
+                variant="secondary"
+                size="sm"
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="h-8 w-8"
+                className="bg-gray-700 text-white hover:bg-gray-600 px-3"
               >
                 {isPlaying ? (
-                  <Pause className="h-3 w-3" />
+                  <Pause className="h-4 w-4 mr-2" />
                 ) : (
-                  <Play className="h-3 w-3" />
+                  <Play className="h-4 w-4 mr-2" />
+                )}
+                {isPlaying ? "Pause" : "Play"}
+              </Button>
+              <Button
+                variant="secondary"
+                size="icon"
+                onClick={() => setIsMuted(!isMuted)}
+                className="bg-gray-700 text-white hover:bg-gray-600 h-9 w-9"
+              >
+                {isMuted ? (
+                  <VolumeX className="h-4 w-4" />
+                ) : (
+                  <Volume2 className="h-4 w-4" />
                 )}
               </Button>
               <Button
-                variant="outline"
+                variant="secondary"
                 size="icon"
-                onClick={() => setIsMuted(!isMuted)}
-                className="h-8 w-8"
+                className="bg-gray-700 text-white hover:bg-gray-600 h-9 w-9"
               >
-                {isMuted ? (
-                  <VolumeX className="h-3 w-3" />
-                ) : (
-                  <Volume2 className="h-3 w-3" />
-                )}
+                <RotateCcw className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="icon" className="h-8 w-8">
-                <RotateCcw className="h-3 w-3" />
-              </Button>
-              <Button variant="outline" size="icon" className="h-8 w-8">
-                <Maximize className="h-3 w-3" />
+              <Button
+                variant="secondary"
+                size="icon"
+                className="bg-gray-700 text-white hover:bg-gray-600 h-9 w-9"
+              >
+                <Maximize className="h-4 w-4" />
               </Button>
             </div>
           </div>
 
           {/* Main Tour Viewer */}
-          <div className="flex-1 relative bg-gray-100">
+          <div className="flex-1 relative bg-black min-h-[500px]">
             {viewMode === "360" && (
               <div className="relative w-full h-full">
                 <img
                   src={rooms[currentRoom].image}
                   alt={`${rooms[currentRoom].name} - 360° View`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain bg-black"
                 />
 
-                {/* 360° Navigation Overlay */}
-                <div className="absolute inset-0 bg-black/10">
-                  {/* Hotspots for navigation */}
-                  {rooms.map((_, index) => {
+                {/* Navigation Arrows */}
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white border-none h-12 w-12 rounded-full"
+                  onClick={() =>
+                    handleRoomChange(
+                      currentRoom === 0 ? rooms.length - 1 : currentRoom - 1,
+                    )
+                  }
+                >
+                  <ChevronLeft className="h-6 w-6" />
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white border-none h-12 w-12 rounded-full"
+                  onClick={() =>
+                    handleRoomChange(
+                      currentRoom === rooms.length - 1 ? 0 : currentRoom + 1,
+                    )
+                  }
+                >
+                  <ChevronRight className="h-6 w-6" />
+                </Button>
+
+                {/* Hotspots for navigation */}
+                <div className="absolute inset-0">
+                  {rooms.map((room, index) => {
                     if (index === currentRoom) return null;
                     const positions = [
-                      { top: "30%", left: "25%" },
-                      { top: "50%", right: "30%" },
-                      { bottom: "30%", left: "50%" },
+                      { top: "25%", left: "20%" },
+                      { top: "40%", right: "25%" },
+                      { bottom: "25%", left: "45%" },
+                      { top: "60%", left: "70%" },
                     ];
                     const position = positions[index % positions.length];
 
                     return (
                       <div
                         key={index}
-                        className="absolute w-6 h-6 bg-primary rounded-full cursor-pointer animate-pulse flex items-center justify-center text-white text-xs font-bold hover:scale-110 transition-transform shadow-lg"
+                        className="absolute w-8 h-8 bg-primary rounded-full cursor-pointer flex items-center justify-center text-black text-sm font-bold hover:scale-125 transition-all duration-200 shadow-xl border-2 border-white"
                         style={position}
                         onClick={() => handleRoomChange(index)}
-                        title={`Go to ${rooms[index].name}`}
+                        title={`Go to ${room.name}`}
                       >
                         {index + 1}
                       </div>
@@ -180,16 +215,21 @@ export function VirtualTourModal({
                 </div>
 
                 {/* Room Info Overlay */}
-                <div className="absolute top-4 left-4 bg-black/70 text-white p-3 rounded-lg">
-                  <h3 className="font-semibold">{rooms[currentRoom].name}</h3>
-                  <p className="text-sm opacity-90">
-                    Click yellow dots to navigate
+                <div className="absolute top-4 left-4 bg-black/80 text-white p-4 rounded-lg backdrop-blur-sm border border-gray-600">
+                  <h3 className="font-bold text-lg text-primary">
+                    {rooms[currentRoom].name}
+                  </h3>
+                  <p className="text-sm text-gray-300">
+                    Click numbered dots to navigate
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    Room {currentRoom + 1} of {rooms.length}
                   </p>
                 </div>
 
                 {/* Virtual Compass */}
-                <div className="absolute top-4 right-4 w-16 h-16 bg-black/70 rounded-full flex items-center justify-center text-white">
-                  <Navigation className="h-6 w-6" />
+                <div className="absolute top-4 right-4 w-16 h-16 bg-black/80 rounded-full flex items-center justify-center text-white border border-gray-600">
+                  <Navigation className="h-6 w-6 text-primary" />
                 </div>
               </div>
             )}
@@ -199,36 +239,90 @@ export function VirtualTourModal({
                 <img
                   src={rooms[currentRoom].image}
                   alt={`${rooms[currentRoom].name} - Walkthrough`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain bg-black"
                 />
 
+                {/* Navigation Arrows */}
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white border-none h-12 w-12 rounded-full"
+                  onClick={() =>
+                    handleRoomChange(
+                      currentRoom === 0 ? rooms.length - 1 : currentRoom - 1,
+                    )
+                  }
+                >
+                  <ChevronLeft className="h-6 w-6" />
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white border-none h-12 w-12 rounded-full"
+                  onClick={() =>
+                    handleRoomChange(
+                      currentRoom === rooms.length - 1 ? 0 : currentRoom + 1,
+                    )
+                  }
+                >
+                  <ChevronRight className="h-6 w-6" />
+                </Button>
+
                 {/* Walkthrough Progress */}
-                <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-black/70 text-white px-4 py-2 rounded-full text-sm">
-                    Room {currentRoom + 1} of {rooms.length}
+                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-black/80 text-white px-6 py-3 rounded-full border border-gray-600 backdrop-blur-sm">
+                    <span className="text-primary font-bold">
+                      {rooms[currentRoom].name}
+                    </span>
+                    <span className="text-gray-300 ml-2">•</span>
+                    <span className="text-gray-300 ml-2">
+                      Room {currentRoom + 1} of {rooms.length}
+                    </span>
                   </div>
                 </div>
 
                 {/* Auto-play indicator */}
                 {isPlaying && (
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-20 h-20 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Play className="h-6 w-6 text-primary" />
+                    </div>
                   </div>
                 )}
               </div>
             )}
 
             {viewMode === "3d" && (
-              <div className="relative w-full h-full bg-gradient-to-br from-blue-900 to-purple-900">
+              <div className="relative w-full h-full bg-gradient-to-br from-gray-900 to-black">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <Move3D className="h-16 w-16 mx-auto mb-4 text-primary" />
-                    <h3 className="text-2xl font-bold mb-2">3D Model View</h3>
-                    <p className="mb-4">Interactive 3D model coming soon</p>
-                    <div className="space-y-2 text-sm opacity-75">
-                      <p>• Rotate and zoom the property</p>
-                      <p>• Measure rooms and spaces</p>
-                      <p>• Virtual furniture placement</p>
+                  <div className="text-center text-white max-w-md">
+                    <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Move3D className="h-12 w-12 text-primary" />
+                    </div>
+                    <h3 className="text-3xl font-bold mb-4">3D Model View</h3>
+                    <p className="text-gray-300 mb-6 text-lg">
+                      Interactive 3D model coming soon
+                    </p>
+                    <div className="grid grid-cols-1 gap-3 text-left bg-black/40 p-6 rounded-lg border border-gray-700">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                        <span className="text-gray-300">
+                          Rotate and zoom the property
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                        <span className="text-gray-300">
+                          Measure rooms and spaces
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                        <span className="text-gray-300">
+                          Virtual furniture placement
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -237,39 +331,45 @@ export function VirtualTourModal({
           </div>
 
           {/* Room Navigation */}
-          <div className="bg-white border-t p-4">
-            <div className="flex items-center justify-between mb-3">
-              <h4 className="font-semibold">Room Navigation</h4>
-              <Badge variant="secondary">
+          <div className="bg-gray-100 border-t p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="font-bold text-lg">Room Navigation</h4>
+              <Badge className="bg-primary text-black text-sm px-3 py-1">
                 {currentRoom + 1} / {rooms.length}
               </Badge>
             </div>
 
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-4 gap-4">
               {rooms.map((room, index) => (
-                <div
+                <Button
                   key={index}
-                  className={`relative cursor-pointer rounded-lg overflow-hidden border-2 transition-all ${
+                  variant="outline"
+                  className={`relative h-20 p-0 border-2 transition-all ${
                     currentRoom === index
-                      ? "border-primary ring-2 ring-primary/20"
-                      : "border-gray-200 hover:border-gray-300"
+                      ? "border-primary ring-4 ring-primary/20 scale-105"
+                      : "border-gray-300 hover:border-primary hover:scale-102"
                   }`}
                   onClick={() => handleRoomChange(index)}
                 >
-                  <img
-                    src={room.image}
-                    alt={room.name}
-                    className="w-full h-16 object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <span className="text-white text-xs font-medium text-center px-2">
-                      {room.name}
-                    </span>
+                  <div className="relative w-full h-full rounded-md overflow-hidden">
+                    <img
+                      src={room.image}
+                      alt={room.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                      <span className="text-white text-sm font-bold text-center px-2">
+                        {room.name}
+                      </span>
+                    </div>
+                    {currentRoom === index && (
+                      <div className="absolute top-2 right-2 w-4 h-4 bg-primary rounded-full border-2 border-white"></div>
+                    )}
+                    <div className="absolute bottom-1 left-1 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-black text-xs font-bold">
+                      {index + 1}
+                    </div>
                   </div>
-                  {currentRoom === index && (
-                    <div className="absolute top-1 right-1 w-3 h-3 bg-primary rounded-full"></div>
-                  )}
-                </div>
+                </Button>
               ))}
             </div>
           </div>
