@@ -1,9 +1,11 @@
 import { Layout } from "@/components/layout/Layout";
 import { TeamSEO } from "@/components/RealEstateSEO";
+import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { TeamCard } from "@/components/TeamCard";
 import { leadershipTeam } from "@/lib/data";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Users, Briefcase, Award, Target } from "lucide-react";
 
 export default function Team() {
   const departments = [
@@ -18,18 +20,43 @@ export default function Team() {
   return (
     <Layout>
       <TeamSEO />
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-6">Our Leadership Team</h1>
-            <p className="text-xl text-muted-foreground">
-              Meet the professionals dedicated to delivering excellence in every
-              project
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHeader
+        title={
+          <>
+            Our <span className="text-primary">Leadership</span> Team
+          </>
+        }
+        subtitle="Excellence Through Expert Leadership"
+        description="Meet the dedicated professionals who drive our success. Our experienced team brings together decades of expertise in real estate development, construction, design, and management."
+        gradient="blue"
+        badge="Professional Excellence"
+        stats={[
+          {
+            label: "Team Members",
+            value: "50+",
+            icon: <Users className="h-5 w-5" />,
+          },
+          {
+            label: "Departments",
+            value: "6",
+            icon: <Briefcase className="h-5 w-5" />,
+          },
+          {
+            label: "Certifications",
+            value: "100+",
+            icon: <Award className="h-5 w-5" />,
+          },
+          {
+            label: "Experience",
+            value: "200+ Years",
+            icon: <Target className="h-5 w-5" />,
+          },
+        ]}
+        action={{
+          label: "Join Our Team",
+          href: "/careers",
+        }}
+      />
 
       {/* Team Overview */}
       <section className="py-16 bg-white">
@@ -207,7 +234,6 @@ export default function Team() {
                 <span>Sales and Marketing</span>
               </li>
             </ul>
-          
           </div>
         </div>
       </section>
