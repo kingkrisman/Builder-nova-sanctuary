@@ -1,27 +1,55 @@
 import { Layout } from "@/components/layout/Layout";
 import { ContactSEO } from "@/components/RealEstateSEO";
+import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ContactForm } from "@/components/ContactForm";
 import { SimpleMap } from "@/components/SimpleMap";
 import { Card, CardContent } from "@/components/ui/card";
 import { contactInfo, socialMedia } from "@/lib/data";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
 export default function Contact() {
   return (
     <Layout>
       <ContactSEO />
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
-            <p className="text-xl text-muted-foreground">
-              Get in touch with our team for inquiries, quotes, or more
-              information
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHeader
+        title={
+          <>
+            Get In <span className="text-primary">Touch</span>
+          </>
+        }
+        subtitle="Ready to Transform Your Space?"
+        description="Our team of experts is here to answer your questions, provide consultations, and help you find the perfect real estate solution. Contact us today to start your journey."
+        gradient="green"
+        badge="Available 24/7"
+        stats={[
+          {
+            label: "Response Time",
+            value: "< 24hrs",
+            icon: <Clock className="h-5 w-5" />,
+          },
+          {
+            label: "Phone Support",
+            value: "24/7",
+            icon: <Phone className="h-5 w-5" />,
+          },
+          {
+            label: "Office Locations",
+            value: "15+",
+            icon: <MapPin className="h-5 w-5" />,
+          },
+          {
+            label: "Email Support",
+            value: "Instant",
+            icon: <Mail className="h-5 w-5" />,
+          },
+        ]}
+        action={{
+          label: "Call Now",
+          href: "tel:+2348102067476",
+          variant: "outline",
+        }}
+      />
 
       {/* Contact Information & Form */}
       <section className="py-16 bg-white">
