@@ -33,8 +33,6 @@ export function VirtualTourModal({
   const [currentRoom, setCurrentRoom] = useState(0);
   const [viewMode, setViewMode] = useState<"360" | "walkthrough" | "3d">("360");
 
-  if (!isOpen) return null;
-
   const rooms = [
     { name: "Living Room", image: property.images[0] || property.imageUrl },
     { name: "Kitchen", image: property.images[1] || property.imageUrl },
@@ -47,16 +45,18 @@ export function VirtualTourModal({
     setIsPlaying(false);
   };
 
-  // Auto-play walkthrough
+  // Auto-play walkthrough - moved before early return
   useEffect(() => {
-    if (isPlaying && viewMode === "walkthrough") {
+    if (isPlaying && viewMode === "walkthrough" && isOpen) {
       const interval = setInterval(() => {
         setCurrentRoom((prev) => (prev + 1) % rooms.length);
       }, 3000);
 
       return () => clearInterval(interval);
     }
-  }, [isPlaying, viewMode, rooms.length]);
+  }, [isPlaying, viewMode, rooms.length, isOpen]);
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
