@@ -506,10 +506,13 @@ export default function PropertyListing() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-black"
+                className="bg-white/10 border-white text-white hover:bg-white hover:text-black backdrop-blur-sm transition-colors duration-200"
               >
                 Request{" "}
-                <span style={{ color: "rgb(43, 43, 43)" }}>Custom </span>Search
+                <span className="text-gray-300 group-hover:text-black transition-colors">
+                  Custom{" "}
+                </span>
+                Search
               </Button>
             </div>
           </ScrollAnimation>
