@@ -18,6 +18,8 @@ import {
   Mail,
   Heart,
   Share2,
+  Camera,
+  Eye,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -82,13 +84,21 @@ export function PropertyCard({ property, className }: PropertyCardProps) {
         </AspectRatio>
 
         {/* Status and Type Badges */}
-        <div className="absolute top-2 left-2 flex gap-2">
-          <Badge className={`text-white ${getStatusColor(property.status)}`}>
-            {property.status}
-          </Badge>
-          <Badge variant="secondary" className={getTypeColor(property.type)}>
-            {property.type}
-          </Badge>
+        <div className="absolute top-2 left-2 flex flex-col gap-2">
+          <div className="flex gap-2">
+            <Badge className={`text-white ${getStatusColor(property.status)}`}>
+              {property.status}
+            </Badge>
+            <Badge variant="secondary" className={getTypeColor(property.type)}>
+              {property.type}
+            </Badge>
+          </div>
+          {property.images.length > 1 && (
+            <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs">
+              <Camera className="h-3 w-3 mr-1" />
+              Virtual Tour
+            </Badge>
+          )}
         </div>
 
         {/* Action buttons */}

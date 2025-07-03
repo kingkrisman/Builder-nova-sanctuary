@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Separator } from "@/components/ui/separator";
 import { properties } from "@/lib/data";
+import { VirtualTourModal } from "@/components/VirtualTourModal";
+import { PropertyRecommendations } from "@/components/PropertyRecommendations";
 import {
   MapPin,
   Bed,
@@ -25,6 +27,9 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
+  Camera,
+  Scale,
+  Sparkles,
 } from "lucide-react";
 import { ScrollAnimation } from "@/components/ScrollAnimation";
 
@@ -34,6 +39,7 @@ export default function PropertyDetails() {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showImageModal, setShowImageModal] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
+  const [showVirtualTour, setShowVirtualTour] = useState(false);
 
   const property = properties.find((p) => p.id === parseInt(id || "0"));
 
@@ -163,6 +169,14 @@ export default function PropertyDetails() {
               </Button>
               <Button variant="outline" size="icon">
                 <Share2 className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setShowVirtualTour(true)}
+                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-none hover:from-purple-600 hover:to-pink-600"
+              >
+                <Camera className="h-4 w-4 mr-2" />
+                Virtual Tour
               </Button>
               <Button className="bg-primary text-black hover:bg-primary/90">
                 Contact Agent
@@ -480,6 +494,40 @@ export default function PropertyDetails() {
           </div>
         </div>
       </section>
+
+      {/* Similar Properties Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <ScrollAnimation animation="animate-fade-up">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold flex items-center gap-2">
+                <Sparkles className="h-6 w-6 text-primary" />
+                Similar Properties
+              </h2>
+              <Button variant="outline" asChild>
+                <Link to="/properties">View All Properties</Link>
+              </Button>
+            </div>
+          </ScrollAnimation>
+
+          <PropertyRecommendations
+            userPreferences={{
+              budget: property.price * 1.3,
+              location: property.location.split(",")[0],
+              propertyType: property.type,
+              bedrooms: property.bedrooms,
+            }}
+            viewedProperties={[property.id]}
+          />
+        </div>
+      </section>
+
+      {/* Virtual Tour Modal */}
+      <VirtualTourModal
+        property={property}
+        isOpen={showVirtualTour}
+        onClose={() => setShowVirtualTour(false)}
+      />
 
       {/* Image Modal */}
       {showImageModal && (
