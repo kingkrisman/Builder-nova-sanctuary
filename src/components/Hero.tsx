@@ -7,7 +7,7 @@ import { PropertySearchWidget } from "@/components/PropertySearchWidget";
 import { Search, Play, TrendingUp, MapPin, Users, Award } from "lucide-react";
 
 export function Hero() {
-  const [showSearch, setShowSearch] = useState(true);
+  const [showSearch, setShowSearch] = useState(false);
 
   const stats = [
     { label: "Properties Sold", value: "500+", icon: TrendingUp },
