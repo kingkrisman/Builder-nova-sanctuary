@@ -1,10 +1,12 @@
 import { Layout } from "@/components/layout/Layout";
 import { ProjectsSEO } from "@/components/RealEstateSEO";
+import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProjectCard } from "@/components/ProjectCard";
 import { projects } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Building, Hammer, Award, TrendingUp } from "lucide-react";
 
 export default function Projects() {
   // For a real application, these would be more detailed categories
