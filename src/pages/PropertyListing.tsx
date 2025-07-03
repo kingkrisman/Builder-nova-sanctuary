@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { PropertyCard } from "@/components/PropertyCard";
 import { PropertyComparison } from "@/components/PropertyComparison";
+import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +28,9 @@ import {
   X,
   Scale,
   Plus,
+  Home,
+  TrendingUp,
+  DollarSign,
 } from "lucide-react";
 import { ScrollAnimation } from "@/components/ScrollAnimation";
 
@@ -168,23 +172,44 @@ export default function PropertyListing() {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="bg-black text-white py-20 mt-16">
-        <div className="container mx-auto px-4">
-          <ScrollAnimation animation="animate-fade-up">
-            <SectionHeading
-              title={
-                <>
-                  Property <span className="text-primary">Listings</span>
-                </>
-              }
-              subtitle="Discover your perfect property from our extensive portfolio of residential, commercial, and land properties across Nigeria."
-              centered
-              className="text-white"
-            />
-          </ScrollAnimation>
-        </div>
-      </section>
+      <PageHeader
+        title={
+          <>
+            Property <span className="text-primary">Listings</span>
+          </>
+        }
+        subtitle="Discover Your Perfect Property"
+        description="Explore our extensive portfolio of residential, commercial, and land properties across Nigeria. From luxury homes to investment opportunities, find exactly what you're looking for."
+        gradient="dark"
+        badge="Premium Properties"
+        stats={[
+          {
+            label: "Total Properties",
+            value: `${properties.length}+`,
+            icon: <Home className="h-5 w-5" />,
+          },
+          {
+            label: "Locations",
+            value: "15+",
+            icon: <MapPin className="h-5 w-5" />,
+          },
+          {
+            label: "Active Listings",
+            value: `${properties.filter((p) => p.status === "For Sale" || p.status === "For Rent").length}`,
+            icon: <TrendingUp className="h-5 w-5" />,
+          },
+          {
+            label: "Price Range",
+            value: "₦5M - ₦500M+",
+            icon: <DollarSign className="h-5 w-5" />,
+          },
+        ]}
+        action={{
+          label: "Schedule Viewing",
+          href: "/contact",
+          variant: "outline",
+        }}
+      />
 
       {/* Search and Filters */}
       <section className="py-8 bg-gray-50 border-b">
