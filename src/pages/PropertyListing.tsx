@@ -445,10 +445,10 @@ export default function PropertyListing() {
                           ? "default"
                           : "outline"
                       }
-                      className={`absolute top-2 right-14 h-8 w-8 ${
+                      className={`absolute top-2 right-14 h-8 w-8 shadow-md border ${
                         comparisonProperties.includes(property.id)
-                          ? "bg-primary text-black"
-                          : "bg-white/90 hover:bg-white"
+                          ? "bg-primary text-black border-primary"
+                          : "bg-white/95 hover:bg-white border-gray-300 hover:border-primary"
                       }`}
                       onClick={() =>
                         comparisonProperties.includes(property.id)
