@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { PropertyCard } from "@/components/PropertyCard";
+import { PropertyComparison } from "@/components/PropertyComparison";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +24,8 @@ import {
   List,
   SlidersHorizontal,
   X,
+  Scale,
+  Plus,
 } from "lucide-react";
 import { ScrollAnimation } from "@/components/ScrollAnimation";
 
@@ -37,6 +40,10 @@ export default function PropertyListing() {
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState<string>("newest");
+  const [comparisonProperties, setComparisonProperties] = useState<number[]>(
+    [],
+  );
+  const [showComparison, setShowComparison] = useState(false);
 
   // Get unique values for filter options
   const propertyTypes = [...new Set(properties.map((p) => p.type))];
@@ -127,6 +134,25 @@ export default function PropertyListing() {
     return `₦${(price / 1000).toFixed(0)}K`;
   };
 
+  const handleAddToComparison = (propertyId: number) => {
+    if (
+      comparisonProperties.length < 4 &&
+      !comparisonProperties.includes(propertyId)
+    ) {
+      setComparisonProperties([...comparisonProperties, propertyId]);
+    }
+  };
+
+  const handleRemoveFromComparison = (propertyId: number) => {
+    setComparisonProperties(
+      comparisonProperties.filter((id) => id !== propertyId),
+    );
+  };
+
+  const getComparisonProperties = () => {
+    return properties.filter((p) => comparisonProperties.includes(p.id));
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -190,6 +216,17 @@ export default function PropertyListing() {
                   <SelectItem value="price-high">Price: High to Low</SelectItem>
                 </SelectContent>
               </Select>
+
+              {/* Comparison Button */}
+              {comparisonProperties.length > 0 && (
+                <Button
+                  onClick={() => setShowComparison(true)}
+                  className="bg-primary text-black hover:bg-primary/90 relative"
+                >
+                  <Scale className="h-4 w-4 mr-2" />
+                  Compare ({comparisonProperties.length})
+                </Button>
+              )}
 
               {/* View Mode */}
               <div className="flex border rounded-md">
@@ -355,10 +392,43 @@ export default function PropertyListing() {
                   animation="animate-fade-up"
                   delay={100 * (index % 3)}
                 >
-                  <PropertyCard
-                    property={property}
-                    className={viewMode === "list" ? "md:flex md:flex-row" : ""}
-                  />
+                  <div className="relative">
+                    <PropertyCard
+                      property={property}
+                      className={
+                        viewMode === "list" ? "md:flex md:flex-row" : ""
+                      }
+                    />
+                    {/* Comparison Toggle */}
+                    <Button
+                      size="icon"
+                      variant={
+                        comparisonProperties.includes(property.id)
+                          ? "default"
+                          : "outline"
+                      }
+                      className={`absolute top-2 right-14 h-8 w-8 ${
+                        comparisonProperties.includes(property.id)
+                          ? "bg-primary text-black"
+                          : "bg-white/90 hover:bg-white"
+                      }`}
+                      onClick={() =>
+                        comparisonProperties.includes(property.id)
+                          ? handleRemoveFromComparison(property.id)
+                          : handleAddToComparison(property.id)
+                      }
+                      disabled={
+                        !comparisonProperties.includes(property.id) &&
+                        comparisonProperties.length >= 4
+                      }
+                    >
+                      {comparisonProperties.includes(property.id) ? (
+                        <X className="h-4 w-4" />
+                      ) : (
+                        <Plus className="h-4 w-4" />
+                      )}
+                    </Button>
+                  </div>
                 </ScrollAnimation>
               ))}
             </div>
@@ -407,6 +477,15 @@ export default function PropertyListing() {
           </ScrollAnimation>
         </div>
       </section>
+
+      {/* Property Comparison Modal */}
+      {showComparison && (
+        <PropertyComparison
+          properties={getComparisonProperties()}
+          onRemoveProperty={handleRemoveFromComparison}
+          onClose={() => setShowComparison(false)}
+        />
+      )}
     </Layout>
   );
 }
