@@ -1,27 +1,53 @@
 import { Layout } from "@/components/layout/Layout";
 import { AboutSEO } from "@/components/RealEstateSEO";
+import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 
 import { companyInfo, companyValues } from "@/lib/data";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Users, Award, Building, Target } from "lucide-react";
 
 export default function About() {
   return (
     <Layout>
       <AboutSEO />
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-6">
-              About Da'sayonce Real Estate
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              Transforming Spaces. Building Trust.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHeader
+        title={
+          <>
+            About <span className="text-primary">Da'sayonce</span> Real Estate
+          </>
+        }
+        subtitle="Transforming Spaces. Building Trust."
+        description="Over a decade of excellence in Nigerian real estate development, construction, and property management. We are committed to delivering exceptional solutions that reflect quality, value, and client aspirations."
+        gradient="blue"
+        badge="Established 2014"
+        backgroundImage="https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg"
+        stats={[
+          {
+            label: "Years Experience",
+            value: "10+",
+            icon: <Award className="h-5 w-5" />,
+          },
+          {
+            label: "Projects Completed",
+            value: "500+",
+            icon: <Building className="h-5 w-5" />,
+          },
+          {
+            label: "Happy Clients",
+            value: "1,200+",
+            icon: <Users className="h-5 w-5" />,
+          },
+          {
+            label: "Team Members",
+            value: "50+",
+            icon: <Target className="h-5 w-5" />,
+          },
+        ]}
+        action={{
+          label: "Meet Our Team",
+          href: "/team",
+        }}
+      />
 
       {/* CEO Welcome Message */}
       <section className="py-16 bg-white">
