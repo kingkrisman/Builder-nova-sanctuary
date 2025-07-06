@@ -26,32 +26,56 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
+function AppContent() {
+  const { isLoading, loadingMessage } = useLoading();
+  usePageLoading();
+
+  return (
+    <>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/careers/:id" element={<JobDetails />} />
-          <Route path="/properties" element={<PropertyListing />} />
-          <Route path="/properties/:id" element={<PropertyDetails />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/careers/:id" element={<JobDetails />} />
+        <Route path="/properties" element={<PropertyListing />} />
+        <Route path="/properties/:id" element={<PropertyDetails />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
       <Analytics />
       <SpeedInsights />
-    </TooltipProvider>
+
+      {/* Global Loading Overlay */}
+      {isLoading && (
+        <RealEstateLoader
+          isLoading={isLoading}
+          duration={3000}
+          showProgress={false}
+          fullScreen={true}
+          message={loadingMessage}
+        />
+      )}
+    </>
+  );
+}
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <LoadingProvider>
+      <TooltipProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </TooltipProvider>
+    </LoadingProvider>
   </QueryClientProvider>
 );
 
