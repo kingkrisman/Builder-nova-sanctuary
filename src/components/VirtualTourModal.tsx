@@ -1,3 +1,4 @@
+import { resizeImage } from "@/lib/image";
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -159,7 +160,7 @@ export function VirtualTourModal({
             {viewMode === "360" && (
               <div className="relative w-full h-full">
                 <img
-                  src={rooms[currentRoom].image}
+                  src={resizeImage(rooms[currentRoom].image, 1600)}
                   alt={`${rooms[currentRoom].name} - 360° View`}
                   className="w-full h-full object-contain bg-black"
                 />
@@ -239,7 +240,7 @@ export function VirtualTourModal({
             {viewMode === "walkthrough" && (
               <div className="relative w-full h-full">
                 <img
-                  src={rooms[currentRoom].image}
+                  src={resizeImage(rooms[currentRoom].image, 1600)}
                   alt={`${rooms[currentRoom].name} - Walkthrough`}
                   className="w-full h-full object-contain bg-black"
                 />
@@ -355,7 +356,7 @@ export function VirtualTourModal({
                 >
                   <div className="relative w-full h-full rounded-md overflow-hidden">
                     <img
-                      src={room.image}
+                      src={resizeImage(room.image, 320)}
                       alt={room.name}
                       className="w-full h-full object-cover"
                     />

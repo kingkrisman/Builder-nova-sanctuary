@@ -213,7 +213,7 @@ export function RealEstateLoader({
       </div>
 
       {/* Custom Animation Styles */}
-      <style jsx>{`
+      <style>{`
         @keyframes float {
           0%,
           100% {

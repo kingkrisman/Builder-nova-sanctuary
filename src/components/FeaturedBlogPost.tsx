@@ -1,58 +1,43 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { BlogPost } from "@/lib/data";
-import { CalendarDays, Clock, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { BlogPost } from "@/lib/data";
+import { SmartImage } from "@/components/SmartImage";
+import { formatPostDate } from "@/components/BlogCard";
 
-interface FeaturedBlogPostProps {
-  post: BlogPost;
-}
-
-export function FeaturedBlogPost({ post }: FeaturedBlogPostProps) {
-  const formattedDate = new Date(post.date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
+export function FeaturedBlogPost({ post }: { post: BlogPost }) {
   return (
-    <div className="relative overflow-hidden rounded-lg">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0">
-        <img
+    <Link
+      to={`/blog/${post.slug}`}
+      className="group relative block overflow-hidden rounded-3xl bg-black text-white"
+    >
+      <div className="aspect-[4/5] sm:aspect-[16/9] lg:aspect-[21/9]">
+        <SmartImage
           src={post.imageUrl}
           alt={post.title}
-          className="w-full h-full object-cover"
+          priority
+          sizes="100vw"
+          wrapperClassName="absolute inset-0 bg-neutral-800"
+          className="transition-transform duration-[1600ms] ease-out-expo group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40" />
       </div>
-
-      {/* Content */}
-      <div className="relative z-10 p-6 md:p-12 text-white">
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10" />
+      <div className="absolute inset-x-0 bottom-0 p-6 md:p-12">
         <div className="max-w-3xl">
-          <Badge className="bg-primary text-black font-medium mb-4">
+          <span className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-black">
             {post.category}
-          </Badge>
-
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">{post.title}</h2>
-
-          <div className="flex items-center gap-2 text-white/80 mb-6">
-            <CalendarDays className="w-4 h-4 text-primary" />
-            <span>{formattedDate}</span>
-            <span className="mx-1">•</span>
-            <Clock className="w-4 h-4 text-primary" />
+          </span>
+          <h2 className="mt-5 text-3xl font-bold leading-tight md:text-5xl">{post.title}</h2>
+          <p className="mt-4 hidden max-w-2xl text-lg text-white/75 md:block">{post.excerpt}</p>
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-white/70">
+            <span>{formatPostDate(post.date)}</span>
             <span>{post.readTime} min read</span>
+            <span className="inline-flex items-center gap-2 font-semibold text-white">
+              Read article
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </span>
           </div>
-
-          <p className="text-white/90 text-lg mb-8 max-w-2xl">{post.excerpt}</p>
-
-          <Button asChild className="bg-primary text-black hover:bg-primary/90">
-            <Link to={`/blog/${post.slug}`}>
-              Read Full Article <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

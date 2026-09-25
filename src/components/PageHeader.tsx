@@ -1,9 +1,9 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ScrollAnimation } from "@/components/ScrollAnimation";
-import { ArrowLeft, Home, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronRight, Home } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { resizeImage } from "@/lib/image";
 
 interface PageHeaderProps {
   title: string | ReactNode;
@@ -19,13 +19,12 @@ interface PageHeaderProps {
     onClick?: () => void;
     variant?: "default" | "outline" | "secondary";
   };
-  stats?: Array<{
-    label: string;
-    value: string;
-    icon?: ReactNode;
-  }>;
   className?: string;
 }
+
+// Same curve as the home hero so every page enters with the same feel.
+const EASE_OUT = [0.22, 1, 0.36, 1] as const;
+
 
 export function PageHeader({
   title,
@@ -36,10 +35,21 @@ export function PageHeader({
   badge,
   showBreadcrumb = true,
   action,
-  stats,
   className = "",
 }: PageHeaderProps) {
   const location = useLocation();
+  const reduceMotion = useReducedMotion();
+  const imageUrl = backgroundImage ? resizeImage(backgroundImage, 1920) : undefined;
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  // Preload so the photo fades in once decoded rather than painting in over black.
+  useEffect(() => {
+    if (!imageUrl) return;
+    setImageLoaded(false);
+    const img = new Image();
+    img.onload = img.onerror = () => setImageLoaded(true);
+    img.src = imageUrl;
+  }, [imageUrl]);
 
   const getGradientClasses = () => {
     switch (gradient) {
@@ -74,158 +84,167 @@ export function PageHeader({
 
   const breadcrumbs = showBreadcrumb ? getBreadcrumbs() : [];
 
+  const reveal = (delay: number) =>
+    reduceMotion
+      ? {
+          initial: { opacity: 0 },
+          animate: { opacity: 1 },
+          transition: { duration: 0.3 },
+        }
+      : {
+          initial: { opacity: 0, y: 24, filter: "blur(6px)" },
+          animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+          transition: { duration: 0.9, delay, ease: EASE_OUT },
+        };
+
   return (
     <section
-      className={`relative pt-20 pb-16 text-white overflow-hidden ${className}`}
-      style={
-        backgroundImage
-          ? {
-              backgroundImage: `url(${backgroundImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }
-          : {}
-      }
+      className={`relative isolate flex min-h-[26rem] flex-col overflow-hidden bg-black text-white md:min-h-[32rem] ${className}`}
     >
-      {/* Background Overlay */}
+      {/* Background: photo with the hero's slow settle, or a brand gradient */}
+      {imageUrl ? (
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-cover bg-center"
+          style={{ backgroundImage: `url(${imageUrl})` }}
+          initial={{ opacity: 0, scale: reduceMotion ? 1 : 1.1 }}
+          animate={
+            imageLoaded
+              ? { opacity: 1, scale: 1 }
+              : { opacity: 0, scale: reduceMotion ? 1 : 1.1 }
+          }
+          transition={{ duration: 2.4, ease: EASE_OUT }}
+        />
+      ) : (
+        <div
+          aria-hidden="true"
+          className={`absolute inset-0 -z-10 ${getGradientClasses()}`}
+        />
+      )}
+
+      {/* Legibility scrims, matching the home hero */}
       <div
-        className={`absolute inset-0 ${backgroundImage ? "bg-black/60" : getGradientClasses()}`}
-      ></div>
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/60 to-black/20"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-t from-black/80 to-transparent"
+      />
 
-      {/* Decorative Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Breadcrumb */}
+      <div className="container mx-auto flex w-full flex-1 flex-col justify-center px-4 py-14 md:py-20">
         {showBreadcrumb && breadcrumbs.length > 1 && (
-          <ScrollAnimation animation="animate-fade-up">
-            <nav className="mb-8">
-              <ol className="flex items-center space-x-2 text-sm">
-                {breadcrumbs.map((crumb, index) => (
-                  <li key={crumb.href} className="flex items-center">
-                    {index > 0 && (
-                      <ChevronRight className="h-4 w-4 text-gray-400 mx-2" />
-                    )}
-                    {index === 0 && <Home className="h-4 w-4 mr-2" />}
-                    {index === breadcrumbs.length - 1 ? (
-                      <span className="text-primary font-medium">
-                        {crumb.label}
-                      </span>
-                    ) : (
-                      <Link
-                        to={crumb.href}
-                        className="text-gray-300 hover:text-white transition-colors"
-                      >
-                        {crumb.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ol>
-            </nav>
-          </ScrollAnimation>
+          <motion.nav {...reveal(0)} aria-label="Breadcrumb" className="mb-8">
+            <ol className="flex flex-wrap items-center gap-y-1 text-sm">
+              {breadcrumbs.map((crumb, index) => (
+                <li key={crumb.href} className="flex items-center">
+                  {index > 0 && (
+                    <ChevronRight className="mx-2 h-4 w-4 text-white/40" />
+                  )}
+                  {index === 0 && <Home className="mr-2 h-4 w-4" />}
+                  {index === breadcrumbs.length - 1 ? (
+                    <span
+                      aria-current="page"
+                      className="font-medium text-primary"
+                    >
+                      {crumb.label}
+                    </span>
+                  ) : (
+                    <Link
+                      to={crumb.href}
+                      className="text-white/70 transition-colors hover:text-white"
+                    >
+                      {crumb.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </motion.nav>
         )}
 
-        <div className="max-w-4xl">
-          {/* Badge */}
+        <div className="max-w-3xl">
           {badge && (
-            <ScrollAnimation animation="animate-fade-up" delay={100}>
-              <Badge className="bg-primary/20 text-primary border-primary mb-6 text-sm px-4 py-2">
+            <motion.div
+              {...reveal(0.1)}
+              className="mb-6 flex items-center gap-3"
+            >
+              <span className="h-px w-10 bg-primary" />
+              <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
                 {badge}
-              </Badge>
-            </ScrollAnimation>
+              </span>
+            </motion.div>
           )}
 
-          {/* Title */}
-          <ScrollAnimation animation="animate-fade-up" delay={200}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          {/* Title rises out of a mask, like the home headline */}
+          <h1 className="overflow-hidden pb-1 text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
+            <motion.span
+              className="block"
+              initial={reduceMotion ? { opacity: 0 } : { y: "105%" }}
+              animate={reduceMotion ? { opacity: 1 } : { y: "0%" }}
+              transition={{
+                duration: reduceMotion ? 0.3 : 0.9,
+                delay: 0.2,
+                ease: EASE_OUT,
+              }}
+            >
               {title}
-            </h1>
-          </ScrollAnimation>
+            </motion.span>
+          </h1>
 
-          {/* Subtitle */}
           {subtitle && (
-            <ScrollAnimation animation="animate-fade-up" delay={300}>
-              <div className="text-xl md:text-2xl text-gray-200 mb-6 max-w-3xl">
-                {subtitle}
-              </div>
-            </ScrollAnimation>
+            <motion.div
+              {...reveal(0.4)}
+              className="mt-5 text-xl text-white/85 md:text-2xl"
+            >
+              {subtitle}
+            </motion.div>
           )}
 
-          {/* Description */}
           {description && (
-            <ScrollAnimation animation="animate-fade-up" delay={400}>
-              <p className="text-lg text-gray-300 mb-8 max-w-2xl leading-relaxed">
-                {description}
-              </p>
-            </ScrollAnimation>
+            <motion.p
+              {...reveal(0.5)}
+              className="mt-4 max-w-2xl text-lg leading-relaxed text-white/75"
+            >
+              {description}
+            </motion.p>
           )}
 
-          {/* Action Button */}
           {action && (
-            <ScrollAnimation animation="animate-fade-up" delay={500}>
-              <div className="mb-8">
-                {action.href ? (
-                  <Button
-                    asChild
-                    size="lg"
-                    variant={action.variant || "default"}
-                    className={
-                      action.variant === "outline"
-                        ? "border-white bg-white text-black hover:bg-white/90 transition-colors duration-200"
-                        : "bg-primary text-black hover:bg-primary/90"
-                    }
-                  >
-                    <Link to={action.href}>
-                      {action.label}
-                      <ArrowLeft className="ml-2 h-5 w-5 rotate-180" />
-                    </Link>
-                  </Button>
-                ) : (
-                  <Button
-                    size="lg"
-                    variant={action.variant || "default"}
-                    onClick={action.onClick}
-                    className={
-                      action.variant === "outline"
-                        ? "border-white bg-white text-black hover:bg-white/90 transition-colors duration-200"
-                        : "bg-primary text-black hover:bg-primary/90"
-                    }
-                  >
+            <motion.div {...reveal(0.6)} className="mt-8">
+              <Button
+                asChild={!!action.href}
+                size="lg"
+                onClick={action.href ? undefined : action.onClick}
+                className={
+                  action.variant === "outline"
+                    ? "group h-14 border border-white/40 bg-white/5 px-8 text-base text-white backdrop-blur-md transition-[background-color,color,transform] duration-200 hover:bg-white hover:text-black active:scale-[0.97]"
+                    : "group h-14 bg-primary px-8 text-base text-black transition-transform duration-150 hover:bg-primary/90 active:scale-[0.97]"
+                }
+              >
+                {action.href && /^(tel|mailto|https?):/.test(action.href) ? (
+                  // External and phone/email links can't go through the router
+                  <a href={action.href}>
                     {action.label}
-                    <ArrowLeft className="ml-2 h-5 w-5 rotate-180" />
-                  </Button>
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                  </a>
+                ) : action.href ? (
+                  <Link to={action.href}>
+                    {action.label}
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                  </Link>
+                ) : (
+                  <>
+                    {action.label}
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                  </>
                 )}
-              </div>
-            </ScrollAnimation>
-          )}
-
-          {/* Stats */}
-          {stats && stats.length > 0 && (
-            <ScrollAnimation animation="animate-fade-up" delay={600}>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center">
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                      {stat.icon && (
-                        <div className="text-primary mb-2 flex justify-center">
-                          {stat.icon}
-                        </div>
-                      )}
-                      <div className="text-2xl font-bold">{stat.value}</div>
-                      <div className="text-sm text-gray-300">{stat.label}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </ScrollAnimation>
+              </Button>
+            </motion.div>
           )}
         </div>
       </div>
+
     </section>
   );
 }

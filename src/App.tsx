@@ -1,68 +1,119 @@
+import { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AnimatePresence, motion } from "framer-motion";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Loader2 } from "lucide-react";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import { RealEstateLoader } from "./components/RealEstateLoader";
 import { useLoading } from "./contexts/LoadingContext";
 import { usePageLoading } from "./hooks/usePageLoading";
-import ScrollToTop from "./components/ScrollToTop";
+import { PageTransition } from "./components/motion/PageTransition";
 import Home from "./pages/Home";
-import About from "./pages/About";
-import Services from "./pages/Services";
-import Projects from "./pages/Projects";
-import Team from "./pages/Team";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import Careers from "./pages/Careers";
-import JobDetails from "./pages/JobDetails";
-import Contact from "./pages/Contact";
-import PropertyListing from "./pages/PropertyListing";
-import PropertyDetails from "./pages/PropertyDetails";
-import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+// Every page except Home is split into its own chunk and fetched on demand
+const pages = {
+  about: () => import("./pages/About"),
+  services: () => import("./pages/Services"),
+  projects: () => import("./pages/Projects"),
+  team: () => import("./pages/Team"),
+  blog: () => import("./pages/Blog"),
+  blogPost: () => import("./pages/BlogPost"),
+  careers: () => import("./pages/Careers"),
+  jobDetails: () => import("./pages/JobDetails"),
+  contact: () => import("./pages/Contact"),
+  propertyListing: () => import("./pages/PropertyListing"),
+  propertyDetails: () => import("./pages/PropertyDetails"),
+  notFound: () => import("./pages/NotFound"),
+};
 
-function AppContent() {
+const About = lazy(pages.about);
+const Services = lazy(pages.services);
+const Projects = lazy(pages.projects);
+const Team = lazy(pages.team);
+const Blog = lazy(pages.blog);
+const BlogPost = lazy(pages.blogPost);
+const Careers = lazy(pages.careers);
+const JobDetails = lazy(pages.jobDetails);
+const Contact = lazy(pages.contact);
+const PropertyListing = lazy(pages.propertyListing);
+const PropertyDetails = lazy(pages.propertyDetails);
+const NotFound = lazy(pages.notFound);
+const AdminApp = lazy(() => import("./admin/AdminApp"));
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false, retry: 1 } },
+});
+
+function PageFallback() {
+  return <div className="min-h-screen bg-black" />;
+}
+
+function PublicSite() {
+  const location = useLocation();
   const { isLoading, loadingMessage } = useLoading();
   usePageLoading();
 
+  // Once the first page is up, quietly prefetch the rest so navigation never waits on a chunk
+  useEffect(() => {
+    const idle =
+      window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 2000));
+    const handle = idle(() => Object.values(pages).forEach((load) => load()));
+    return () => (window.cancelIdleCallback ?? window.clearTimeout)(handle);
+  }, []);
+
+  const page = (element: JSX.Element) => (
+    <PageTransition>
+      <Suspense fallback={<PageFallback />}>{element}</Suspense>
+    </PageTransition>
+  );
+
   return (
     <>
-      <Toaster />
-      <Sonner />
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<BlogPost />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/careers/:id" element={<JobDetails />} />
-        <Route path="/properties" element={<PropertyListing />} />
-        <Route path="/properties/:id" element={<PropertyDetails />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      {/* Scroll resets while the curtain covers the screen, so the jump is never seen */}
+      <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={page(<Home />)} />
+          <Route path="/about" element={page(<About />)} />
+          <Route path="/services" element={page(<Services />)} />
+          <Route path="/projects" element={page(<Projects />)} />
+          <Route path="/team" element={page(<Team />)} />
+          <Route path="/blog" element={page(<Blog />)} />
+          <Route path="/blog/:slug" element={page(<BlogPost />)} />
+          <Route path="/careers" element={page(<Careers />)} />
+          <Route path="/careers/:id" element={page(<JobDetails />)} />
+          <Route path="/properties" element={page(<PropertyListing />)} />
+          <Route path="/properties/:id" element={page(<PropertyDetails />)} />
+          <Route path="/contact" element={page(<Contact />)} />
+          <Route path="*" element={page(<NotFound />)} />
+        </Routes>
+      </AnimatePresence>
       <Analytics />
       <SpeedInsights />
 
-      {/* Global Loading Overlay */}
-      {isLoading && (
-        <RealEstateLoader
-          isLoading={isLoading}
-          duration={3000}
-          showProgress={false}
-          fullScreen={true}
-          message={loadingMessage}
-        />
-      )}
+      {/* First-visit intro loader */}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            key="intro-loader"
+            className="fixed inset-0 z-[100]"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <RealEstateLoader
+              isLoading={isLoading}
+              duration={3000}
+              showProgress={false}
+              fullScreen={true}
+              message={loadingMessage}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
@@ -72,7 +123,25 @@ const App = () => (
     <LoadingProvider>
       <TooltipProvider>
         <BrowserRouter>
-          <AppContent />
+          <Toaster />
+          <Sonner richColors position="top-center" />
+          <Routes>
+            <Route
+              path="/admin/*"
+              element={
+                <Suspense
+                  fallback={
+                    <div className="flex min-h-screen items-center justify-center bg-neutral-950">
+                      <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                    </div>
+                  }
+                >
+                  <AdminApp />
+                </Suspense>
+              }
+            />
+            <Route path="*" element={<PublicSite />} />
+          </Routes>
         </BrowserRouter>
       </TooltipProvider>
     </LoadingProvider>

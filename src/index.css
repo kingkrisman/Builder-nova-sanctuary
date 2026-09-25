@@ -85,8 +85,55 @@
 }
 
 @layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
-    @apply text-foreground bg-background;
+    @apply text-foreground bg-background font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply tracking-tight;
+    text-wrap: balance;
+  }
+
+  /* Gold accent words in headings switch to an editorial serif italic.
+     Every page already marks them with .text-primary, so this upgrades them all at once. */
+  h1 .text-primary,
+  h2 .text-primary {
+    @apply font-serif font-normal italic;
+    letter-spacing: -0.01em;
+    padding-right: 0.06em;
+  }
+
+  ::selection {
+    @apply bg-primary text-black;
+  }
+}
+
+@layer utilities {
+  /* Sticks just under the navbar, following it as it hides and reappears */
+  .sticky-below-nav {
+    position: sticky;
+    top: var(--nav-offset, 80px);
+    transition: top 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.25em] text-primary;
+  }
+
+  /* Hide scrollbars on horizontal rails while keeping them scrollable */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -97,33 +144,38 @@
 }
 
 /* Animations */
+:root {
+  /* Strong ease-out: content arrives quickly and settles, instead of the sluggish default "ease" */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .animate-fade-up {
-  animation: fadeUp 0.8s ease forwards;
+  animation: fadeUp 0.7s var(--ease-out) forwards;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(16px);
 }
 
 .animate-fade-down {
-  animation: fadeDown 0.8s ease forwards;
+  animation: fadeDown 0.7s var(--ease-out) forwards;
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(-16px);
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.8s ease forwards;
+  animation: fadeIn 0.7s var(--ease-out) forwards;
   opacity: 0;
 }
 
 .animate-fade-left {
-  animation: fadeLeft 0.8s ease forwards;
+  animation: fadeLeft 0.7s var(--ease-out) forwards;
   opacity: 0;
-  transform: translateX(-20px);
+  transform: translateX(-16px);
 }
 
 .animate-fade-right {
-  animation: fadeRight 0.8s ease forwards;
+  animation: fadeRight 0.7s var(--ease-out) forwards;
   opacity: 0;
-  transform: translateX(20px);
+  transform: translateX(16px);
 }
 
 .animate-delay-100 {
@@ -177,5 +229,16 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-down,
+  .animate-fade-left,
+  .animate-fade-right {
+    animation-name: fadeIn;
+    animation-duration: 0.3s;
+    transform: none;
   }
 }

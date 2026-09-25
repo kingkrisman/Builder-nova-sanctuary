@@ -1,17 +1,15 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { hasSeenIntro } from "../contexts/LoadingContext";
 import { useResourceLoading } from "./useResourceLoading";
 
+// Runs the intro loader on the first page load of a session only; later navigations render instantly.
 export function usePageLoading() {
-  const location = useLocation();
   const { loadAllResources } = useResourceLoading();
+  const started = useRef(false);
 
   useEffect(() => {
-    // Small delay to let the new page render before checking resources
-    const timer = setTimeout(() => {
-      loadAllResources();
-    }, 50);
-
-    return () => clearTimeout(timer);
-  }, [location.pathname, loadAllResources]);
+    if (started.current || hasSeenIntro()) return;
+    started.current = true;
+    loadAllResources();
+  }, [loadAllResources]);
 }

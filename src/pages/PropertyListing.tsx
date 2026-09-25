@@ -1,13 +1,24 @@
-import { useState, useMemo, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  Grid3X3,
+  List,
+  MapPin,
+  Plus,
+  Scale,
+  Search,
+  SlidersHorizontal,
+  X,
+} from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
-import { PropertyCard } from "@/components/PropertyCard";
+import { PropertyCard, formatNaira } from "@/components/PropertyCard";
 import { PropertyComparison } from "@/components/PropertyComparison";
 import { PageHeader } from "@/components/PageHeader";
-import { SectionHeading } from "@/components/SectionHeading";
-import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/motion/Reveal";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Slider } from "@/components/ui/slider";
 import {
   Select,
   SelectContent,
@@ -15,160 +26,113 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Slider } from "@/components/ui/slider";
-import { properties } from "@/lib/data";
-import {
-  Search,
-  Filter,
-  MapPin,
-  Grid3X3,
-  List,
-  SlidersHorizontal,
-  X,
-  Scale,
-  Plus,
-  Home,
-  TrendingUp,
-  DollarSign,
-} from "lucide-react";
-import { ScrollAnimation } from "@/components/ScrollAnimation";
+import { useProperties } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
 export default function PropertyListing() {
+  const { data: properties = [], isLoading } = useProperties();
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedType, setSelectedType] = useState<string>("all");
-  const [selectedStatus, setSelectedStatus] = useState<string>("all");
-  const [selectedLocation, setSelectedLocation] = useState<string>("all");
-  const [priceRange, setPriceRange] = useState<[number, number]>([
-    0, 500000000,
-  ]);
+  const [selectedType, setSelectedType] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState("all");
+  const [selectedLocation, setSelectedLocation] = useState("all");
+  const maxPrice = useMemo(
+    () => Math.max(500_000_000, ...properties.map((p) => p.price)),
+    [properties],
+  );
+  const [priceRange, setPriceRange] = useState<[number, number] | null>(null);
+  const range = priceRange ?? [0, maxPrice];
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [sortBy, setSortBy] = useState<string>("newest");
-  const [comparisonProperties, setComparisonProperties] = useState<number[]>(
-    [],
-  );
+  const [sortBy, setSortBy] = useState("newest");
+  const [compareIds, setCompareIds] = useState<number[]>([]);
   const [showComparison, setShowComparison] = useState(false);
 
-  // Get unique values for filter options
+  // Pre-fill from the home page search widget
+  useEffect(() => {
+    const search = searchParams.get("search");
+    const type = searchParams.get("type");
+    const status = searchParams.get("status");
+    if (search) setSearchTerm(search);
+    if (type) setSelectedType(type);
+    if (status) setSelectedStatus(status);
+  }, [searchParams]);
+
   const propertyTypes = [...new Set(properties.map((p) => p.type))];
   const propertyStatuses = [...new Set(properties.map((p) => p.status))];
-  const locations = [...new Set(properties.map((p) => p.location))];
-  const maxPrice = Math.max(...properties.map((p) => p.price));
+  const locations = [...new Set(properties.map((p) => p.location))].sort();
 
-  // Filter and sort properties
-  const filteredProperties = useMemo(() => {
-    let filtered = properties.filter((property) => {
-      const matchesSearch =
-        property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        property.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        property.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-      const matchesType =
-        selectedType === "all" || property.type === selectedType;
-      const matchesStatus =
-        selectedStatus === "all" || property.status === selectedStatus;
-      const matchesLocation =
-        selectedLocation === "all" || property.location === selectedLocation;
-      const matchesPrice =
-        property.price >= priceRange[0] && property.price <= priceRange[1];
-
-      return (
-        matchesSearch &&
-        matchesType &&
-        matchesStatus &&
-        matchesLocation &&
-        matchesPrice
-      );
-    });
-
-    // Sort properties
+  const filtered = useMemo(() => {
+    const q = searchTerm.trim().toLowerCase();
+    const list = properties.filter(
+      (p) =>
+        (!q ||
+          p.title.toLowerCase().includes(q) ||
+          p.location.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q)) &&
+        (selectedType === "all" || p.type === selectedType) &&
+        (selectedStatus === "all" || p.status === selectedStatus) &&
+        (selectedLocation === "all" || p.location === selectedLocation) &&
+        p.price >= range[0] &&
+        p.price <= range[1],
+    );
+    const byDate = (a: string, b: string) => new Date(b).getTime() - new Date(a).getTime();
     switch (sortBy) {
       case "price-low":
-        filtered.sort((a, b) => a.price - b.price);
-        break;
+        return list.sort((a, b) => a.price - b.price);
       case "price-high":
-        filtered.sort((a, b) => b.price - a.price);
-        break;
-      case "newest":
-        filtered.sort(
-          (a, b) =>
-            new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
-        );
-        break;
+        return list.sort((a, b) => b.price - a.price);
       case "oldest":
-        filtered.sort(
-          (a, b) =>
-            new Date(a.dateAdded).getTime() - new Date(b.dateAdded).getTime(),
-        );
-        break;
+        return list.sort((a, b) => byDate(b.dateAdded, a.dateAdded));
       default:
-        break;
+        return list.sort((a, b) => byDate(a.dateAdded, b.dateAdded));
     }
-
-    return filtered;
-  }, [
-    searchTerm,
-    selectedType,
-    selectedStatus,
-    selectedLocation,
-    priceRange,
-    sortBy,
-  ]);
+  }, [properties, searchTerm, selectedType, selectedStatus, selectedLocation, range, sortBy]);
 
   const clearFilters = () => {
     setSearchTerm("");
     setSelectedType("all");
     setSelectedStatus("all");
     setSelectedLocation("all");
-    setPriceRange([0, maxPrice]);
+    setPriceRange(null);
   };
 
-  const activeFiltersCount = [
+  const activeFilters = [
     selectedType !== "all",
     selectedStatus !== "all",
     selectedLocation !== "all",
-    priceRange[0] > 0 || priceRange[1] < maxPrice,
+    range[0] > 0 || range[1] < maxPrice,
     searchTerm.length > 0,
   ].filter(Boolean).length;
 
-  const formatPrice = (price: number) => {
-    if (price >= 1000000) {
-      return `₦${(price / 1000000).toFixed(0)}M`;
-    }
-    return `₦${(price / 1000).toFixed(0)}K`;
-  };
-
-  const handleAddToComparison = (propertyId: number) => {
-    if (
-      comparisonProperties.length < 4 &&
-      !comparisonProperties.includes(propertyId)
-    ) {
-      setComparisonProperties([...comparisonProperties, propertyId]);
-    }
-  };
-
-  const handleRemoveFromComparison = (propertyId: number) => {
-    setComparisonProperties(
-      comparisonProperties.filter((id) => id !== propertyId),
+  const toggleCompare = (id: number) =>
+    setCompareIds((ids) =>
+      ids.includes(id) ? ids.filter((x) => x !== id) : ids.length < 4 ? [...ids, id] : ids,
     );
-  };
 
-  const getComparisonProperties = () => {
-    return properties.filter((p) => comparisonProperties.includes(p.id));
-  };
-
-  // Handle URL parameters on mount
-  useEffect(() => {
-    const search = searchParams.get("search");
-    const type = searchParams.get("type");
-    const status = searchParams.get("status");
-
-    if (search) setSearchTerm(search);
-    if (type) setSelectedType(type);
-    if (status) setSelectedStatus(status);
-  }, [searchParams]);
+  const filterSelect = (
+    label: string,
+    value: string,
+    onChange: (v: string) => void,
+    options: string[],
+  ) => (
+    <label className="space-y-2">
+      <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">{label}</span>
+      <Select value={value} onValueChange={onChange}>
+        <SelectTrigger className="h-11 rounded-xl bg-white">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">Any</SelectItem>
+          {options.map((o) => (
+            <SelectItem key={o} value={o}>
+              {o}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </label>
+  );
 
   return (
     <Layout>
@@ -179,351 +143,247 @@ export default function PropertyListing() {
           </>
         }
         subtitle="Discover Your Perfect Property"
-        description="Explore our extensive portfolio of residential, commercial, and land properties across Nigeria. From luxury homes to investment opportunities, find exactly what you're looking for."
-        gradient="dark"
+        description="Residential, commercial and land opportunities across Nigeria, from luxury homes to investment plots."
         badge="Premium Properties"
-        stats={[
-          {
-            label: "Total Properties",
-            value: `${properties.length}+`,
-            icon: <Home className="h-5 w-5" />,
-          },
-          {
-            label: "Locations",
-            value: "15+",
-            icon: <MapPin className="h-5 w-5" />,
-          },
-          {
-            label: "Active Listings",
-            value: `${properties.filter((p) => p.status === "For Sale" || p.status === "For Rent").length}`,
-            icon: <TrendingUp className="h-5 w-5" />,
-          },
-          {
-            label: "Price Range",
-            value: "₦5M - ₦500M+",
-            icon: <DollarSign className="h-5 w-5" />,
-          },
-        ]}
-        action={{
-          label: "Schedule Viewing",
-          href: "/contact",
-          variant: "outline",
-        }}
+        backgroundImage="https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg"
+        action={{ label: "Schedule a Viewing", href: "/contact", variant: "outline" }}
       />
 
-      {/* Search and Filters */}
-      <section className="py-8 bg-gray-50 border-b">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
-            {/* Search Bar */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+      {/* Sticky search & filter bar */}
+      <div className="sticky-below-nav z-30 border-b bg-white/85 backdrop-blur-xl">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
               <Input
-                placeholder="Search properties by title, location..."
+                placeholder="Search by title, area or keyword…"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="h-12 rounded-full border-neutral-200 bg-neutral-50 pl-11"
               />
             </div>
-
-            {/* Filter Controls */}
-            <div className="flex items-center gap-3 flex-wrap">
-              <Button
-                variant="outline"
-                onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2"
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowFilters((s) => !s)}
+                aria-expanded={showFilters}
+                className={cn(
+                  "inline-flex h-12 items-center gap-2 rounded-full border px-5 text-sm font-semibold transition-colors",
+                  showFilters ? "border-black bg-black text-white" : "hover:border-black",
+                )}
               >
                 <SlidersHorizontal className="h-4 w-4" />
                 Filters
-                {activeFiltersCount > 0 && (
-                  <Badge variant="secondary" className="ml-1">
-                    {activeFiltersCount}
-                  </Badge>
+                {activeFilters > 0 && (
+                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs text-black">
+                    {activeFilters}
+                  </span>
                 )}
-              </Button>
-
-              {/* Sort */}
+              </button>
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-40">
-                  <SelectValue placeholder="Sort by" />
+                <SelectTrigger className="h-12 flex-1 rounded-full md:w-44 md:flex-none">
+                  <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="newest">Newest First</SelectItem>
-                  <SelectItem value="oldest">Oldest First</SelectItem>
-                  <SelectItem value="price-low">Price: Low to High</SelectItem>
-                  <SelectItem value="price-high">Price: High to Low</SelectItem>
+                  <SelectItem value="newest">Newest first</SelectItem>
+                  <SelectItem value="oldest">Oldest first</SelectItem>
+                  <SelectItem value="price-low">Price: low to high</SelectItem>
+                  <SelectItem value="price-high">Price: high to low</SelectItem>
                 </SelectContent>
               </Select>
-
-              {/* Comparison Button */}
-              {comparisonProperties.length > 0 && (
-                <Button
-                  onClick={() => setShowComparison(true)}
-                  className="bg-primary text-black hover:bg-primary/90 relative"
-                >
-                  <Scale className="h-4 w-4 mr-2" />
-                  Compare ({comparisonProperties.length})
-                </Button>
-              )}
-
-              {/* View Mode */}
-              <div className="flex border rounded-md">
-                <Button
-                  variant={viewMode === "grid" ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setViewMode("grid")}
-                  className="rounded-r-none"
-                >
-                  <Grid3X3 className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={viewMode === "list" ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setViewMode("list")}
-                  className="rounded-l-none"
-                >
-                  <List className="h-4 w-4" />
-                </Button>
+              <div className="hidden h-12 rounded-full border p-1 md:flex">
+                {(["grid", "list"] as const).map((mode) => (
+                  <button
+                    key={mode}
+                    onClick={() => setViewMode(mode)}
+                    aria-label={`${mode} view`}
+                    aria-pressed={viewMode === mode}
+                    className={cn(
+                      "flex w-10 items-center justify-center rounded-full transition-colors",
+                      viewMode === mode ? "bg-black text-white" : "text-neutral-500 hover:text-black",
+                    )}
+                  >
+                    {mode === "grid" ? <Grid3X3 className="h-4 w-4" /> : <List className="h-4 w-4" />}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Expandable Filters */}
-          {showFilters && (
-            <Card className="mt-4">
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">Filters</CardTitle>
-                  <Button
-                    variant="ghost"
-                    size="sm"
+          <AnimatePresence initial={false}>
+            {showFilters && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="overflow-hidden"
+              >
+                <div className="grid gap-5 pb-2 pt-5 md:grid-cols-4">
+                  {filterSelect("Type", selectedType, setSelectedType, propertyTypes)}
+                  {filterSelect("Status", selectedStatus, setSelectedStatus, propertyStatuses)}
+                  {filterSelect("Location", selectedLocation, setSelectedLocation, locations)}
+                  <div className="space-y-4">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+                      Price: {formatNaira(range[0])} – {formatNaira(range[1])}
+                    </span>
+                    <Slider
+                      value={range}
+                      onValueChange={(v) => setPriceRange(v as [number, number])}
+                      max={maxPrice}
+                      step={1_000_000}
+                    />
+                  </div>
+                </div>
+                {activeFilters > 0 && (
+                  <button
                     onClick={clearFilters}
-                    className="text-muted-foreground"
+                    className="mb-2 mt-3 inline-flex items-center gap-1 text-sm font-medium text-neutral-500 hover:text-black"
                   >
-                    <X className="h-4 w-4 mr-1" />
-                    Clear All
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {/* Property Type */}
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      Property Type
-                    </label>
-                    <Select
-                      value={selectedType}
-                      onValueChange={setSelectedType}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="All Types" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Types</SelectItem>
-                        {propertyTypes.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Status */}
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      Status
-                    </label>
-                    <Select
-                      value={selectedStatus}
-                      onValueChange={setSelectedStatus}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="All Status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Status</SelectItem>
-                        {propertyStatuses.map((status) => (
-                          <SelectItem key={status} value={status}>
-                            {status}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Location */}
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      Location
-                    </label>
-                    <Select
-                      value={selectedLocation}
-                      onValueChange={setSelectedLocation}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="All Locations" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Locations</SelectItem>
-                        {locations.map((location) => (
-                          <SelectItem key={location} value={location}>
-                            {location}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                {/* Price Range */}
-                <div>
-                  <label className="text-sm font-medium mb-2 block">
-                    Price Range: {formatPrice(priceRange[0])} -{" "}
-                    {formatPrice(priceRange[1])}
-                  </label>
-                  <Slider
-                    value={priceRange}
-                    onValueChange={(value) =>
-                      setPriceRange(value as [number, number])
-                    }
-                    max={maxPrice}
-                    step={1000000}
-                    className="w-full"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          )}
+                    <X className="h-4 w-4" /> Clear all filters
+                  </button>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </section>
+      </div>
 
       {/* Results */}
-      <section className="py-12">
+      <section className="min-h-[60vh] bg-neutral-50 py-12 md:py-16">
         <div className="container mx-auto px-4">
-          {/* Results Header */}
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-2xl font-bold">
-                {filteredProperties.length} Propert
-                {filteredProperties.length === 1 ? "y" : "ies"} Found
-              </h2>
-              <p className="text-muted-foreground">
-                Showing results for your search criteria
-              </p>
-            </div>
-          </div>
-
-          {/* Properties Grid/List */}
-          {filteredProperties.length > 0 ? (
-            <div
-              className={
-                viewMode === "grid"
-                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                  : "space-y-6"
-              }
+          <p className="mb-8 text-neutral-500">
+            <motion.span
+              key={filtered.length}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-block text-2xl font-bold text-black"
             >
-              {filteredProperties.map((property, index) => (
-                <ScrollAnimation
-                  key={property.id}
-                  animation="animate-fade-up"
-                  delay={100 * (index % 3)}
-                >
-                  <div className="relative">
-                    <PropertyCard
-                      property={property}
-                      className={
-                        viewMode === "list" ? "md:flex md:flex-row" : ""
-                      }
-                    />
-                    {/* Comparison Toggle */}
-                    <Button
-                      size="icon"
-                      variant={
-                        comparisonProperties.includes(property.id)
-                          ? "default"
-                          : "outline"
-                      }
-                      className={`absolute top-2 right-14 h-8 w-8 shadow-md border ${
-                        comparisonProperties.includes(property.id)
-                          ? "bg-primary text-black border-primary"
-                          : "bg-white/95 hover:bg-white border-gray-300 hover:border-primary"
-                      }`}
-                      onClick={() =>
-                        comparisonProperties.includes(property.id)
-                          ? handleRemoveFromComparison(property.id)
-                          : handleAddToComparison(property.id)
-                      }
-                      disabled={
-                        !comparisonProperties.includes(property.id) &&
-                        comparisonProperties.length >= 4
-                      }
-                    >
-                      {comparisonProperties.includes(property.id) ? (
-                        <X className="h-4 w-4" />
-                      ) : (
-                        <Plus className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                </ScrollAnimation>
+              {isLoading ? "…" : filtered.length}
+            </motion.span>{" "}
+            {filtered.length === 1 ? "property" : "properties"} found
+          </p>
+
+          {isLoading ? (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Skeleton key={i} className="aspect-[4/5] rounded-2xl" />
               ))}
             </div>
+          ) : filtered.length > 0 ? (
+            <motion.div
+              layout
+              className={cn(
+                "grid gap-6",
+                viewMode === "grid" ? "md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1",
+              )}
+            >
+              <AnimatePresence mode="popLayout">
+                {filtered.map((property, i) => {
+                  const comparing = compareIds.includes(property.id);
+                  return (
+                    <motion.div
+                      key={property.id}
+                      layout
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: Math.min(i, 8) * 0.04 }}
+                    >
+                      <PropertyCard
+                        property={property}
+                        layout={viewMode}
+                        action={
+                          <button
+                            onClick={() => toggleCompare(property.id)}
+                            disabled={!comparing && compareIds.length >= 4}
+                            title={comparing ? "Remove from comparison" : "Add to comparison"}
+                            className={cn(
+                              "flex h-9 items-center gap-1.5 rounded-full px-3 text-xs font-semibold shadow-md backdrop-blur transition-colors disabled:opacity-40",
+                              comparing ? "bg-primary text-black" : "bg-white/90 text-black hover:bg-white",
+                            )}
+                          >
+                            {comparing ? <X className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                            Compare
+                          </button>
+                        }
+                      />
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </motion.div>
           ) : (
-            <div className="text-center py-12">
-              <MapPin className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-medium mb-2">No properties found</h3>
-              <p className="text-muted-foreground mb-4">
-                Try adjusting your search criteria or filters
-              </p>
-              <Button onClick={clearFilters} variant="outline">
-                Clear Filters
-              </Button>
+            <div className="py-20 text-center">
+              <MapPin className="mx-auto mb-4 h-12 w-12 text-neutral-300" />
+              <h3 className="text-xl font-semibold">No properties match</h3>
+              <p className="mt-2 text-neutral-500">Try widening your search or clearing a filter.</p>
+              <button
+                onClick={clearFilters}
+                className="mt-6 rounded-full border border-black px-6 py-3 font-semibold hover:bg-black hover:text-white"
+              >
+                Clear filters
+              </button>
             </div>
           )}
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-black text-white">
-        <div className="container mx-auto px-4 text-center">
-          <ScrollAnimation animation="animate-fade-up">
-            <h2 className="text-3xl font-bold mb-4">
-              Can't Find What You're Looking For?
-            </h2>
-            <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              Our property experts are here to help you find the perfect
-              property. Contact us for personalized assistance.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-primary text-black hover:bg-primary/90"
-              >
-                Contact Our Agents
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-white/10 border-white text-white hover:bg-white hover:text-black backdrop-blur-sm transition-colors duration-200"
-              >
-                Request{" "}
-                <span className="text-gray-300 group-hover:text-black transition-colors">
-                  Custom{" "}
-                </span>
-                Search
-              </Button>
-            </div>
-          </ScrollAnimation>
-        </div>
+      {/* Can't find it */}
+      <section className="bg-white py-24">
+        <Reveal className="container mx-auto max-w-3xl px-4 text-center">
+          <p className="eyebrow">Personal search</p>
+          <h2 className="mt-4 text-3xl font-bold md:text-5xl">
+            Can't find what you're <span className="text-primary">looking for?</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-neutral-600">
+            Tell us what you need and our agents will search our off-market network for you.
+          </p>
+          <Link
+            to="/contact"
+            className="mt-8 inline-flex rounded-full bg-black px-8 py-4 font-semibold text-white transition-transform hover:scale-[1.02]"
+          >
+            Talk to an agent
+          </Link>
+        </Reveal>
       </section>
 
-      {/* Property Comparison Modal */}
+      {/* Floating compare tray */}
+      <AnimatePresence>
+        {compareIds.length > 0 && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-0 bottom-6 z-40 flex justify-center px-4"
+          >
+            <div className="flex items-center gap-3 rounded-full bg-black py-2 pl-5 pr-2 text-white shadow-2xl">
+              <Scale className="h-4 w-4 text-primary" />
+              <span className="text-sm">
+                {compareIds.length} of 4 selected
+              </span>
+              <button
+                onClick={() => setCompareIds([])}
+                className="rounded-full px-3 py-2 text-sm text-white/60 hover:text-white"
+              >
+                Clear
+              </button>
+              <button
+                onClick={() => setShowComparison(true)}
+                disabled={compareIds.length < 2}
+                className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-black disabled:opacity-50"
+              >
+                Compare
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {showComparison && (
         <PropertyComparison
-          properties={getComparisonProperties()}
-          onRemoveProperty={handleRemoveFromComparison}
+          properties={properties.filter((p) => compareIds.includes(p.id))}
+          onRemoveProperty={(id) => setCompareIds((ids) => ids.filter((x) => x !== id))}
           onClose={() => setShowComparison(false)}
         />
       )}

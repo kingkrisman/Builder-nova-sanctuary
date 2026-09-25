@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { CareersSEO } from "@/components/RealEstateSEO";
+import { PageHeader } from "@/components/PageHeader";
+import { SmartImage } from "@/components/SmartImage";
 import { SectionHeading } from "@/components/SectionHeading";
 import { JobCard } from "@/components/JobCard";
 import { jobListings } from "@/lib/data";
@@ -41,18 +43,17 @@ export default function Careers() {
     <Layout>
       <CareersSEO />
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-6">Join Our Team</h1>
-            <p className="text-xl text-muted-foreground">
-              Build your career with Da'sayonce Real Estate and be part of
-              transforming Nigeria's property landscape
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHeader
+        title={
+          <>
+            Join <span className="text-primary">our team</span>
+          </>
+        }
+        subtitle="Build a career that shapes skylines."
+        description="Be part of transforming Nigeria's property landscape with a team that values growth, integrity and excellence."
+        badge="Careers"
+        backgroundImage="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg"
+      />
 
       {/* Why Join Us */}
       <section className="py-16 bg-white">
@@ -109,10 +110,11 @@ export default function Careers() {
 
             <ScrollAnimation animation="animate-fade-left">
               <div className="rounded-lg overflow-hidden shadow-lg h-full">
-                <img
+                <SmartImage
                   src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F1d77033fc36e46d4b147c3ce854efd1f"
                   alt="Da'sayonce Team"
-                  className="w-full h-full object-cover"
+                  wrapperClassName="h-full min-h-[320px] w-full"
+                  sizes="(min-width: 768px) 50vw, 100vw"
                 />
               </div>
             </ScrollAnimation>

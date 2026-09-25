@@ -1,180 +1,148 @@
-import { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useMemo } from "react";
+import { Link, Navigate, useParams } from "react-router-dom";
+import DOMPurify from "dompurify";
+import { toast } from "sonner";
+import { ArrowLeft, Link2 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { BlogPostSEO } from "@/components/RealEstateSEO";
-import { blogPosts } from "@/lib/data";
+import { BlogCard, formatPostDate } from "@/components/BlogCard";
+import { SmartImage } from "@/components/SmartImage";
+import { SectionHeading } from "@/components/SectionHeading";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { Parallax } from "@/components/motion/Pinned";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { BlogCard } from "@/components/BlogCard";
-import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ScrollAnimation } from "@/components/ScrollAnimation";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useBlogPosts } from "@/lib/content";
 import { getInitials } from "@/lib/utils";
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const navigate = useNavigate();
-  const [post, setPost] = useState(null);
-  const [relatedPosts, setRelatedPosts] = useState([]);
+  const { data: posts = [], isLoading } = useBlogPosts();
+  const post = posts.find((p) => p.slug === slug);
 
-  useEffect(() => {
-    // Find the current post
-    const currentPost = blogPosts.find((p) => p.slug === slug);
+  // Articles are written in the admin editor; sanitise before rendering as HTML
+  const html = useMemo(() => (post ? DOMPurify.sanitize(post.content) : ""), [post]);
 
-    if (!currentPost) {
-      // Redirect to blog page if post not found
-      navigate("/blog", { replace: true });
-      return;
-    }
+  const related = useMemo(() => {
+    if (!post) return [];
+    const same = posts.filter((p) => p.id !== post.id && p.category === post.category);
+    const others = posts.filter((p) => p.id !== post.id && p.category !== post.category);
+    return [...same, ...others].slice(0, 3);
+  }, [posts, post]);
 
-    setPost(currentPost);
-
-    // Find related posts (same category, excluding current post)
-    const related = blogPosts
-      .filter(
-        (p) => p.category === currentPost.category && p.id !== currentPost.id,
-      )
-      .slice(0, 3);
-
-    setRelatedPosts(related);
-  }, [slug, navigate]);
-
-  if (!post) {
-    return null; // Will redirect in useEffect
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="container mx-auto max-w-3xl space-y-6 px-4 py-24">
+          <Skeleton className="h-6 w-40" />
+          <Skeleton className="h-16 w-full" />
+          <Skeleton className="aspect-[16/9] w-full rounded-3xl" />
+        </div>
+      </Layout>
+    );
   }
+  if (!post) return <Navigate to="/blog" replace />;
 
-  const formattedDate = new Date(post.date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
-  const authorInitials = getInitials(post.author);
+  const copyLink = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    toast.success("Link copied");
+  };
 
   return (
     <Layout>
       <BlogPostSEO post={post} />
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <Button
-              variant="ghost"
-              size="sm"
-              asChild
-              className="mb-6 hover:bg-transparent"
+      <article>
+        <header className="bg-white pt-12 md:pt-20">
+          <div className="container mx-auto max-w-4xl px-4">
+            <Link
+              to="/blog"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-neutral-500 hover:text-black"
             >
-              <Link
-                to="/blog"
-                className="flex items-center gap-2 text-muted-foreground"
+              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              All articles
+            </Link>
+            <Reveal>
+              <p className="mt-10 text-sm font-semibold uppercase tracking-wider text-primary">
+                {post.category}
+              </p>
+              <h1 className="mt-4 text-4xl font-bold leading-[1.08] md:text-6xl">{post.title}</h1>
+              <p className="mt-6 max-w-2xl text-xl leading-relaxed text-neutral-600">{post.excerpt}</p>
+            </Reveal>
+            <Reveal delay={0.1} className="mt-10 flex flex-wrap items-center justify-between gap-6 border-y py-6">
+              <div className="flex items-center gap-4">
+                <Avatar className="h-12 w-12">
+                  <AvatarImage src={post.authorImageUrl} alt="" />
+                  <AvatarFallback className="bg-black text-primary">{getInitials(post.author)}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="font-semibold">{post.author}</p>
+                  <p className="text-sm text-neutral-500">
+                    {formatPostDate(post.date)} · {post.readTime} min read
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={copyLink}
+                className="inline-flex h-10 items-center gap-2 rounded-full border px-4 text-sm font-semibold hover:border-black"
               >
-                <ArrowLeft className="h-4 w-4" />
-                Back to Blog
-              </Link>
-            </Button>
-
-            <ScrollAnimation animation="animate-fade-up">
-              <h1 className="text-3xl md:text-4xl font-bold mb-6">
-                {post.title}
-              </h1>
-
-              <div className="flex flex-wrap items-center gap-4 text-muted-foreground mb-6">
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-primary" />
-                  <span>{formattedDate}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-primary" />
-                  <span>{post.readTime} min read</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Tag className="h-4 w-4 text-primary" />
-                  <span>{post.category}</span>
-                </div>
-              </div>
-            </ScrollAnimation>
+                <Link2 className="h-4 w-4" /> Copy link
+              </button>
+            </Reveal>
           </div>
-        </div>
-      </section>
+        </header>
 
-      {/* Featured Image */}
-      <section className="py-8 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <ScrollAnimation animation="animate-fade-up">
-              <div className="rounded-lg overflow-hidden">
-                <img
-                  src={post.imageUrl}
-                  alt={post.title}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-            </ScrollAnimation>
+        {post.imageUrl && (
+          <div className="bg-white py-12">
+            <div className="container mx-auto max-w-6xl px-4">
+              <Reveal variant="clip">
+                <Parallax offset={40} className="aspect-[16/9] rounded-3xl">
+                  <SmartImage src={post.imageUrl} alt={post.title} priority sizes="100vw" wrapperClassName="h-full w-full" />
+                </Parallax>
+              </Reveal>
+            </div>
           </div>
-        </div>
-      </section>
+        )}
 
-      {/* Article Content */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <ScrollAnimation animation="animate-fade-up">
+        <div className="bg-white pb-24">
+          <div className="container mx-auto max-w-3xl px-4">
+            <Reveal>
               <div
-                className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: post.content }}
+                className="prose prose-lg prose-neutral max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-h2:mt-12 prose-a:decoration-primary prose-a:decoration-2 prose-a:underline-offset-4 prose-blockquote:border-primary prose-blockquote:font-serif prose-blockquote:text-2xl prose-blockquote:font-normal prose-blockquote:italic prose-img:rounded-2xl"
+                dangerouslySetInnerHTML={{ __html: html }}
               />
-
-              {/* Tags */}
-              <div className="mt-12 flex flex-wrap gap-2">
+            </Reveal>
+            {post.tags.length > 0 && (
+              <div className="mt-14 flex flex-wrap gap-2 border-t pt-8">
                 {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="bg-slate-100 text-slate-800 px-3 py-1 rounded-full text-sm"
-                  >
-                    {tag}
+                  <span key={tag} className="rounded-full bg-neutral-100 px-4 py-1.5 text-sm">
+                    #{tag}
                   </span>
                 ))}
               </div>
-
-              {/* Author */}
-              <div className="mt-12 pt-8 border-t">
-                <div className="flex items-center gap-4">
-                  <Avatar className="h-16 w-16 border-2 border-primary/20">
-                    <AvatarImage src={post.authorImageUrl} alt={post.author} />
-                    <AvatarFallback>{authorInitials}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h3 className="font-bold text-lg">{post.author}</h3>
-                    {post.authorRole && (
-                      <p className="text-muted-foreground">{post.authorRole}</p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </ScrollAnimation>
+            )}
           </div>
         </div>
-      </section>
+      </article>
 
-      {/* Related Posts */}
-      {relatedPosts.length > 0 && (
-        <section className="py-16 bg-slate-50">
+      {related.length > 0 && (
+        <section className="bg-neutral-100 py-24">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold mb-8 text-center">
-              Related Articles
-            </h2>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {relatedPosts.map((relatedPost, index) => (
-                <ScrollAnimation
-                  key={relatedPost.id}
-                  animation="animate-fade-up"
-                  delay={100 * index}
-                >
-                  <BlogCard post={relatedPost} />
-                </ScrollAnimation>
+            <SectionHeading
+              eyebrow="Keep reading"
+              title={
+                <>
+                  More from the <span className="text-primary">blog</span>
+                </>
+              }
+            />
+            <RevealGroup className="grid gap-x-8 gap-y-14 md:grid-cols-3">
+              {related.map((p) => (
+                <RevealItem key={p.id}>
+                  <BlogCard post={p} />
+                </RevealItem>
               ))}
-            </div>
+            </RevealGroup>
           </div>
         </section>
       )}

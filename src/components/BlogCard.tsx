@@ -1,16 +1,7 @@
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { BlogPost } from "@/lib/data";
-import { CalendarDays, Clock, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
+import { BlogPost } from "@/lib/data";
+import { SmartImage } from "@/components/SmartImage";
 import { cn } from "@/lib/utils";
 
 interface BlogCardProps {
@@ -19,60 +10,42 @@ interface BlogCardProps {
   featured?: boolean;
 }
 
-export function BlogCard({ post, className, featured = false }: BlogCardProps) {
-  const formattedDate = new Date(post.date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+export const formatPostDate = (date: string) =>
+  new Date(date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
+export function BlogCard({ post, className }: BlogCardProps) {
   return (
-    <Card
-      className={cn(
-        "overflow-hidden transition-all duration-300 hover:shadow-lg h-full border-black/10 hover:border-primary",
-        featured && "md:flex md:flex-row",
-        className,
-      )}
-    >
-      <div className={cn("relative", featured ? "md:w-2/5" : "w-full")}>
-        <AspectRatio ratio={16 / 9}>
-          <img
-            src={post.imageUrl}
-            alt={post.title}
-            className="object-cover w-full h-full"
-          />
-        </AspectRatio>
-        <Badge className="absolute top-2 right-2 bg-primary text-black font-medium">
+    <article className={cn("group relative flex h-full flex-col", className)}>
+      <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
+        <SmartImage
+          src={post.imageUrl}
+          alt={post.title}
+          wrapperClassName="absolute inset-0"
+          className="transition-transform duration-[1200ms] ease-out-expo group-hover:scale-105"
+          maxWidth={1080}
+        />
+        <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-black backdrop-blur">
           {post.category}
-        </Badge>
+        </span>
       </div>
-
-      <div className={cn("flex flex-col", featured && "md:w-3/5")}>
-        <CardHeader className={cn(featured ? "md:pt-6" : "pt-6")}>
-          <CardTitle className="text-xl">{post.title}</CardTitle>
-          <CardDescription className="flex items-center gap-2 mt-2">
-            <CalendarDays className="w-4 h-4 text-primary" />
-            <span>{formattedDate}</span>
-            <span className="mx-1">•</span>
-            <Clock className="w-4 h-4 text-primary" />
-            <span>{post.readTime} min read</span>
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent>
-          <p className="text-muted-foreground line-clamp-3">{post.excerpt}</p>
-        </CardContent>
-
-        <CardFooter className="mt-auto">
+      <div className="flex flex-1 flex-col pt-5">
+        <p className="text-xs font-medium uppercase tracking-wider text-neutral-500">
+          {formatPostDate(post.date)} · {post.readTime} min read
+        </p>
+        <h3 className="mt-2 text-xl font-semibold leading-snug">
           <Link
             to={`/blog/${post.slug}`}
-            className="text-primary hover:text-primary/80 font-medium flex items-center gap-1 transition-colors"
+            className="bg-gradient-to-r from-primary to-primary bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-500 ease-out-expo after:absolute after:inset-0 group-hover:bg-[length:100%_2px]"
           >
-            Read More
-            <ArrowRight className="w-4 h-4" />
+            {post.title}
           </Link>
-        </CardFooter>
+        </h3>
+        <p className="mt-2 line-clamp-2 text-neutral-600">{post.excerpt}</p>
+        <span className="mt-auto flex items-center gap-1 pt-4 text-sm font-semibold">
+          Read article
+          <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </span>
       </div>
-    </Card>
+    </article>
   );
 }

@@ -1,22 +1,39 @@
+import { useMemo, useState } from "react";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import { ArrowRight, Check } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { ProjectsSEO } from "@/components/RealEstateSEO";
 import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProjectCard } from "@/components/ProjectCard";
-import { projects } from "@/lib/data";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Building, Hammer, Award, TrendingUp } from "lucide-react";
+import { ProjectDialog, projectImages } from "@/components/ProjectDialog";
+import { SmartImage } from "@/components/SmartImage";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { Parallax } from "@/components/motion/Pinned";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useProjects } from "@/lib/content";
+import type { Project } from "@/lib/data";
+import { cn } from "@/lib/utils";
+
+const CATEGORIES = ["All", "Residential", "Commercial", "Mixed-Use", "Renovation"] as const;
 
 export default function Projects() {
-  // For a real application, these would be more detailed categories
-  const projectTypes = [
-    "All",
-    "Residential",
-    "Commercial",
-    "Mixed-Use",
-    "Renovation",
-  ];
+  const { data: projects = [], isLoading } = useProjects();
+  const [category, setCategory] = useState<(typeof CATEGORIES)[number]>("All");
+  const [open, setOpen] = useState<Project | null>(null);
+
+  const counts = useMemo(() => {
+    const c: Record<string, number> = { All: projects.length };
+    projects.forEach((p) => p.category && (c[p.category] = (c[p.category] ?? 0) + 1));
+    return c;
+  }, [projects]);
+
+  const visible = category === "All" ? projects : projects.filter((p) => p.category === category);
+  const featured = projects.find((p) => p.featured) ?? projects[0];
+  const gallery = useMemo(
+    () => Array.from(new Set(projects.flatMap(projectImages))).slice(0, 10),
+    [projects],
+  );
 
   return (
     <Layout>
@@ -28,216 +45,193 @@ export default function Projects() {
           </>
         }
         subtitle="Excellence in Every Development"
-        description="Explore our impressive portfolio of completed projects that showcase our commitment to quality, innovation, and client satisfaction. From luxury residential estates to commercial complexes."
-        gradient="dark"
-        badge="Portfolio Showcase"
+        description="A portfolio of completed and ongoing work, from luxury residential estates to commercial complexes."
+        badge="Portfolio"
         backgroundImage="https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg"
-        stats={[
-          {
-            label: "Projects Completed",
-            value: `${projects.length}+`,
-            icon: <Building className="h-5 w-5" />,
-          },
-          {
-            label: "Under Construction",
-            value: "12",
-            icon: <Hammer className="h-5 w-5" />,
-          },
-          {
-            label: "Awards Won",
-            value: "25+",
-            icon: <Award className="h-5 w-5" />,
-          },
-          {
-            label: "Success Rate",
-            value: "100%",
-            icon: <TrendingUp className="h-5 w-5" />,
-          },
-        ]}
-        action={{
-          label: "Start Your Project",
-          href: "/contact",
-        }}
+        action={{ label: "Start Your Project", href: "/contact" }}
       />
 
-      {/* Projects Filter */}
-      <section className="py-16 bg-white">
+      {/* Filterable grid */}
+      <section className="bg-white py-24 md:py-32">
         <div className="container mx-auto px-4">
-          <Tabs defaultValue="All" className="w-full">
-            <div className="flex justify-center mb-8">
-              <TabsList>
-                {projectTypes.map((type) => (
-                  <TabsTrigger key={type} value={type}>
-                    {type}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
-
-            {projectTypes.map((type) => (
-              <TabsContent key={type} value={type} className="mt-0">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {type === "All"
-                    ? projects.map((project) => (
-                        <ProjectCard key={project.id} project={project} />
-                      ))
-                    : // In a real app, you would filter projects by their actual type
-                      projects
-                        .slice(0, type === "Residential" ? 2 : 1)
-                        .map((project) => (
-                          <ProjectCard key={project.id} project={project} />
-                        ))}
-                </div>
-              </TabsContent>
-            ))}
-          </Tabs>
-        </div>
-      </section>
-
-      {/* Featured Project */}
-      <section className="py-16 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <SectionHeading
-            title="Featured Project: Da'sayonce Mini-Estate"
-            subtitle="A closer look at one of our flagship developments"
-          />
-
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="rounded-lg overflow-hidden">
-              <img
-                src="https://images.pexels.com/photos/32447381/pexels-photo-32447381.jpeg"
-                alt="Da'sayonce Mini-Estate"
-                className="w-full h-auto object-cover"
-              />
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold">Da'sayonce Mini-Estate</h3>
-              <p className="text-muted-foreground">
-                Located in Mowe, Ogun State, Da'sayonce Mini-Estate is a gated
-                community featuring modern homes with top-tier amenities. The
-                development combines contemporary design with functionality to
-                create living spaces that cater to the needs of modern families.
-              </p>
-              <div className="grid grid-cols-2 gap-4 mt-6">
-                <div>
-                  <h4 className="text-sm font-medium text-muted-foreground">
-                    Location
-                  </h4>
-                  <p>Mowe, Ogun State</p>
-                </div>
-                <div>
-                  <h4 className="text-sm font-medium text-muted-foreground">
-                    Project Type
-                  </h4>
-                  <p>Residential Estate</p>
-                </div>
-                <div>
-                  <h4 className="text-sm font-medium text-muted-foreground">
-                    Size
-                  </h4>
-                  <p>20 Units</p>
-                </div>
-                <div>
-                  <h4 className="text-sm font-medium text-muted-foreground">
-                    Completion
-                  </h4>
-                  <p>2022</p>
-                </div>
-              </div>
-              <div className="mt-4">
-                <h4 className="text-sm font-medium text-muted-foreground mb-2">
-                  Key Features
-                </h4>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <li className="flex items-center gap-2">
-                    <span className="text-primary">•</span>
-                    <span>24/7 Security</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-primary">•</span>
-                    <span>Reliable Water Supply</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-primary">•</span>
-                    <span>Paved Roads</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-primary">•</span>
-                    <span>Green Spaces</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-primary">•</span>
-                    <span>Backup Power</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-primary">•</span>
-                    <span>Recreational Areas</span>
-                  </li>
-                </ul>
-              </div>
-              <Button className="mt-4">View Project Details</Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Project Gallery */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <SectionHeading
-            title="Project Gallery"
-            subtitle="A visual showcase of our completed and ongoing projects"
-            centered
-          />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {[
-              {
-                url: "https://images.pexels.com/photos/13515672/pexels-photo-13515672.jpeg",
-                alt: "Construction site with crane",
-              },
-              {
-                url: "https://images.pexels.com/photos/32512229/pexels-photo-32512229.jpeg",
-                alt: "Luxury villa exterior",
-              },
-              {
-                url: "https://images.pexels.com/photos/9244866/pexels-photo-9244866.jpeg",
-                alt: "Modern apartment complex",
-              },
-              {
-                url: "https://images.pexels.com/photos/17797763/pexels-photo-17797763.jpeg",
-                alt: "Commercial building facade",
-              },
-              {
-                url: "https://images.pexels.com/photos/32485942/pexels-photo-32485942.png",
-                alt: "Interior design showcase",
-              },
-              {
-                url: "https://images.pexels.com/photos/10549886/pexels-photo-10549886.jpeg",
-                alt: "Dubai skyline architecture",
-              },
-              {
-                url: "https://images.pexels.com/photos/32473240/pexels-photo-32473240.png",
-                alt: "Modern living space design",
-              },
-              {
-                url: "https://images.pexels.com/photos/14646006/pexels-photo-14646006.jpeg",
-                alt: "Aerial view of property development",
-              },
-            ].map((image, index) => (
+          <div className="mb-12 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <SectionHeading
+              eyebrow="Browse the work"
+              title={
+                <>
+                  Built with <span className="text-primary">pride.</span>
+                </>
+              }
+              className="mb-0 md:mb-0"
+            />
+            <LayoutGroup>
               <div
-                key={index}
-                className="aspect-square bg-slate-200 rounded-lg overflow-hidden"
+                role="tablist"
+                aria-label="Filter projects"
+                className="no-scrollbar -mx-4 flex gap-1 overflow-x-auto px-4 lg:mx-0 lg:px-0"
               >
-                <img
-                  src={image.url}
-                  alt={image.alt}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                />
+                {CATEGORIES.map((c) => {
+                  const active = c === category;
+                  const disabled = c !== "All" && !counts[c];
+                  return (
+                    <button
+                      key={c}
+                      role="tab"
+                      aria-selected={active}
+                      disabled={disabled}
+                      onClick={() => setCategory(c)}
+                      className={cn(
+                        "relative shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors disabled:opacity-30",
+                        active ? "text-white" : "text-neutral-600 hover:text-black",
+                      )}
+                    >
+                      {active && (
+                        <motion.span
+                          layoutId="project-filter"
+                          className="absolute inset-0 rounded-full bg-black"
+                          transition={{ type: "spring", stiffness: 400, damping: 34 }}
+                        />
+                      )}
+                      <span className="relative">
+                        {c}
+                        <span className="ml-1.5 text-xs opacity-50">{counts[c] ?? 0}</span>
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
-            ))}
+            </LayoutGroup>
           </div>
+
+          {isLoading ? (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Skeleton key={i} className="aspect-[4/3] rounded-2xl" />
+              ))}
+            </div>
+          ) : (
+            <motion.div layout className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <AnimatePresence mode="popLayout">
+                {visible.map((project, i) => (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    initial={{ opacity: 0, y: 30, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i * 0.05 }}
+                  >
+                    <ProjectCard
+                      project={project}
+                      onClick={() => setOpen(project)}
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          )}
+          {!isLoading && visible.length === 0 && (
+            <p className="py-16 text-center text-neutral-500">No projects in this category yet.</p>
+          )}
         </div>
       </section>
+
+      {/* Featured spotlight */}
+      {featured && (
+        <section className="bg-black py-24 text-white md:py-32">
+          <div className="container mx-auto grid items-center gap-12 px-4 lg:grid-cols-2 lg:gap-20">
+            <Reveal variant="clip">
+              <Parallax offset={50} className="aspect-[4/5] rounded-3xl md:aspect-[4/3] lg:aspect-[4/5]">
+                <SmartImage
+                  src={featured.gallery?.[0] ?? featured.imageUrl}
+                  alt={featured.title}
+                  wrapperClassName="h-full w-full bg-neutral-900"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                />
+              </Parallax>
+            </Reveal>
+            <div>
+              <SectionHeading
+                eyebrow="Featured project"
+                title={featured.title}
+                subtitle={featured.description}
+              />
+              <Reveal>
+                <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-white/10">
+                  {[
+                    { k: "Location", v: featured.location },
+                    { k: "Type", v: featured.category },
+                    { k: "Size", v: featured.size },
+                    { k: "Completion", v: featured.completionYear ?? featured.projectStatus },
+                  ]
+                    .filter((d) => d.v)
+                    .map((d) => (
+                      <div key={d.k} className="bg-black p-5">
+                        <dt className="text-xs uppercase tracking-widest text-white/50">{d.k}</dt>
+                        <dd className="mt-1 text-lg font-semibold">{d.v}</dd>
+                      </div>
+                    ))}
+                </dl>
+              </Reveal>
+              {!!featured.features?.length && (
+                <RevealGroup className="mt-8 grid gap-3 sm:grid-cols-2">
+                  {featured.features.map((f) => (
+                    <RevealItem key={f} className="flex items-center gap-3">
+                      <Check className="h-4 w-4 text-primary" /> {f}
+                    </RevealItem>
+                  ))}
+                </RevealGroup>
+              )}
+              <Reveal delay={0.2}>
+                <button
+                  onClick={() => setOpen(featured)}
+                  className="group mt-10 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-semibold text-black transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  View project details
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </button>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Gallery */}
+      {gallery.length >= 4 && (
+        <section className="bg-white py-24 md:py-32">
+          <div className="container mx-auto px-4">
+            <SectionHeading
+              eyebrow="Gallery"
+              title={
+                <>
+                  Moments from <span className="text-primary">site to handover</span>
+                </>
+              }
+              centered
+            />
+            <RevealGroup className="grid auto-rows-[180px] grid-cols-2 gap-4 md:auto-rows-[240px] md:grid-cols-4" stagger={0.05}>
+              {gallery.map((url, i) => (
+                <RevealItem
+                  key={url}
+                  variant="scale"
+                  className={cn(i % 7 === 0 && "row-span-2", i % 7 === 3 && "md:col-span-2")}
+                >
+                  <SmartImage
+                    src={url}
+                    alt=""
+                    wrapperClassName="group h-full w-full rounded-2xl"
+                    className="transition-transform duration-[1200ms] ease-out-expo hover:scale-110"
+                    sizes="(min-width: 768px) 25vw, 50vw"
+                    maxWidth={1080}
+                  />
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </div>
+        </section>
+      )}
+
+      <ProjectDialog project={open} onClose={() => setOpen(null)} />
     </Layout>
   );
 }

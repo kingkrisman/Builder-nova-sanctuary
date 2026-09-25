@@ -264,7 +264,8 @@ export function MobileAppPromo() {
                     <div className="absolute inset-0 z-20">
                       {/* Background Image */}
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F7e88bf5fc8f84a54a67ec3a29cd85a97"
+                        src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F7e88bf5fc8f84a54a67ec3a29cd85a97?width=800&format=webp"
+                        loading="lazy"
                         alt="App Preview"
                         className="h-full w-full object-cover opacity-50"
                       />
@@ -367,7 +368,8 @@ export function MobileAppPromo() {
                           <div className="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden">
                             <div className="h-24 bg-primary/30 relative">
                               <img
-                                src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F1e3e6937ad364a8ea712bb2774074832"
+                                src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F1e3e6937ad364a8ea712bb2774074832?width=800&format=webp"
+                        loading="lazy"
                                 alt="Property"
                                 className="h-full w-full object-cover"
                               />

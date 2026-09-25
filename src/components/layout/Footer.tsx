@@ -1,171 +1,134 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { contactInfo, socialMedia } from "@/lib/data";
-import { ScrollAnimation } from "@/components/ScrollAnimation";
+import { ArrowUpRight } from "lucide-react";
+import { socialMedia } from "@/lib/data";
+import { Reveal } from "@/components/motion/Reveal";
+
+const columns = [
+  {
+    title: "Explore",
+    links: [
+      { label: "Home", to: "/" },
+      { label: "About Us", to: "/about" },
+      { label: "Our Team", to: "/team" },
+      { label: "Careers", to: "/careers" },
+      { label: "Blog", to: "/blog" },
+    ],
+  },
+  {
+    title: "Work",
+    links: [
+      { label: "Services", to: "/services" },
+      { label: "Projects", to: "/projects" },
+      { label: "Properties", to: "/properties" },
+      { label: "Contact", to: "/contact" },
+    ],
+  },
+];
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-black text-white">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <ScrollAnimation
-            animation="animate-fade-up"
-            delay={100}
-            className="space-y-4"
-          >
-            <h3 className="text-xl font-bold text-primary">Da'sayonce</h3>
-            <p className="text-sm text-white/70">Real Estate and Properties</p>
-            <p className="text-sm text-white/70">RC: 7115835</p>
-            <p className="text-sm text-white/70">
-              Transforming Spaces. Building Trust.
-            </p>
-            <div className="flex gap-4 mt-4">
-              {socialMedia.map((social) => (
-                <a
-                  key={social.platform}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/70 hover:text-primary transition-colors"
-                >
-                  <social.icon className="h-5 w-5" />
-                </a>
-              ))}
-            </div>
-          </ScrollAnimation>
-
-          {/* Quick Links */}
-          <ScrollAnimation
-            animation="animate-fade-up"
-            delay={200}
-            className="space-y-4"
-          >
-            <h3 className="text-lg font-semibold text-primary">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  to="/"
-                  className="text-white/70 hover:text-primary transition-colors"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/about"
-                  className="text-white/70 hover:text-primary transition-colors"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/services"
-                  className="text-white/70 hover:text-primary transition-colors"
-                >
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/projects"
-                  className="text-white/70 hover:text-primary transition-colors"
-                >
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/team"
-                  className="text-white/70 hover:text-primary transition-colors"
-                >
-                  Our Team
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  className="text-white/70 hover:text-primary transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </ScrollAnimation>
-
-          {/* Services */}
-          <ScrollAnimation
-            animation="animate-fade-up"
-            delay={300}
-            className="space-y-4"
-          >
-            <h3 className="text-lg font-semibold text-primary">Services</h3>
-            <ul className="space-y-2">
-              <li className="text-white/70">Property Development</li>
-              <li className="text-white/70">Building Construction</li>
-              <li className="text-white/70">Renovation Works</li>
-              <li className="text-white/70">Interior & Exterior Design</li>
-              <li className="text-white/70">Land Sales & Documentation</li>
-              <li className="text-white/70">Project Management</li>
-            </ul>
-          </ScrollAnimation>
-
-          {/* Contact */}
-          <ScrollAnimation
-            animation="animate-fade-up"
-            delay={400}
-            className="space-y-4"
-          >
-            <h3 className="text-lg font-semibold text-primary">Contact Us</h3>
-            <address className="not-italic">
-              <p className="text-white/70">
-                69, Ayangburen road, Ojogbe bus stop, Ikorodu.
-              </p>
-              <p className="text-white/70 mt-2">
-                Email:{" "}
-                <a
-                  href="mailto:Sayonce99@gmail.com"
-                  className="hover:text-primary transition-colors"
-                >
-                  Sayonce99@gmail.com
-                </a>
-              </p>
-              <p className="text-white/70">
-                Phone:{" "}
-                <a
-                  href="tel:+2348102067476"
-                  className="hover:text-primary transition-colors"
-                >
-                  +234 8102 067 476
-                </a>
-              </p>
-              <p className="text-white/70">
-                Phone:{" "}
-                <a
-                  href="tel:+2347064258898"
-                  className="hover:text-primary transition-colors"
-                >
-                  +234 706 425 8898
-                </a>
-              </p>
-            </address>
-            <Button
-              asChild
-              className="mt-2 bg-primary text-black hover:bg-primary/90 border-primary"
+    <footer className="relative overflow-hidden bg-black text-white">
+      {/* Closing call to action */}
+      <div className="container mx-auto border-b border-white/10 px-4 py-20 md:py-28">
+        <Reveal variant="blur">
+          <p className="eyebrow mb-6">Start a conversation</p>
+          <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+            <h2 className="max-w-3xl text-4xl font-bold leading-[1.05] md:text-6xl">
+              Let's build something <span className="text-primary">that lasts.</span>
+            </h2>
+            <Link
+              to="/contact"
+              className="group inline-flex h-32 w-32 shrink-0 items-center justify-center rounded-full bg-primary text-center text-sm font-semibold text-black transition-transform duration-500 ease-out-expo hover:scale-110 md:h-40 md:w-40"
             >
-              <Link to="/contact">Contact Us</Link>
-            </Button>
-          </ScrollAnimation>
+              <span className="flex flex-col items-center gap-1">
+                <ArrowUpRight className="h-6 w-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                Get in touch
+              </span>
+            </Link>
+          </div>
+        </Reveal>
+      </div>
+
+      <div className="container mx-auto grid gap-12 px-4 py-16 md:grid-cols-12">
+        <div className="space-y-4 md:col-span-4">
+          <img
+            src="https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fd46d2519b50946f6a7f0041e10e1e078?width=320"
+            alt="Da'sayonce"
+            className="h-16 w-auto"
+            loading="lazy"
+          />
+          <p className="max-w-xs text-sm leading-relaxed text-white/60">
+            Da'sayonce Real Estate and Properties Limited. Transforming spaces, building
+            trust across Nigeria. RC: 7115835.
+          </p>
+          <div className="flex gap-2 pt-2">
+            {socialMedia.map((social) => (
+              <a
+                key={social.platform}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.platform}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-primary hover:bg-primary hover:text-black"
+              >
+                <social.icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
         </div>
 
-        <div className="border-t border-white/20 mt-12 pt-8 text-center text-sm text-white/70">
-          <p>
-            &copy; {currentYear} Da'sayonce Real Estate and Properties. All
-            rights reserved.
-          </p>
+        {columns.map((col) => (
+          <nav key={col.title} className="md:col-span-2" aria-label={col.title}>
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
+              {col.title}
+            </h3>
+            <ul className="space-y-2.5">
+              {col.links.map((l) => (
+                <li key={l.to}>
+                  <Link
+                    to={l.to}
+                    className="text-white/75 transition-colors hover:text-primary"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
+
+        <address className="space-y-4 not-italic md:col-span-4">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
+            Head office
+          </h3>
+          <p className="text-white/75">69, Ayangburen Road, Ojogbe Bus Stop, Ikorodu, Lagos.</p>
+          <div className="space-y-1">
+            <a href="mailto:Sayonce99@gmail.com" className="block text-white/75 hover:text-primary">
+              Sayonce99@gmail.com
+            </a>
+            <a href="tel:+2348102067476" className="block text-white/75 hover:text-primary">
+              +234 810 206 7476
+            </a>
+            <a href="tel:+2347064258898" className="block text-white/75 hover:text-primary">
+              +234 706 425 8898
+            </a>
+          </div>
+        </address>
+      </div>
+
+      {/* Oversized wordmark */}
+      <div aria-hidden="true" className="pointer-events-none select-none px-4">
+        <p className="-mb-[0.18em] whitespace-nowrap text-center font-serif text-[17vw] italic leading-none text-white/[0.06]">
+          Da'sayonce
+        </p>
+      </div>
+
+      <div className="border-t border-white/10">
+        <div className="container mx-auto flex flex-col items-center justify-between gap-2 px-4 py-6 text-xs text-white/50 md:flex-row">
+          <p>© {year} Da'sayonce Real Estate and Properties. All rights reserved.</p>
+          <p>Lagos · Abuja · Ogun · Ibadan · Port Harcourt</p>
         </div>
       </div>
     </footer>

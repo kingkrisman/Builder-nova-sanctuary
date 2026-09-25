@@ -19,12 +19,25 @@ export interface Service {
   icon?: LucideIcon;
 }
 
+export type ProjectCategory =
+  | "Residential"
+  | "Commercial"
+  | "Mixed-Use"
+  | "Renovation";
+
 export interface Project {
   id: number;
   title: string;
   description: string;
   location: string;
   imageUrl: string;
+  category?: ProjectCategory;
+  projectStatus?: "Completed" | "Ongoing" | "Upcoming";
+  gallery?: string[];
+  completionYear?: number;
+  size?: string;
+  features?: string[];
+  featured?: boolean;
 }
 
 export interface TeamMember {
@@ -116,6 +129,23 @@ export const projects: Project[] = [
     description:
       "A gated community featuring modern homes with top-tier amenities including 24/7 security, reliable water supply, and recreational areas. Located in Mowe, Ogun State.",
     location: "Mowe, Ogun State",
+    category: "Residential",
+    projectStatus: "Completed",
+    completionYear: 2022,
+    size: "20 Units",
+    featured: true,
+    features: [
+      "24/7 Security",
+      "Reliable Water Supply",
+      "Paved Roads",
+      "Green Spaces",
+      "Backup Power",
+      "Recreational Areas",
+    ],
+    gallery: [
+      "https://images.pexels.com/photos/32447381/pexels-photo-32447381.jpeg",
+      "https://images.pexels.com/photos/14646006/pexels-photo-14646006.jpeg",
+    ],
     imageUrl:
       "https://images.pexels.com/photos/9244866/pexels-photo-9244866.jpeg",
   },
@@ -125,6 +155,8 @@ export const projects: Project[] = [
     description:
       "A complete transformation of a private residence into a smart luxury home.",
     location: "Gwarimpa, Abuja",
+    category: "Renovation",
+    projectStatus: "Completed",
     imageUrl:
       "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F2ce7c0f2c70641d99e4f2828d417e38f",
   },
@@ -134,6 +166,8 @@ export const projects: Project[] = [
     description:
       "A contemporary commercial space housing boutiques, cafés, and offices.",
     location: "Lekki Phase 1, Lagos",
+    category: "Mixed-Use",
+    projectStatus: "Completed",
     imageUrl:
       "https://images.pexels.com/photos/17797763/pexels-photo-17797763.jpeg",
   },
@@ -143,6 +177,8 @@ export const projects: Project[] = [
     description:
       "2- and 3-bedroom units with premium finishes and smart interiors.",
     location: "Wuye, Abuja",
+    category: "Residential",
+    projectStatus: "Ongoing",
     imageUrl:
       "https://images.pexels.com/photos/32485942/pexels-photo-32485942.png",
   },
@@ -571,6 +607,7 @@ export interface Property {
   parking?: number;
   furnished?: boolean;
   dateAdded: string;
+  featured?: boolean;
   agent: {
     name: string;
     phone: string;

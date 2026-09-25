@@ -1,3 +1,4 @@
+import { resizeImage } from "@/lib/image";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -100,7 +101,7 @@ export function PropertyComparison({
               <div key={property.id} className="text-center">
                 <div className="relative mb-2">
                   <img
-                    src={property.imageUrl}
+                    src={resizeImage(property.imageUrl, 640)}
                     alt={property.title}
                     className="w-full h-32 object-cover rounded-lg"
                   />

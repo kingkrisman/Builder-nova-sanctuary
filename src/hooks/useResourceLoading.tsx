@@ -1,5 +1,7 @@
 import { useEffect, useCallback } from "react";
-import { useLoading } from "../contexts/LoadingContext";
+import { markIntroSeen, useLoading } from "../contexts/LoadingContext";
+
+const MAX_INTRO_MS = 2500;
 
 export function useResourceLoading() {
   const { startLoading, stopLoading, setLoadingMessage } = useLoading();
@@ -105,7 +107,7 @@ export function useResourceLoading() {
   const loadAllResources = useCallback(async () => {
     startLoading("Loading page...");
 
-    try {
+    const load = async () => {
       // Wait for document to be ready
       setLoadingMessage("Preparing page...");
       await checkAllResourcesLoaded();
@@ -117,16 +119,23 @@ export function useResourceLoading() {
       setLoadingMessage("Loading images...");
       await checkImagesLoaded();
 
-      // Load videos
-      setLoadingMessage("Loading videos...");
-      await checkVideosLoaded();
+      // Videos are not awaited: they show a poster frame and stream in behind the page
 
       // Final delay for smooth transition
       setLoadingMessage("Finishing up...");
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 300));
+    };
+
+    try {
+      // Never hold visitors longer than this; below-the-fold images can finish in the background
+      await Promise.race([
+        load(),
+        new Promise((resolve) => setTimeout(resolve, MAX_INTRO_MS)),
+      ]);
     } catch (error) {
       console.warn("Resource loading error:", error);
     } finally {
+      markIntroSeen();
       stopLoading();
     }
   }, [
@@ -135,7 +144,6 @@ export function useResourceLoading() {
     setLoadingMessage,
     checkAllResourcesLoaded,
     checkImagesLoaded,
-    checkVideosLoaded,
   ]);
 
   return {

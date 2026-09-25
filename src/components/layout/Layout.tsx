@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
-import { BackToTop } from "@/components/BackToTop";
+import { BackToTop, ScrollProgress } from "@/components/BackToTop";
 
 interface LayoutProps {
   children: ReactNode;
@@ -9,9 +9,12 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <div className="flex flex-col min-h-screen">
+    // overflow-x: clip (not hidden) stops slide-in reveals from causing sideways scroll
+    // without breaking position: sticky for the pinned sections
+    <div className="flex min-h-screen flex-col bg-white [overflow-x:clip]">
+      <ScrollProgress />
       <Navbar />
-      <main className="flex-grow pt-16">{children}</main>
+      <main className="flex-grow pt-20">{children}</main>
       <Footer />
       <BackToTop />
     </div>
