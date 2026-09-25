@@ -23,9 +23,13 @@ import {
   useSetPublished,
 } from "./data";
 
+// Content rows are labelled by title; team members by name
+const labelOf = (row: BaseRow) => row.title ?? row.name ?? "";
+
 interface BaseRow {
   id: number;
-  title: string;
+  title?: string;
+  name?: string;
   published: boolean;
   image_url?: string;
 }
@@ -125,7 +129,7 @@ export function ContentList<T extends BaseRow>({
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate font-semibold">{row.title}</p>
+                    <p className="truncate font-semibold">{labelOf(row)}</p>
                     <div className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
                       {meta(row)}
                     </div>
@@ -168,7 +172,7 @@ export function ContentList<T extends BaseRow>({
       <AlertDialog open={!!pendingDelete} onOpenChange={(o) => !o && setPendingDelete(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete “{pendingDelete?.title}”?</AlertDialogTitle>
+            <AlertDialogTitle>Delete “{pendingDelete && labelOf(pendingDelete)}”?</AlertDialogTitle>
             <AlertDialogDescription>
               This removes it from the website permanently. To take it down temporarily,
               switch it to Hidden instead.

@@ -1,4 +1,4 @@
-import type { BlogPostRow, ProjectRow, PropertyRow } from "@/lib/content";
+import type { BlogPostRow, ProjectRow, PropertyRow, TeamMemberRow } from "@/lib/content";
 import { ContentList } from "../ContentList";
 
 const naira = (n: number) =>
@@ -69,6 +69,27 @@ export function BlogList() {
             {new Date(r.published_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
           </span>
           {r.author && <span>{r.author}</span>}
+        </>
+      )}
+    />
+  );
+}
+
+export function TeamList() {
+  return (
+    <ContentList<TeamMemberRow>
+      table="team_members"
+      title="Team"
+      description="People shown on the Team page, grouped by department."
+      singular="team member"
+      basePath="/admin/team"
+      thumbnail={(r) => r.image_url}
+      searchText={(r) => `${r.name} ${r.position} ${r.department} ${r.qualifications}`}
+      meta={(r) => (
+        <>
+          {pill(r.department)}
+          <span>{r.position}</span>
+          {r.qualifications && <span>{r.qualifications}</span>}
         </>
       )}
     />

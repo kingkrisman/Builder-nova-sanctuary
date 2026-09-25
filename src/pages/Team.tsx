@@ -7,17 +7,12 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { TeamCard } from "@/components/TeamCard";
 import { SmartImage } from "@/components/SmartImage";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
-import { leadershipTeam } from "@/lib/data";
+import { Skeleton } from "@/components/ui/skeleton";
+import { TEAM_DEPARTMENTS, useTeam } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-const DEPARTMENTS = [
-  { key: "executiveManagement", name: "Executive" },
-  { key: "projectConstruction", name: "Project & Construction" },
-  { key: "realEstate", name: "Real Estate" },
-  { key: "designPlanning", name: "Design & Planning" },
-  { key: "supportServices", name: "Support Services" },
-  { key: "securityLogistics", name: "Security & Logistics" },
-] as const;
+// Shorter tab label for the longest department name
+const TAB_LABEL: Partial<Record<string, string>> = { "Executive Management": "Executive" };
 
 const CULTURE = [
   {
@@ -35,8 +30,12 @@ const CULTURE = [
 ];
 
 export default function Team() {
-  const [dept, setDept] = useState<(typeof DEPARTMENTS)[number]["key"]>("executiveManagement");
-  const members = leadershipTeam[dept];
+  const { data: team = [], isLoading } = useTeam();
+  // Only show tabs for departments that have someone in them
+  const departments = TEAM_DEPARTMENTS.filter((d) => team.some((m) => m.department === d));
+  const [selected, setSelected] = useState<string | null>(null);
+  const dept = selected && departments.includes(selected as never) ? selected : departments[0];
+  const members = team.filter((m) => m.department === dept);
 
   return (
     <Layout>
@@ -100,28 +99,36 @@ export default function Team() {
           />
           <LayoutGroup>
             <div className="no-scrollbar -mx-4 mb-12 flex gap-1 overflow-x-auto px-4">
-              {DEPARTMENTS.map((d) => (
+              {departments.map((d) => (
                 <button
-                  key={d.key}
-                  onClick={() => setDept(d.key)}
-                  aria-pressed={dept === d.key}
+                  key={d}
+                  onClick={() => setSelected(d)}
+                  aria-pressed={dept === d}
                   className={cn(
                     "relative shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors",
-                    dept === d.key ? "text-white" : "text-neutral-600 hover:text-black",
+                    dept === d ? "text-white" : "text-neutral-600 hover:text-black",
                   )}
                 >
-                  {dept === d.key && (
+                  {dept === d && (
                     <motion.span
                       layoutId="team-filter"
                       className="absolute inset-0 rounded-full bg-black"
                       transition={{ type: "spring", stiffness: 400, damping: 34 }}
                     />
                   )}
-                  <span className="relative">{d.name}</span>
+                  <span className="relative">{TAB_LABEL[d] ?? d}</span>
                 </button>
               ))}
             </div>
           </LayoutGroup>
+
+          {isLoading && (
+            <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <Skeleton key={i} className="aspect-[4/5] rounded-2xl" />
+              ))}
+            </div>
+          )}
 
           <AnimatePresence mode="wait">
             <motion.div

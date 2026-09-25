@@ -2,12 +2,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 
-export type ContentTable = "properties" | "projects" | "blog_posts";
+export type ContentTable = "properties" | "projects" | "blog_posts" | "team_members";
 
 const ORDER: Record<ContentTable, string> = {
   properties: "date_added",
   projects: "sort_order",
   blog_posts: "published_at",
+  team_members: "sort_order",
 };
 
 export function useAdminList<T>(table: ContentTable) {
@@ -17,7 +18,7 @@ export function useAdminList<T>(table: ContentTable) {
       const { data, error } = await supabase!
         .from(table)
         .select("*")
-        .order(ORDER[table], { ascending: table === "projects" })
+        .order(ORDER[table], { ascending: table === "projects" || table === "team_members" })
         .order("created_at", { ascending: false });
       if (error) throw error;
       return data as T[];

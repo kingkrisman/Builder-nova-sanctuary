@@ -1,85 +1,93 @@
-import React from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { resizeImage } from "@/lib/image";
+
+export const SITE_NAME = "Da'sayonce Real Estate";
+export const DEFAULT_IMAGE =
+  "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630";
 
 interface SEOProps {
   title?: string;
   description?: string;
   keywords?: string;
   image?: string;
-  url?: string;
-  type?: string;
+  type?: "website" | "article" | "product";
+  /** Hide the page from search engines (e.g. 404) */
+  noindex?: boolean;
+  /** Structured data for this page (schema.org JSON-LD) */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /** @deprecated use type="article" */
   isArticle?: boolean;
+  url?: string;
 }
 
+function setMeta(attr: "name" | "property", key: string, content: string) {
+  let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.content = content;
+}
+
+function setLink(rel: string, href: string) {
+  let el = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);
+  if (!el) {
+    el = document.createElement("link");
+    el.rel = rel;
+    document.head.appendChild(el);
+  }
+  el.href = href;
+}
+
+/** Sets the document title, meta description, social preview tags, canonical URL and JSON-LD. */
 export function SEO({
   title = "Da'sayonce Real Estate and Properties",
   description = "Da'sayonce Real Estate and Properties is committed to delivering exceptional real estate solutions that reflect quality, value, and client aspirations.",
-  keywords = "real estate, properties, Nigeria, Lagos, property development, construction, renovation",
-  image = "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fd46d2519b50946f6a7f0041e10e1e078",
-  url = "",
-  type = "website",
+  keywords,
+  image,
+  type,
+  noindex = false,
+  jsonLd,
   isArticle = false,
 }: SEOProps) {
-  // Format title to include company name if not already there
-  const formattedTitle = title.includes("Da'sayonce")
-    ? title
-    : `${title} | Da'sayonce Real Estate and Properties`;
+  const { pathname } = useLocation();
+  const fullTitle = title.includes("Da'sayonce") ? title : `${title} | ${SITE_NAME}`;
+  const ogType = type ?? (isArticle ? "article" : "website");
+  const ogImage = image ? resizeImage(image, 1200) : DEFAULT_IMAGE;
+  const ldJson = jsonLd ? JSON.stringify(jsonLd) : "";
 
-  // Use document.head directly rather than Helmet which may be causing issues
-  React.useEffect(() => {
-    // Set page title
-    document.title = formattedTitle;
+  useEffect(() => {
+    const url = `${window.location.origin}${pathname === "/" ? "/" : pathname.replace(/\/$/, "")}`;
+    const desc = description.length > 160 ? `${description.slice(0, 157).trimEnd()}…` : description;
 
-    // Function to create or update a meta tag
-    const setMetaTag = (name: string, content: string) => {
-      let meta = document.querySelector(
-        `meta[name="${name}"]`,
-      ) as HTMLMetaElement;
+    document.title = fullTitle;
+    setMeta("name", "description", desc);
+    if (keywords) setMeta("name", "keywords", keywords);
+    setMeta("name", "robots", noindex ? "noindex, follow" : "index, follow, max-image-preview:large");
+    setLink("canonical", url);
 
-      if (!meta) {
-        meta = document.createElement("meta");
-        meta.name = name;
-        document.head.appendChild(meta);
-      }
+    setMeta("property", "og:title", fullTitle);
+    setMeta("property", "og:description", desc);
+    setMeta("property", "og:image", ogImage);
+    setMeta("property", "og:url", url);
+    setMeta("property", "og:type", ogType === "product" ? "website" : ogType);
+    setMeta("name", "twitter:card", "summary_large_image");
+    setMeta("name", "twitter:title", fullTitle);
+    setMeta("name", "twitter:description", desc);
+    setMeta("name", "twitter:image", ogImage);
 
-      meta.content = content;
-    };
+    // Page-level structured data, replaced on every navigation
+    document.getElementById("page-jsonld")?.remove();
+    if (ldJson) {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.id = "page-jsonld";
+      script.textContent = ldJson;
+      document.head.appendChild(script);
+    }
+  }, [pathname, fullTitle, description, keywords, noindex, ogImage, ogType, ldJson]);
 
-    // Function to create or update an Open Graph meta tag
-    const setOgMetaTag = (property: string, content: string) => {
-      let meta = document.querySelector(
-        `meta[property="${property}"]`,
-      ) as HTMLMetaElement;
-
-      if (!meta) {
-        meta = document.createElement("meta");
-        meta.setAttribute("property", property);
-        document.head.appendChild(meta);
-      }
-
-      meta.content = content;
-    };
-
-    // Set basic meta tags
-    setMetaTag("description", description);
-    setMetaTag("keywords", keywords);
-
-    // Set Open Graph meta tags
-    setOgMetaTag("og:title", formattedTitle);
-    setOgMetaTag("og:description", description);
-    setOgMetaTag("og:image", image);
-    setOgMetaTag("og:type", isArticle ? "article" : type);
-
-    // Set Twitter meta tags
-    setMetaTag("twitter:card", "summary_large_image");
-    setMetaTag("twitter:title", formattedTitle);
-    setMetaTag("twitter:description", description);
-    setMetaTag("twitter:image", image);
-
-    // Cleanup function when component unmounts
-    return () => {
-      // No cleanup needed as we're only modifying tags
-    };
-  }, [formattedTitle, description, keywords, image, type, isArticle]);
-
-  return null; // This component doesn't render anything visible
+  return null;
 }

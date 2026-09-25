@@ -6,14 +6,8 @@ interface TeamCardProps {
   member: TeamMember;
 }
 
-// Engr. David Adediran's photo isn't in the data file, so it's attached here
-const PHOTO_OVERRIDES: Record<string, string> = {
-  "Engr. David Adediran":
-    "https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F84f63fab8ef94516ad5d1f51db95731f",
-};
-
 export function TeamCard({ member }: TeamCardProps) {
-  const photo = member.imageUrl || PHOTO_OVERRIDES[member.name];
+  const photo = member.imageUrl;
 
   return (
     <article className="group">

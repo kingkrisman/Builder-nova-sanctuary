@@ -1,0 +1,26 @@
+insert into public.team_members (id, name, position, qualifications, department, image_url, sort_order) overriding system value values
+  (1, 'Engr. Olusayo Taiwo Okusanya', 'MD/CEO', 'MNSE, COREN', 'Executive Management', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Ff6febcd9b03646c7a31da804bffa9d57', 0),
+  (2, 'Mrs. Adedayo Okusanya', 'Chief Operating Officer', 'BSc, MBA', 'Executive Management', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F8b75845076ce477ca1e9cee3cc4d84a0', 1),
+  (3, 'Mr. Oguneye A. Olutope', 'Chief Financial Officer', 'BSc, MBA', 'Executive Management', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F28c3e45bc5fe4a6f9fac15cabb371334', 2),
+  (4, 'Mr. Agboola Olalekan Sulaimon', 'Chief Marketing Officer', 'BSc, MBA', 'Executive Management', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F98b29385d8074ae78f646c13792bc909', 3),
+  (5, 'Engr. Adaraloye Temidayo', 'Chief Technical Officer', 'FNSE, COREN', 'Executive Management', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fc13d6e2d724f4c5a8f4e59a4a30bea0e', 4),
+  (6, 'Engr. Giwa Ibrahim Adebayo', 'Project Director', 'FNSE, COREN', 'Project & Construction', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fcaf8dcfe5e3e4f0cb9298515f66a4949', 0),
+  (7, 'Engr. David Adediran', 'Construction Manager', 'MNSE', 'Project & Construction', 'https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_ca2c52b6_o38ltu.jpg', 1),
+  (8, 'Engr. Bernard Olatunji', 'Project Manager', 'FNSE', 'Project & Construction', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fd6e272c1d175432ca0f36cc4f3886d5b', 2),
+  (9, 'Engr. Adetola Gafar', 'Site Engineer/Supervisor', 'MIE', 'Project & Construction', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F29d390d6d8e5413785d325312df6d57b', 3),
+  (10, 'Engr. Olugbenga Oshin', 'Quantity Surveyor', 'MSNE', 'Project & Construction', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fb0d60192bbd64a39973142b52f1adf3c', 4),
+  (11, 'Realtor Ebenezer Ilupeju', 'Real Estate Manager', 'REDAN', 'Real Estate', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F926d87f446b646759de11e2e58b69641', 0),
+  (12, 'Realtor Adekunle Alliu', 'Property/Facility Manager', '', 'Real Estate', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F2ca26e5225e14bb1a5aeaec595cd7743', 1),
+  (13, 'Surv. Sodiq Adegunwa Mayowa', 'Estate Surveyor & Valuer', 'NIS, RSV', 'Real Estate', 'https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_1c2d0656_kukwza.jpg', 2),
+  (14, 'Mrs. Folusho Mogaji', 'Sales & Leasing Officer', 'BSc, MBA', 'Real Estate', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F9be48e173fe9424cb7c14ec0d06eb014', 3),
+  (15, 'Arc. Femi Ajayi', 'Architect/Design Lead', 'MNIA, ARCON', 'Design & Planning', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F28ea15f701bc4073babb83f61c08a840', 0),
+  (16, 'Mr. Kehinde Agbejule', 'Interior & Exterior Designer', 'IID, MIDAN, MBA', 'Design & Planning', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fa71552972d3d4eccb6c467a45b33bc01', 1),
+  (17, 'Mr. Olusola Odunukan', 'Procurement Manager', 'BSc, MBA', 'Support Services', 'https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_4ade6d11_p13juo.jpg', 0),
+  (18, 'Barr. Samuel Barkingson', 'Legal Adviser/Company Secretary', 'LL.B, B.L', 'Support Services', 'https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.19_62aadd4c_wlwgzy.jpg', 1),
+  (19, 'Resource Intermediaries Limited (RIL)', 'Human Resources Management Agency', '', 'Support Services', '', 2),
+  (20, 'Miss Yetunde Oshiyemi', 'Safety Manager/HSE Officer', 'ISPON', 'Support Services', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Fd23c433096674c63a18a8150f0f9c2ea', 3),
+  (21, 'Mr. Christian Olumide Daniels', 'ICT Manager', 'MNCS, CPN', 'Support Services', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2Ffc85d92a82ca434e941f5758aa556acf', 4),
+  (22, 'Rtd. Boge Wemimo Raphael', 'Chief Security Officer (CSO)', '', 'Security & Logistics', 'https://cdn.builder.io/api/v1/image/assets%2Faeee31fcf1114fceb0dea40aa0430358%2F5c11606e5c8947d08cc62db2faf7d62f', 0),
+  (23, 'Mr. Oluwole Emmanuel Hassan', 'Logistics/Transport Officer', '', 'Security & Logistics', 'https://res.cloudinary.com/duycrcary/image/upload/v1747987900/WhatsApp_Image_2025-05-23_at_10.10.20_59b3f22f_yugnu3.jpg', 1)
+on conflict (id) do nothing;
+select setval(pg_get_serial_sequence('public.team_members', 'id'), (select max(id) from public.team_members));

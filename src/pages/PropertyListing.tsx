@@ -1,3 +1,4 @@
+import { PropertiesSEO } from "@/components/RealEstateSEO";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -136,6 +137,7 @@ export default function PropertyListing() {
 
   return (
     <Layout>
+      <PropertiesSEO />
       <PageHeader
         title={
           <>

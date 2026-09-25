@@ -2,12 +2,39 @@ import { useQuery } from "@tanstack/react-query";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import {
   blogPosts as staticBlogPosts,
+  leadershipTeam,
   projects as staticProjects,
   properties as staticProperties,
   type BlogPost,
   type Project,
   type Property,
+  type TeamMember,
 } from "@/lib/data";
+
+export const TEAM_DEPARTMENTS = [
+  "Executive Management",
+  "Project & Construction",
+  "Real Estate",
+  "Design & Planning",
+  "Support Services",
+  "Security & Logistics",
+] as const;
+
+export type TeamDepartment = (typeof TEAM_DEPARTMENTS)[number];
+
+export interface TeamMemberRow {
+  id: number;
+  name: string;
+  position: string;
+  qualifications: string;
+  department: TeamDepartment;
+  image_url: string;
+  sort_order: number;
+  published: boolean;
+  updated_at?: string;
+}
+
+const staticTeam: TeamMember[] = Object.values(leadershipTeam).flat();
 
 // ---------------------------------------------------------------------------
 // Database row shapes (snake_case, as stored in Supabase)
@@ -222,4 +249,31 @@ export function useBlogPosts() {
 export function useBlogPost(slug: string | undefined) {
   const all = useBlogPosts();
   return { ...all, data: all.data?.find((p) => p.slug === slug) };
+}
+
+export const toTeamMember = (r: TeamMemberRow): TeamMember => ({
+  id: r.id,
+  name: r.name,
+  position: r.position,
+  department: r.department,
+  qualifications: r.qualifications || undefined,
+  imageUrl: r.image_url || undefined,
+});
+
+export function useTeam() {
+  return useQuery({
+    queryKey: ["content", "team_members"],
+    staleTime: STALE,
+    queryFn: () =>
+      fetchOr(staticTeam, async (db) => {
+        const { data, error } = await db
+          .from("team_members")
+          .select("*")
+          .eq("published", true)
+          .order("sort_order", { ascending: true })
+          .order("created_at", { ascending: true });
+        if (error) throw error;
+        return (data as TeamMemberRow[]).map(toTeamMember);
+      }),
+  });
 }

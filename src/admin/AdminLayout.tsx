@@ -1,6 +1,7 @@
 import { ReactNode, useState } from "react";
 import { Link, NavLink, Navigate, Outlet, useLocation } from "react-router-dom";
 import {
+  BarChart3,
   Building2,
   ExternalLink,
   KeyRound,
@@ -10,6 +11,7 @@ import {
   LogOut,
   Menu,
   Newspaper,
+  Users,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,9 +24,11 @@ const LOGO =
 
 const nav = [
   { to: "/admin", label: "Overview", icon: LayoutDashboard, end: true },
+  { to: "/admin/analytics", label: "Analytics", icon: BarChart3 },
   { to: "/admin/properties", label: "Properties", icon: Building2 },
   { to: "/admin/projects", label: "Projects", icon: FolderKanban },
   { to: "/admin/blog", label: "Blog posts", icon: Newspaper },
+  { to: "/admin/team", label: "Team", icon: Users },
 ];
 
 /** Protects every /admin page: must be signed in *and* listed as an admin. */

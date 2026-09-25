@@ -42,6 +42,21 @@ These work the same way.
   quotes, links and images. The web address (slug) is filled in from the title automatically,
   and reading time is calculated for you.
 
+### Team
+
+**Team → Add team member** (or click someone to edit). Pick their **Department** to choose
+which tab they appear under on the Team page; **Order** controls their position within it
+(lower numbers first). Departments with nobody in them are hidden automatically.
+
+### Analytics
+
+**Analytics** shows visits to the public website: visits and page views per day, top pages,
+most viewed properties, where visitors come from, devices, rough location (from the browser's
+time zone), and contact actions (phone, email and WhatsApp taps, shares, contact form sends).
+
+It's anonymous: no cookies, no IP addresses, nothing that identifies a person, and it honours
+browsers' "do not track" setting. Visits from `localhost` and automated bots aren't counted.
+
 ### Hiding vs deleting
 
 - The **Live / Hidden** switch takes something off the website without losing it. Use this for

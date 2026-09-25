@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -77,6 +78,7 @@ export function ContactForm() {
       const data = await response.json();
 
       if (data.success) {
+        track("contact_submit");
         // Handle successful submission
         toast({
           title: "Message Sent Successfully",

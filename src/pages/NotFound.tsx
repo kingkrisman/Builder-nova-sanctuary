@@ -1,3 +1,4 @@
+import { NotFoundSEO } from "@/components/RealEstateSEO";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
@@ -5,6 +6,7 @@ import { Layout } from "@/components/layout/Layout";
 
 const NotFound = () => (
   <Layout>
+    <NotFoundSEO />
     <section className="relative flex min-h-[80vh] items-center overflow-hidden bg-black text-white">
       <motion.p
         aria-hidden="true"

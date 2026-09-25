@@ -1,3 +1,5 @@
+import { PropertySEO } from "@/components/RealEstateSEO";
+import { track } from "@/lib/analytics";
 import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -91,6 +93,7 @@ export default function PropertyDetails() {
   const images = property.images.length ? property.images : [property.imageUrl];
 
   const share = async () => {
+    track("share");
     const url = window.location.href;
     try {
       if (navigator.share) await navigator.share({ title: property.title, url });
@@ -114,6 +117,7 @@ export default function PropertyDetails() {
 
   return (
     <Layout>
+      <PropertySEO property={property} />
       {/* Title */}
       <section className="bg-white pb-8 pt-10 md:pt-14">
         <div className="container mx-auto px-4">

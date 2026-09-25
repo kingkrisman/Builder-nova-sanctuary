@@ -25,11 +25,15 @@ export function resizeImage(url: string | undefined, width: number): string {
   if (url.includes("images.unsplash.com")) {
     return withParams(url, { auto: "format", q: 75, w: width });
   }
+  if (url.includes("res.cloudinary.com") && url.includes("/upload/")) {
+    // Cloudinary takes transformations as a path segment right after /upload/
+    return url.replace(/\/upload\/(?:[a-z]_[^/]*\/)?/, `/upload/w_${width},c_limit,f_auto,q_auto/`);
+  }
   return url;
 }
 
 export function imageSrcSet(url: string | undefined, maxWidth = 1920) {
-  if (!url || !/pexels|builder\.io|unsplash/.test(url)) return undefined;
+  if (!url || !/pexels|builder\.io|unsplash|cloudinary/.test(url)) return undefined;
   return WIDTHS.filter((w) => w <= maxWidth)
     .map((w) => `${resizeImage(url, w)} ${w}w`)
     .join(", ");

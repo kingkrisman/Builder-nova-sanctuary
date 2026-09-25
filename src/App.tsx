@@ -14,6 +14,7 @@ import { useLoading } from "./contexts/LoadingContext";
 import { usePageLoading } from "./hooks/usePageLoading";
 import { PageTransition } from "./components/motion/PageTransition";
 import { SmoothScroll, scrollToTop } from "./lib/smooth-scroll";
+import { track, trackContactClicks } from "./lib/analytics";
 import Home from "./pages/Home";
 
 // Every page except Home is split into its own chunk and fetched on demand
@@ -62,6 +63,12 @@ function PublicSite() {
     const handle = idle(() => Object.values(pages).forEach((load) => load()));
     return () => (window.cancelIdleCallback ?? window.clearTimeout)(handle);
   }, []);
+
+  // Anonymous analytics: a page view per route, plus call/email/WhatsApp taps
+  useEffect(() => {
+    track("pageview", location.pathname);
+  }, [location.pathname]);
+  useEffect(() => trackContactClicks(), []);
 
   // Real-estate cursor (house / key) on the public site only; removed when entering /admin
   useEffect(() => {
