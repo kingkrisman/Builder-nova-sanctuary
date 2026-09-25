@@ -115,6 +115,27 @@
     @apply bg-primary text-black;
   }
 
+  /* ---------- Cursor ---------- */
+  /* A small gold house by default, growing slightly over anything clickable. Mouse devices on the public site
+     only (html.site-cursor is set by the public app, never by /admin). The numbers are the
+     click point: the tip of the roof. */
+  @media (hover: hover) and (pointer: fine) {
+    html.site-cursor,
+    html.site-cursor body {
+      cursor: url("/cursors/house.svg") 12 4, auto;
+    }
+    html.site-cursor :is(a, button, [role="button"], [role="tab"], [role="option"], [role="menuitem"], label, select, summary, [type="submit"], [type="checkbox"], [type="radio"], .cursor-pointer),
+    html.site-cursor :is(a, button, [role="button"], [role="tab"], label, summary) * {
+      cursor: url("/cursors/house-active.svg") 16 5, pointer;
+    }
+    html.site-cursor :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="submit"]), textarea, [contenteditable="true"]) {
+      cursor: text;
+    }
+    html.site-cursor :is(button, input, select, textarea):disabled {
+      cursor: not-allowed;
+    }
+  }
+
   /* ---------- Scrollbars ---------- */
 
   /* Page scrollbar: slim gold pill on a black track */

@@ -63,7 +63,13 @@ function PublicSite() {
     return () => (window.cancelIdleCallback ?? window.clearTimeout)(handle);
   }, []);
 
-  const page = (element: JSX.Element) => (
+  // Real-estate cursor (house / key) on the public site only; removed when entering /admin
+  useEffect(() => {
+    document.documentElement.classList.add("site-cursor");
+    return () => document.documentElement.classList.remove("site-cursor");
+  }, []);
+
+  const page =(element: JSX.Element) => (
     <PageTransition>
       <Suspense fallback={<PageFallback />}>{element}</Suspense>
     </PageTransition>
