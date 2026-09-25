@@ -1,3 +1,4 @@
+import { scrollToTop } from "@/lib/smooth-scroll";
 import { useState } from "react";
 import {
   AnimatePresence,
@@ -21,7 +22,7 @@ export function BackToTop() {
         <motion.button
           type="button"
           aria-label="Back to top"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => scrollToTop()}
           className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-black text-white shadow-xl ring-1 ring-white/10 transition-transform hover:scale-105 active:scale-95"
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}

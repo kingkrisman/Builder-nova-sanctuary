@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { TeamSEO } from "@/components/RealEstateSEO";
 import { PageHeader } from "@/components/PageHeader";
@@ -53,7 +51,7 @@ export default function Team() {
         description="The professionals behind every Da'sayonce project, bringing decades of expertise in development, construction, design and management."
         badge="Our people"
         backgroundImage="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg"
-        action={{ label: "Join Our Team", href: "/careers" }}
+        action={{ label: "Get in Touch", href: "/contact" }}
       />
 
       <section className="bg-white py-24 md:py-32">
@@ -161,21 +159,6 @@ export default function Team() {
               </RevealItem>
             ))}
           </RevealGroup>
-          <Reveal className="mt-16 flex flex-col items-start justify-between gap-6 rounded-3xl bg-primary p-8 text-black md:flex-row md:items-center md:p-12">
-            <div>
-              <h3 className="text-3xl font-bold">Want to join us?</h3>
-              <p className="mt-2 text-black/70">
-                We're always looking for talented people who share our commitment to excellence.
-              </p>
-            </div>
-            <Link
-              to="/careers"
-              className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-black px-7 py-4 font-semibold text-white"
-            >
-              See open roles
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Reveal>
         </div>
       </section>
     </Layout>

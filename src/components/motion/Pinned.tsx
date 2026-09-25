@@ -51,8 +51,8 @@ export function PinnedHorizontal({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
-  // A light spring takes the edge off wheel steps without feeling laggy
-  const smooth = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
+  // Lenis already smooths the wheel; this spring only irons out touch/keyboard jumps
+  const smooth = useSpring(scrollYProgress, { stiffness: 260, damping: 40, mass: 0.3 });
   const x = useTransform(smooth, [0, 1], [0, -distance]);
 
   if (isMobile || reduceMotion) {

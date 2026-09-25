@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import {
-  ArrowUpRight,
   Building2,
   ClipboardList,
   Hammer,
@@ -26,8 +24,7 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
   const Icon = service.icon || ICONS[(service.id - 1) % ICONS.length] || Building2;
 
   return (
-    <Link
-      to="/services"
+    <article
       className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.07] bg-white p-7 transition-colors duration-500 hover:border-black hover:text-white"
     >
       {/* Black fill rises from the bottom on hover */}
@@ -46,10 +43,6 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
       <p className="relative mt-3 flex-1 leading-relaxed text-neutral-600 transition-colors duration-500 group-hover:text-white/70">
         {service.description}
       </p>
-      <span className="relative mt-6 inline-flex items-center gap-1 text-sm font-semibold group-hover:text-primary">
-        Learn more
-        <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-      </span>
-    </Link>
+    </article>
   );
 }

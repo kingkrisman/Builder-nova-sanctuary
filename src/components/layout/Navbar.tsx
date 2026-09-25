@@ -22,8 +22,6 @@ const navItems = [
   { name: "Properties", path: "/properties" },
   { name: "Team", path: "/team" },
   { name: "Blog", path: "/blog" },
-  { name: "Careers", path: "/careers" },
-  { name: "Contact", path: "/contact" },
 ];
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
@@ -176,6 +174,18 @@ export function Navbar() {
                 ))}
               </ul>
             </nav>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.55 }}
+            >
+              <Link
+                to="/contact"
+                className="mb-6 flex h-14 items-center justify-center gap-2 rounded-full bg-primary font-semibold text-black"
+              >
+                Get in Touch <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </motion.div>
             <motion.div
               className="space-y-1 border-t border-white/10 pt-6 text-sm text-white/60"
               initial={{ opacity: 0 }}

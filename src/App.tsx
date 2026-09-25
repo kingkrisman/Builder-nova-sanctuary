@@ -13,6 +13,7 @@ import { RealEstateLoader } from "./components/RealEstateLoader";
 import { useLoading } from "./contexts/LoadingContext";
 import { usePageLoading } from "./hooks/usePageLoading";
 import { PageTransition } from "./components/motion/PageTransition";
+import { SmoothScroll, scrollToTop } from "./lib/smooth-scroll";
 import Home from "./pages/Home";
 
 // Every page except Home is split into its own chunk and fetched on demand
@@ -23,8 +24,6 @@ const pages = {
   team: () => import("./pages/Team"),
   blog: () => import("./pages/Blog"),
   blogPost: () => import("./pages/BlogPost"),
-  careers: () => import("./pages/Careers"),
-  jobDetails: () => import("./pages/JobDetails"),
   contact: () => import("./pages/Contact"),
   propertyListing: () => import("./pages/PropertyListing"),
   propertyDetails: () => import("./pages/PropertyDetails"),
@@ -37,8 +36,6 @@ const Projects = lazy(pages.projects);
 const Team = lazy(pages.team);
 const Blog = lazy(pages.blog);
 const BlogPost = lazy(pages.blogPost);
-const Careers = lazy(pages.careers);
-const JobDetails = lazy(pages.jobDetails);
 const Contact = lazy(pages.contact);
 const PropertyListing = lazy(pages.propertyListing);
 const PropertyDetails = lazy(pages.propertyDetails);
@@ -73,9 +70,9 @@ function PublicSite() {
   );
 
   return (
-    <>
+    <SmoothScroll>
       {/* Scroll resets while the curtain covers the screen, so the jump is never seen */}
-      <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
+      <AnimatePresence mode="wait" onExitComplete={() => scrollToTop({ immediate: true })}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={page(<Home />)} />
           <Route path="/about" element={page(<About />)} />
@@ -84,8 +81,6 @@ function PublicSite() {
           <Route path="/team" element={page(<Team />)} />
           <Route path="/blog" element={page(<Blog />)} />
           <Route path="/blog/:slug" element={page(<BlogPost />)} />
-          <Route path="/careers" element={page(<Careers />)} />
-          <Route path="/careers/:id" element={page(<JobDetails />)} />
           <Route path="/properties" element={page(<PropertyListing />)} />
           <Route path="/properties/:id" element={page(<PropertyDetails />)} />
           <Route path="/contact" element={page(<Contact />)} />
@@ -114,7 +109,7 @@ function PublicSite() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </SmoothScroll>
   );
 }
 

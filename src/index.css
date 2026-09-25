@@ -114,6 +114,60 @@
   ::selection {
     @apply bg-primary text-black;
   }
+
+  /* ---------- Scrollbars ---------- */
+
+  /* Page scrollbar: slim gold pill on a black track */
+  html::-webkit-scrollbar {
+    width: 12px;
+  }
+  html::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+  html::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, hsl(41 100% 58%), hsl(36 100% 46%));
+    border: 3px solid #0a0a0a;
+    border-radius: 999px;
+    min-height: 48px;
+  }
+  html::-webkit-scrollbar-thumb:hover {
+    background: hsl(41 100% 62%);
+    border-width: 2px;
+  }
+
+  /* Scroll areas inside the page (dialogs, dropdowns, editor): quiet and thin */
+  body *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  body *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  body *::-webkit-scrollbar-thumb {
+    background: rgb(0 0 0 / 0.18);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-radius: 999px;
+  }
+  body *::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(41 100% 50%);
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* Firefox only supports colour and width. Scoped so Chromium keeps the richer styles above
+     (in Chromium, the standard properties would override the ::-webkit ones). */
+  @supports (-moz-appearance: none) {
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: hsl(41 100% 50%) #0a0a0a;
+    }
+    body * {
+      scrollbar-width: thin;
+      scrollbar-color: rgb(0 0 0 / 0.2) transparent;
+    }
+  }
 }
 
 @layer utilities {

@@ -10,7 +10,6 @@ const columns = [
       { label: "Home", to: "/" },
       { label: "About Us", to: "/about" },
       { label: "Our Team", to: "/team" },
-      { label: "Careers", to: "/careers" },
       { label: "Blog", to: "/blog" },
     ],
   },
